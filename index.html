@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MAITRI - Multimodal AI for Total Resilience and Intelligence (Offline Space Assistant)">
+    <title>MAITRI | Mission Control & Astronaut Companion</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js CDN with offline fallback -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dark-mode">
+    <div class="app-container">
+        <!-- Sci-Fi Header Bar -->
+        <header class="header">
+            <div class="header-left">
+                <div class="mission-badge">
+                    <span class="pulse-dot"></span>
+                    <span class="badge-text">MAITRI OFFLINE v1.0</span>
+                </div>
+                <h1 class="system-title">MULTIMODAL AI FOR TOTAL RESILIENCE & INTELLIGENCE</h1>
+            </div>
+            <div class="header-center">
+                <div class="crew-active-pill">
+                    <span class="icon">👩‍🚀</span>
+                    <span class="text">CMD. SHALOK DADHWAL (ARTEMIS-IX)</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="net-status-badge offline">
+                    <span class="status-icon">🛡️</span>
+                    <span class="status-label">OFFLINE AIR-GAP ACTIVE</span>
+                </div>
+                <div class="clock-display" id="missionClock">00:00:00 UTC</div>
+            </div>
+        </header>
+
+        <!-- Navigation Bar -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="dashboard">📊 Mission Overview</button>
+            <button class="nav-tab" data-tab="vitals">🫀 Vitals & Stress</button>
+            <button class="nav-tab" data-tab="companion">🧠 AI Companion</button>
+            <button class="nav-tab" data-tab="multimodal">📷 Multimodal Pipeline</button>
+            <button class="nav-tab" data-tab="entertainment">🎵 Personalization & Media</button>
+            <button class="nav-tab" data-tab="alerts">🚨 Alerts & Incident Logs</button>
+            <button class="nav-tab" data-tab="system">⚙️ Edge System Status</button>
+        </nav>
+
+        <!-- Main Workspace View -->
+        <main class="main-content">
+            
+            <!-- 1. DASHBOARD OVERVIEW TAB -->
+            <div id="dashboard" class="tab-content active">
+                <div class="grid-layout">
+                    <!-- Status Cards Header Row -->
+                    <div class="card metric-card">
+                        <div class="card-icon blue">🫀</div>
+                        <div class="card-info">
+                            <span class="metric-label">Heart Rate</span>
+                            <span class="metric-val" id="dashHR">72 <small>BPM</small></span>
+                            <span class="metric-sub positive">Normal Rhythm</span>
+                        </div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="card-icon cyan">🫁</div>
+                        <div class="card-info">
+                            <span class="metric-label">Blood Oxygen (SpO2)</span>
+                            <span class="metric-val" id="dashSpO2">98.4 <small>%</small></span>
+                            <span class="metric-sub positive">Optimal Saturation</span>
+                        </div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="card-icon purple">⚡</div>
+                        <div class="card-info">
+                            <span class="metric-label">Stress Index</span>
+                            <span class="metric-val" id="dashStress">24 <small>/100</small></span>
+                            <span class="metric-sub positive">Low Cortisol Baseline</span>
+                        </div>
+                    </div>
+                    <div class="card metric-card">
+                        <div class="card-icon emerald">😊</div>
+                        <div class="card-info">
+                            <span class="metric-label">Detected Emotion</span>
+                            <span class="metric-val" id="dashEmotion">Focused</span>
+                            <span class="metric-sub">Confidence: 94%</span>
+                        </div>
+                    </div>
+
+                    <!-- Main Vitals Trend Chart -->
+                    <div class="card col-span-2 chart-card">
+                        <div class="card-header">
+                            <h3>Real-Time Vitals Telemetry (Last 24 Hours)</h3>
+                            <span class="card-badge">LIVE FEED</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="vitalsTrendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Emotion Trend Chart -->
+                    <div class="card col-span-1 chart-card">
+                        <div class="card-header">
+                            <h3>Psychological Mood Trend</h3>
+                            <span class="card-badge">VISION/AUDIO</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="emotionPieChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Quick AI Companion Check-in Widget -->
+                    <div class="card col-span-2 companion-widget">
+                        <div class="card-header">
+                            <h3>MAITRI Psychological Companion — Quick Dialogue</h3>
+                            <span class="mode-tag">Empathetic Companion Mode</span>
+                        </div>
+                        <div class="chat-mini-history" id="miniChatBox">
+                            <div class="chat-bubble bot">
+                                <span class="sender">MAITRI AI:</span>
+                                Welcome back Cmdr. Shalok. All primary vitals are within normal astronaut safety bounds. How are you feeling today after your lunar EVA simulation?
+                            </div>
+                        </div>
+                        <div class="chat-input-row">
+                            <input type="text" id="miniChatInput" placeholder="Type a message or state how you feel..." />
+                            <button id="miniChatSendBtn" class="btn btn-primary">Send</button>
+                        </div>
+                    </div>
+
+                    <!-- Live Alerts Panel -->
+                    <div class="card col-span-1 alerts-widget">
+                        <div class="card-header">
+                            <h3>Recent Telemetry Alerts</h3>
+                            <span class="badge-count">2 Active</span>
+                        </div>
+                        <div class="alert-feed" id="dashAlertsFeed">
+                            <div class="alert-item low">
+                                <div class="alert-icon">💡</div>
+                                <div class="alert-details">
+                                    <span class="alert-title">Hydration & Rest Suggested</span>
+                                    <span class="alert-time">12 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="alert-item medium">
+                                <div class="alert-icon">⚠️</div>
+                                <div class="alert-details">
+                                    <span class="alert-title">Transient Heart Rate Spike (92 BPM)</span>
+                                    <span class="alert-time">2 hours ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. VITALS & STRESS TAB -->
+            <div id="vitals" class="tab-content">
+                <div class="grid-layout">
+                    <div class="card col-span-3">
+                        <div class="card-header">
+                            <h2>Astronaut Health & Sleep Telemetry Dashboard</h2>
+                        </div>
+                        <div class="vitals-detail-grid">
+                            <div class="detail-box">
+                                <span class="label">Heart Rate (BPM)</span>
+                                <span class="value green">72</span>
+                                <span class="note">Min: 62 | Max: 88</span>
+                            </div>
+                            <div class="detail-box">
+                                <span class="label">Oxygen Saturation (SpO2)</span>
+                                <span class="value blue">98%</span>
+                                <span class="note">Min: 96% | Target: 98%+</span>
+                            </div>
+                            <div class="detail-box">
+                                <span class="label">Sleep Duration (Last Night)</span>
+                                <span class="value purple">7.2 hrs</span>
+                                <span class="note">Deep: 2.1h | REM: 1.6h</span>
+                            </div>
+                            <div class="detail-box">
+                                <span class="label">Body Temperature</span>
+                                <span class="value cyan">36.7 °C</span>
+                                <span class="note">Normal Baseline</span>
+                            </div>
+                        </div>
+                        <div class="chart-container large">
+                            <canvas id="sleepQualityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. AI COMPANION TAB -->
+            <div id="companion" class="tab-content">
+                <div class="companion-full-container">
+                    <div class="chat-sidebar">
+                        <h3>Companion Mode</h3>
+                        <div class="mode-selector">
+                            <button class="mode-btn active">🤖 Empathetic Listener</button>
+                            <button class="mode-btn">🧘 Stress Reduction & Breathwork</button>
+                            <button class="mode-btn">🎯 Operational Assistant</button>
+                            <button class="mode-btn">🎭 Motivational Companion</button>
+                        </div>
+                        <div class="astronaut-card">
+                            <h4>Astronaut Profile</h4>
+                            <p><strong>Name:</strong> Cmdr. Shalok Dadhwal</p>
+                            <p><strong>ID:</strong> ASTRO-706</p>
+                            <p><strong>Mission:</strong> Artemis Deep-Space IX</p>
+                            <p><strong>Status:</strong> Nominal / Fit for Duty</p>
+                        </div>
+                    </div>
+                    <div class="chat-main">
+                        <div class="chat-header">
+                            <span>MAITRI Conversational AI Engine (Offline LLM Fallback Ready)</span>
+                            <span class="status-online">● Local Inference Ready</span>
+                        </div>
+                        <div class="chat-logs" id="fullChatLogs">
+                            <div class="chat-bubble bot">
+                                <span class="sender">MAITRI Assistant:</span>
+                                Hello Cmdr. Shalok. I am your fully offline multimodal AI companion. I monitor your emotion, voice stress, and vital trends to support your mental resilience during deep space operations. What is on your mind today?
+                            </div>
+                        </div>
+                        <div class="quick-pills">
+                            <button class="pill-btn" onclick="sendQuickMsg('I am feeling a bit stressed after the EVA test.')">"I am feeling stressed"</button>
+                            <button class="pill-btn" onclick="sendQuickMsg('Give me a 5-minute breathing exercise.')">"Breathing exercise"</button>
+                            <button class="pill-btn" onclick="sendQuickMsg('Recommend some relaxing music for sleep.')">"Relaxing music"</button>
+                            <button class="pill-btn" onclick="sendQuickMsg('What are my current vital signs?')">"Check vitals"</button>
+                        </div>
+                        <div class="chat-input-container">
+                            <input type="text" id="fullChatInput" placeholder="Speak or type your thoughts..." />
+                            <button id="fullChatSendBtn" class="btn btn-primary">Send Message</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. MULTIMODAL PIPELINE TAB -->
+            <div id="multimodal" class="tab-content">
+                <div class="grid-layout">
+                    <div class="card col-span-2">
+                        <div class="card-header">
+                            <h2>OpenCV Facial Analysis Stream</h2>
+                            <span class="card-badge">LIVE CAMERA CANVAS</span>
+                        </div>
+                        <div class="video-container">
+                            <div class="video-preview-box" id="webcamBox">
+                                <canvas id="videoCanvas" width="640" height="480"></canvas>
+                                <div class="face-bounding-box" id="faceBox">
+                                    <span class="box-label">Cmdr. Shalok [Focused: 94%]</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="controls-row">
+                            <button id="startCamBtn" class="btn btn-success">Start OpenCV Camera Pipeline</button>
+                            <button id="stopCamBtn" class="btn btn-danger">Stop Pipeline</button>
+                        </div>
+                    </div>
+
+                    <div class="card col-span-1">
+                        <div class="card-header">
+                            <h2>Voice Tone & Stress Analyzer</h2>
+                        </div>
+                        <div class="audio-analysis-box">
+                            <div class="audio-wave-visualizer">
+                                <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                                <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                            </div>
+                            <div class="voice-metrics">
+                                <p><strong>Pitch Variance:</strong> 142 Hz (Normal)</p>
+                                <p><strong>Speech Rate:</strong> 135 wpm</p>
+                                <p><strong>Vocal Stress Indicator:</strong> Low (18%)</p>
+                                <p><strong>Detected Mood:</strong> Calm & Analytical</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. PERSONALIZATION & ENTERTAINMENT TAB -->
+            <div id="entertainment" class="tab-content">
+                <div class="grid-layout">
+                    <div class="card col-span-3">
+                        <div class="card-header">
+                            <h2>Offline Personalized Media Vault</h2>
+                        </div>
+                        <div class="media-tabs">
+                            <div class="media-card">
+                                <h3>😂 Comedy & Stand-up</h3>
+                                <p>Offline space humor, light-hearted clips, stand-up routines.</p>
+                                <button class="btn btn-secondary">Play Offline Clip 1</button>
+                            </div>
+                            <div class="media-card">
+                                <h3>🎶 Ambient Music</h3>
+                                <p>Lo-Fi space beats, binaural sleep tracks, focus melodies.</p>
+                                <button class="btn btn-secondary">Play Ambient Track</button>
+                            </div>
+                            <div class="media-card">
+                                <h3>🧘 Guided Relaxation</h3>
+                                <p>Guided imagery for zero-gravity sleep and stress relief.</p>
+                                <button class="btn btn-secondary">Start Guided Meditation</button>
+                            </div>
+                            <div class="media-card">
+                                <h3>🚀 Motivational Messages</h3>
+                                <p>Curated messages from family, ground control, & crew.</p>
+                                <button class="btn btn-secondary">Play Crew Message</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. ALERTS TAB -->
+            <div id="alerts" class="tab-content">
+                <div class="grid-layout">
+                    <div class="card col-span-3">
+                        <div class="card-header">
+                            <h2>Ground Control Incident Logs & Emergency Alerts</h2>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Severity</th>
+                                    <th>Category</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="alertsTableBody">
+                                <tr>
+                                    <td>2026-08-02 11:30:00</td>
+                                    <td><span class="badge low">LOW</span></td>
+                                    <td>PSYCHOLOGICAL</td>
+                                    <td>Hydration & Rest Suggested</td>
+                                    <td>High cognitive workload detected over 4 hours.</td>
+                                    <td><span class="badge success">Acknowledged</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2026-08-02 21:15:00</td>
+                                    <td><span class="badge medium">MEDIUM</span></td>
+                                    <td>PHYSICAL</td>
+                                    <td>Elevated Heart Rate Spike</td>
+                                    <td>Resting HR spiked to 92 BPM during orbit maneuver.</td>
+                                    <td><span class="badge success">Resolved</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. SYSTEM STATUS TAB -->
+            <div id="system" class="tab-content">
+                <div class="grid-layout">
+                    <div class="card col-span-3">
+                        <div class="card-header">
+                            <h2>Edge System Status & Local Storage (Zero Internet)</h2>
+                        </div>
+                        <div class="sys-metrics-grid">
+                            <div class="sys-box">
+                                <span class="label">Target Hardware</span>
+                                <span class="val">NVIDIA Jetson Nano / Pi 4 / Laptop</span>
+                            </div>
+                            <div class="sys-box">
+                                <span class="label">SQLite Database Status</span>
+                                <span class="val green">CONNECTED (maitri_offline.db)</span>
+                            </div>
+                            <div class="sys-box">
+                                <span class="label">Model Runtime</span>
+                                <span class="val cyan">ONNX / OpenCV Local CPU/GPU</span>
+                            </div>
+                            <div class="sys-box">
+                                <span class="label">Documentation Status</span>
+                                <span class="val purple">docs/update_01.docx Generated</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
