@@ -97,6 +97,8 @@ def create_update_report(phase_num=1, target_folder=None):
         add_phase_3_content(doc)
     elif phase_num == 4:
         add_phase_4_content(doc)
+    elif phase_num == 5:
+        add_phase_5_content(doc)
     else:
         add_generic_phase_content(doc, phase_num)
 
@@ -116,31 +118,35 @@ def add_heading_styled(doc, text):
 
 def add_phase_1_content(doc):
     add_heading_styled(doc, "1. Executive Overview")
-    doc.add_paragraph("Phase 1 establishes the project foundation and offline database architecture.")
+    doc.add_paragraph("Phase 1 establishes project foundation and offline SQLite DB architecture.")
 
 def add_phase_2_content(doc):
     add_heading_styled(doc, "1. Executive Overview")
-    doc.add_paragraph("Phase 2 implements the Multimodal Input Pipeline including OpenCV facial emotion and audio stress analysis.")
+    doc.add_paragraph("Phase 2 implements the Multimodal Input Pipeline (OpenCV facial analysis + voice tone analyzer).")
 
 def add_phase_3_content(doc):
     add_heading_styled(doc, "1. Executive Overview")
-    doc.add_paragraph("Phase 3 implements the Offline AI Conversation Engine with empathetic response rules and dialogue persistence.")
+    doc.add_paragraph("Phase 3 implements the Offline AI Conversation Engine with mood-aware reply routing.")
 
 def add_phase_4_content(doc):
     add_heading_styled(doc, "1. Executive Overview")
+    doc.add_paragraph("Phase 4 implements the Health Monitoring Dashboard & Advanced Telemetry Analytics Engine.")
+
+def add_phase_5_content(doc):
+    add_heading_styled(doc, "1. Executive Overview")
     p = doc.add_paragraph(
-        "Phase 4 implements the Health Monitoring Dashboard & Advanced Telemetry Analytics Engine. "
-        "It provides real-time health scoring (0-100), physiological boundary evaluation for Heart Rate (BPM), "
-        "Blood Oxygen (SpO2), Body Temperature, Stress Index, and 7-day sleep quality trends with Chart.js visualizers."
+        "Phase 5 implements the Personalization Engine & Offline Entertainment Vault for MAITRI. "
+        "It provides mood-aware media recommendations across 4 categories (comedy, lo-fi space music, "
+        "binaural sleep relaxation, motivational crew messages) and supports astronaut personality presets "
+        "(ISRO Vedic Calm, NASA Flight Director, Zen Mindfulness)."
     )
     p.paragraph_format.line_spacing = 1.15
 
     add_heading_styled(doc, "2. Key Components Built")
     components = [
-        ("Telemetry Health Analytics Engine", "Implemented backend/health/health_monitor.py calculating 0-100 overall health scores, evaluating physiological bounds, and formatting 24-hour telemetry trend analytics."),
-        ("Mission Control Health Dashboard UI", "Refactored frontend/index.html & frontend/app.js with dynamic vitals gauges, alert badge status indicators, and sleep stage visualizers."),
-        ("Interactive Chart.js Visualizations", "Created live line graphs for HR/SpO2/Stress trends, mood pie charts, and stacked bar charts for deep/REM sleep duration."),
-        ("Health Test Suite", "Developed tests/test_health.py verifying nominal vitals evaluation, critical hypoxia/tachycardia detection, and trend aggregation (11/11 tests passing overall).")
+        ("Offline Content Recommendation Engine", "Built backend/personalization/content_recommender.py matching astronaut real-time emotion state to local media catalog items and saving history to SQLite."),
+        ("Astronaut Personality Presets", "Added customizable companion personas: ISRO Vedic Calm (soothing/mindfulness focus), NASA Flight Director (data-driven/concise tone), and Zen Mindfulness (breathwork/grounding)."),
+        ("Personalization Unit Test Suite", "Created tests/test_personalization.py verifying media recommendations, category filtering, and profile updates (14/14 tests passing overall).")
     ]
 
     for comp_name, comp_desc in components:
@@ -163,9 +169,10 @@ def add_phase_4_content(doc):
         set_cell_background(cell, "0F2043")
 
     files_list = [
-        ("backend/health/health_monitor.py", "NEW", "Health analytics engine & physiological boundary evaluator"),
-        ("tests/test_health.py", "NEW", "Unit test suite for health telemetry monitoring"),
-        ("docs/update_04.docx", "NEW", "Sequential Phase 4 status report")
+        ("backend/personalization/__init__.py", "NEW", "Personalization package initializer"),
+        ("backend/personalization/content_recommender.py", "NEW", "Offline media vault manager & personality presets"),
+        ("tests/test_personalization.py", "NEW", "Unit test suite for personalization module"),
+        ("docs/update_05.docx", "NEW", "Sequential Phase 5 status report")
     ]
 
     for path, status, desc in files_list:
@@ -177,11 +184,11 @@ def add_phase_4_content(doc):
             c.paragraphs[0].runs[0].font.size = Pt(9.5)
 
     add_heading_styled(doc, "4. Verification & Testing")
-    doc.add_paragraph("1. Health Analytics Test: python backend/health/health_monitor.py (Pass)")
-    doc.add_paragraph("2. Full System Test Suite: python -m unittest discover tests (11/11 Pass)")
+    doc.add_paragraph("1. Content Recommender Execution: python backend/personalization/content_recommender.py (Pass)")
+    doc.add_paragraph("2. Full Test Suite: python -m unittest discover tests (14/14 Pass)")
 
     add_heading_styled(doc, "5. Next Step Plan")
-    doc.add_paragraph("Next Step (Phase 5): Build Personalization & Offline Entertainment Vault (Media recommender, lo-fi music, comedy audio, guided relaxation).")
+    doc.add_paragraph("Next Step (Phase 6): Build Alerting & Ground-Control Reporting Engine (Emergency anomaly rules, black-box flight logger, Ground Control summary exporter).")
 
 def add_generic_phase_content(doc, phase_num):
     add_heading_styled(doc, f"1. Phase {phase_num} Summary")
