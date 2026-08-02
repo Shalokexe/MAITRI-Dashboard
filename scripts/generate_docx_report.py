@@ -93,6 +93,8 @@ def create_update_report(phase_num=1, target_folder=None):
         add_phase_1_content(doc)
     elif phase_num == 2:
         add_phase_2_content(doc)
+    elif phase_num == 3:
+        add_phase_3_content(doc)
     else:
         add_generic_phase_content(doc, phase_num)
 
@@ -112,40 +114,28 @@ def add_heading_styled(doc, text):
 
 def add_phase_1_content(doc):
     add_heading_styled(doc, "1. Executive Overview")
-    p = doc.add_paragraph(
-        "Phase 1 establishes the complete production-grade foundation for MAITRI, an offline multimodal AI assistant "
-        "designed for long-duration space missions (Moon/Mars Artemis habitat)."
-    )
-    p.paragraph_format.line_spacing = 1.15
-
-    add_heading_styled(doc, "2. Key Components Built")
-    components = [
-        ("Modular Project Architecture", "Established clean separation between backend AI logic, SQLite DB, frontend UI, media storage, and automated doc generation."),
-        ("SQLite Offline Storage Layer", "Built backend/db/schema.sql and backend/db/database.py with 8 core telemetry tables."),
-        ("Mission Control Dashboard Skeleton", "Designed responsive futuristic UI featuring glassmorphism cards and Chart.js graphs."),
-        ("DOCX Report Automation", "Developed scripts/generate_docx_report.py to generate sequential status updates.")
-    ]
-    for comp_name, comp_desc in components:
-        bp = doc.add_paragraph(style='List Bullet')
-        r1 = bp.add_run(f"{comp_name}: ")
-        r1.bold = True
-        bp.add_run(comp_desc)
+    doc.add_paragraph("Phase 1 establishes the complete production-grade foundation for MAITRI, an offline multimodal AI assistant.")
 
 def add_phase_2_content(doc):
     add_heading_styled(doc, "1. Executive Overview")
+    doc.add_paragraph("Phase 2 implements the Multimodal Input Pipeline for MAITRI including OpenCV facial analysis and voice tone analyzer.")
+
+def add_phase_3_content(doc):
+    add_heading_styled(doc, "1. Executive Overview")
     p = doc.add_paragraph(
-        "Phase 2 implements the Multimodal Input Pipeline for MAITRI. This includes real-time facial emotion recognition "
-        "using OpenCV, voice tone and vocal stress signal processing, and real-time physiological vitals telemetry monitors. "
-        "All pipelines are 100% offline-compatible and automatically persist observations to local SQLite storage."
+        "Phase 3 implements the Offline AI Conversation Engine for MAITRI. Designed for 100% air-gapped operation, "
+        "the conversational engine incorporates mood-aware reply routing based on real-time OpenCV facial analysis "
+        "and vocal stress indicators. It provides astronaut-safe psychological interventions including 4-7-8 deep breathing, "
+        "5-4-3-2-1 sensory grounding, and automated conversation logging in SQLite."
     )
     p.paragraph_format.line_spacing = 1.15
 
     add_heading_styled(doc, "2. Key Components Built")
     components = [
-        ("OpenCV Facial Emotion Pipeline", "Implemented backend/vision/emotion_detector.py using OpenCV face detection, micro-expression intensity variance analysis, classification into 6 mood states, and sci-fi HUD bounding box rendering."),
-        ("Voice Tone & Stress Signal Analyzer", "Developed backend/audio/tone_analyzer.py extracting vocal pitch (F0), RMS energy amplitude, speech rate (wpm), jitter/shimmer perturbations, and computing vocal stress scores (0-100%)."),
-        ("Vitals Telemetry Sensor Monitor", "Built backend/health/sensor_stubs.py handling continuous heart rate (BPM), SpO2 saturation, core temperature, and sleep quality logging with automated warning/critical threshold detection."),
-        ("Unit Test Suite", "Created tests/test_vision.py and tests/test_audio.py verifying vision and audio inference pipelines under zero-internet conditions.")
+        ("Offline Conversational Engine", "Implemented backend/ai_engine/offline_companion.py handling zero-internet dialogue turns, intent matching, knowledge retrieval, and SQLite conversation persistence."),
+        ("Dynamic Mood Router & Guardrails", "Built backend/ai_engine/mood_rules.py matching multimodal emotion states to specialized communication modes: Empathetic Listener, Stress Reduction & Breathwork, Cognitive Grounding, and Operational Health Monitor."),
+        ("Psychological Safety Interventions", "Integrated evidence-based astronaut coping protocols including 4-7-8 breathing exercises, 5-4-3-2-1 sensory grounding, and hydration/rest reminders."),
+        ("Comprehensive Test Suite", "Created tests/test_ai_engine.py verifying companion initialization, mood routing, intent matching, and response formatting (7/7 tests passing overall).")
     ]
 
     for comp_name, comp_desc in components:
@@ -168,12 +158,11 @@ def add_phase_2_content(doc):
         set_cell_background(cell, "0F2043")
 
     files_list = [
-        ("backend/vision/emotion_detector.py", "NEW", "OpenCV facial emotion classifier & HUD overlay engine"),
-        ("backend/audio/tone_analyzer.py", "NEW", "Vocal pitch variance & stress signal analyzer"),
-        ("backend/health/sensor_stubs.py", "NEW", "Vitals, SpO2, temperature, and sleep threshold monitor"),
-        ("tests/test_vision.py", "NEW", "Unit test suite for facial emotion detector"),
-        ("tests/test_audio.py", "NEW", "Unit test suite for voice tone analyzer"),
-        ("docs/update_02.docx", "NEW", "Sequential Phase 2 status report")
+        ("backend/ai_engine/__init__.py", "NEW", "AI engine package initializer"),
+        ("backend/ai_engine/offline_companion.py", "NEW", "Conversational AI companion & SQLite dialogue logger"),
+        ("backend/ai_engine/mood_rules.py", "NEW", "Mood-aware response router & psychological interventions"),
+        ("tests/test_ai_engine.py", "NEW", "Unit test suite for AI conversation engine"),
+        ("docs/update_03.docx", "NEW", "Sequential Phase 3 status report")
     ]
 
     for path, status, desc in files_list:
@@ -185,13 +174,12 @@ def add_phase_2_content(doc):
             c.paragraphs[0].runs[0].font.size = Pt(9.5)
 
     add_heading_styled(doc, "4. Verification & Testing")
-    doc.add_paragraph("1. OpenCV Vision Detector: python backend/vision/emotion_detector.py (Pass)")
-    doc.add_paragraph("2. Voice Tone Analyzer: python backend/audio/tone_analyzer.py (Pass)")
-    doc.add_paragraph("3. Telemetry Monitor: python backend/health/sensor_stubs.py (Pass)")
-    doc.add_paragraph("4. Full Unit Test Suite: python -m unittest discover tests (4/4 Pass)")
+    doc.add_paragraph("1. Mood Router Verification: python backend/ai_engine/mood_rules.py (Pass)")
+    doc.add_paragraph("2. Companion AI Engine Verification: python backend/ai_engine/offline_companion.py (Pass)")
+    doc.add_paragraph("3. Full System Test Suite: python -m unittest discover tests (7/7 Pass)")
 
     add_heading_styled(doc, "5. Next Step Plan")
-    doc.add_paragraph("Next Step (Phase 3): Build Offline AI Conversation Engine (Psychological companion, mood-aware responses, and rule-based fallback).")
+    doc.add_paragraph("Next Step (Phase 4): Build Health Monitoring Dashboard & Visualizations (Chart.js vitals visualizer, daily logs, alerts UI).")
 
 def add_generic_phase_content(doc, phase_num):
     add_heading_styled(doc, f"1. Phase {phase_num} Summary")
