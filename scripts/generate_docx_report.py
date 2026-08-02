@@ -95,6 +95,8 @@ def create_update_report(phase_num=1, target_folder=None):
         add_phase_2_content(doc)
     elif phase_num == 3:
         add_phase_3_content(doc)
+    elif phase_num == 4:
+        add_phase_4_content(doc)
     else:
         add_generic_phase_content(doc, phase_num)
 
@@ -114,28 +116,31 @@ def add_heading_styled(doc, text):
 
 def add_phase_1_content(doc):
     add_heading_styled(doc, "1. Executive Overview")
-    doc.add_paragraph("Phase 1 establishes the complete production-grade foundation for MAITRI, an offline multimodal AI assistant.")
+    doc.add_paragraph("Phase 1 establishes the project foundation and offline database architecture.")
 
 def add_phase_2_content(doc):
     add_heading_styled(doc, "1. Executive Overview")
-    doc.add_paragraph("Phase 2 implements the Multimodal Input Pipeline for MAITRI including OpenCV facial analysis and voice tone analyzer.")
+    doc.add_paragraph("Phase 2 implements the Multimodal Input Pipeline including OpenCV facial emotion and audio stress analysis.")
 
 def add_phase_3_content(doc):
     add_heading_styled(doc, "1. Executive Overview")
+    doc.add_paragraph("Phase 3 implements the Offline AI Conversation Engine with empathetic response rules and dialogue persistence.")
+
+def add_phase_4_content(doc):
+    add_heading_styled(doc, "1. Executive Overview")
     p = doc.add_paragraph(
-        "Phase 3 implements the Offline AI Conversation Engine for MAITRI. Designed for 100% air-gapped operation, "
-        "the conversational engine incorporates mood-aware reply routing based on real-time OpenCV facial analysis "
-        "and vocal stress indicators. It provides astronaut-safe psychological interventions including 4-7-8 deep breathing, "
-        "5-4-3-2-1 sensory grounding, and automated conversation logging in SQLite."
+        "Phase 4 implements the Health Monitoring Dashboard & Advanced Telemetry Analytics Engine. "
+        "It provides real-time health scoring (0-100), physiological boundary evaluation for Heart Rate (BPM), "
+        "Blood Oxygen (SpO2), Body Temperature, Stress Index, and 7-day sleep quality trends with Chart.js visualizers."
     )
     p.paragraph_format.line_spacing = 1.15
 
     add_heading_styled(doc, "2. Key Components Built")
     components = [
-        ("Offline Conversational Engine", "Implemented backend/ai_engine/offline_companion.py handling zero-internet dialogue turns, intent matching, knowledge retrieval, and SQLite conversation persistence."),
-        ("Dynamic Mood Router & Guardrails", "Built backend/ai_engine/mood_rules.py matching multimodal emotion states to specialized communication modes: Empathetic Listener, Stress Reduction & Breathwork, Cognitive Grounding, and Operational Health Monitor."),
-        ("Psychological Safety Interventions", "Integrated evidence-based astronaut coping protocols including 4-7-8 breathing exercises, 5-4-3-2-1 sensory grounding, and hydration/rest reminders."),
-        ("Comprehensive Test Suite", "Created tests/test_ai_engine.py verifying companion initialization, mood routing, intent matching, and response formatting (7/7 tests passing overall).")
+        ("Telemetry Health Analytics Engine", "Implemented backend/health/health_monitor.py calculating 0-100 overall health scores, evaluating physiological bounds, and formatting 24-hour telemetry trend analytics."),
+        ("Mission Control Health Dashboard UI", "Refactored frontend/index.html & frontend/app.js with dynamic vitals gauges, alert badge status indicators, and sleep stage visualizers."),
+        ("Interactive Chart.js Visualizations", "Created live line graphs for HR/SpO2/Stress trends, mood pie charts, and stacked bar charts for deep/REM sleep duration."),
+        ("Health Test Suite", "Developed tests/test_health.py verifying nominal vitals evaluation, critical hypoxia/tachycardia detection, and trend aggregation (11/11 tests passing overall).")
     ]
 
     for comp_name, comp_desc in components:
@@ -158,11 +163,9 @@ def add_phase_3_content(doc):
         set_cell_background(cell, "0F2043")
 
     files_list = [
-        ("backend/ai_engine/__init__.py", "NEW", "AI engine package initializer"),
-        ("backend/ai_engine/offline_companion.py", "NEW", "Conversational AI companion & SQLite dialogue logger"),
-        ("backend/ai_engine/mood_rules.py", "NEW", "Mood-aware response router & psychological interventions"),
-        ("tests/test_ai_engine.py", "NEW", "Unit test suite for AI conversation engine"),
-        ("docs/update_03.docx", "NEW", "Sequential Phase 3 status report")
+        ("backend/health/health_monitor.py", "NEW", "Health analytics engine & physiological boundary evaluator"),
+        ("tests/test_health.py", "NEW", "Unit test suite for health telemetry monitoring"),
+        ("docs/update_04.docx", "NEW", "Sequential Phase 4 status report")
     ]
 
     for path, status, desc in files_list:
@@ -174,12 +177,11 @@ def add_phase_3_content(doc):
             c.paragraphs[0].runs[0].font.size = Pt(9.5)
 
     add_heading_styled(doc, "4. Verification & Testing")
-    doc.add_paragraph("1. Mood Router Verification: python backend/ai_engine/mood_rules.py (Pass)")
-    doc.add_paragraph("2. Companion AI Engine Verification: python backend/ai_engine/offline_companion.py (Pass)")
-    doc.add_paragraph("3. Full System Test Suite: python -m unittest discover tests (7/7 Pass)")
+    doc.add_paragraph("1. Health Analytics Test: python backend/health/health_monitor.py (Pass)")
+    doc.add_paragraph("2. Full System Test Suite: python -m unittest discover tests (11/11 Pass)")
 
     add_heading_styled(doc, "5. Next Step Plan")
-    doc.add_paragraph("Next Step (Phase 4): Build Health Monitoring Dashboard & Visualizations (Chart.js vitals visualizer, daily logs, alerts UI).")
+    doc.add_paragraph("Next Step (Phase 5): Build Personalization & Offline Entertainment Vault (Media recommender, lo-fi music, comedy audio, guided relaxation).")
 
 def add_generic_phase_content(doc, phase_num):
     add_heading_styled(doc, f"1. Phase {phase_num} Summary")
