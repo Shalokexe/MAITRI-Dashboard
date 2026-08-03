@@ -3,47 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MAITRI - Multimodal AI for Total Resilience and Intelligence (Offline Space Assistant)">
-    <title>MAITRI | Mission Control & Astronaut Companion</title>
+    <meta name="description" content="MAITRI - ISRO Gaganyaan Multimodal AI for Total Resilience & Intelligence">
+    <title>MAITRI | ISRO Gaganyaan Mission Control & Companion</title>
     <link rel="stylesheet" href="style.css">
     <!-- Chart.js CDN with offline resilient script -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="dark-mode">
+
+    <!-- ISRO Gaganyaan Boot Splash Intro Overlay -->
+    <div id="isroBootSplash" class="boot-splash-overlay">
+        <div class="boot-logo-circle">
+            🚀
+            <div class="boot-scan-line"></div>
+        </div>
+        <h1 class="boot-title">ISRO GAGANYAAN — MAITRI AI CORE</h1>
+        <div class="boot-subtext" id="bootProgressText">INITIALIZING AIR-GAP MULTIMODAL CORE...</div>
+        <div class="boot-progress-bar-container">
+            <div class="boot-progress-bar" id="bootProgressBar"></div>
+        </div>
+    </div>
+
+    <!-- Cosmic Starfield Background Canvas -->
+    <canvas id="starfieldCanvas"></canvas>
+
     <div class="app-container">
-        <!-- iOS Crystal Header Bar -->
+        <!-- ISRO Deep Space Mission Control Header -->
         <header class="header">
             <div class="header-left">
-                <div class="mission-badge">
+                <div class="isro-emblem-badge">
                     <span class="pulse-dot"></span>
-                    <span class="badge-text">MAITRI OFFLINE v1.0</span>
+                    <span class="badge-text">🚀 ISRO GAGANYAAN G1</span>
                 </div>
                 <h1 class="system-title">MULTIMODAL AI FOR TOTAL RESILIENCE & INTELLIGENCE</h1>
             </div>
             <div class="header-center">
                 <div class="crew-active-pill">
-                    <span class="icon">👩‍🚀</span>
-                    <span class="text">CMD. SHALOK DADHWAL (ARTEMIS-IX)</span>
+                    <span class="icon">👨‍🚀</span>
+                    <span class="text">CMD. SHALOK DADHWAL (ISRO-ARTEMIS)</span>
                 </div>
             </div>
             <div class="header-right">
                 <div class="net-status-badge offline">
                     <span class="status-icon">🛡️</span>
-                    <span class="status-label">OFFLINE AIR-GAP ACTIVE</span>
+                    <span class="status-label">100% AIR-GAPPED OFFLINE</span>
                 </div>
                 <div class="clock-display" id="missionClock">00:00:00 UTC</div>
             </div>
         </header>
 
-        <!-- iOS Segmented Navigation Switcher -->
+        <!-- Dynamic Sliding Navigation Switcher -->
         <nav class="nav-tabs">
-            <button class="nav-tab active" data-tab="dashboard">📊 Mission Overview</button>
-            <button class="nav-tab" data-tab="vitals">🫀 Vitals & Stress</button>
-            <button class="nav-tab" data-tab="companion">🧠 AI Companion</button>
-            <button class="nav-tab" data-tab="multimodal">📷 Multimodal Pipeline</button>
+            <button class="nav-tab active" data-tab="dashboard">📊 Mission Control Overview</button>
+            <button class="nav-tab" data-tab="vitals">🫀 Vitals & Stress Telemetry</button>
+            <button class="nav-tab" data-tab="companion">🧠 ISRO AI Companion</button>
+            <button class="nav-tab" data-tab="multimodal">📷 Multimodal Vision Stream</button>
             <button class="nav-tab" data-tab="entertainment">🎵 Personalization & Media</button>
             <button class="nav-tab" data-tab="alerts">🚨 Emergency & Black-Box Logs</button>
-            <button class="nav-tab" data-tab="system">⚙️ Edge System Status</button>
+            <button class="nav-tab" data-tab="system">⚙️ Edge Hardware Status</button>
         </nav>
 
         <!-- Main Workspace View -->
@@ -81,7 +98,7 @@
                         <div class="card-icon emerald">🌙</div>
                         <div class="card-info">
                             <span class="metric-label">Circadian Cabin Light</span>
-                            <span class="metric-val" style="font-size: 15px;" id="circadianStatusText">6500K Daylight</span>
+                            <span class="metric-val" style="font-size: 14px;" id="circadianStatusText">6500K Daylight</span>
                             <span class="metric-sub positive">Melatonin Suppressed</span>
                         </div>
                     </div>
@@ -89,8 +106,8 @@
                     <!-- Main Vitals Trend Chart -->
                     <div class="card col-span-2 chart-card">
                         <div class="card-header">
-                            <h3>Real-Time Vitals Telemetry (Last 24 Hours)</h3>
-                            <span class="card-badge">LIVE FEED</span>
+                            <h3>Real-Time Telemetry Trend (Last 24 Hours)</h3>
+                            <span class="card-badge">LIVE SATELLITE FEED</span>
                         </div>
                         <div class="chart-container">
                             <canvas id="vitalsTrendChart"></canvas>
@@ -101,7 +118,7 @@
                     <div class="card col-span-1 chart-card">
                         <div class="card-header">
                             <h3>Psychological Mood Trend</h3>
-                            <span class="card-badge">VISION/AUDIO</span>
+                            <span class="card-badge">VISION & AUDIO</span>
                         </div>
                         <div class="chart-container">
                             <canvas id="emotionPieChart"></canvas>
@@ -114,12 +131,12 @@
                             <h3>Pre-EVA Cognitive Test</h3>
                             <span class="card-badge">PVT READINESS</span>
                         </div>
-                        <p style="font-size: 12px; color: var(--text-secondary);">60s Psychomotor Vigilance reaction & memory test for spacewalk clearance.</p>
+                        <p style="font-size: 12px; color: var(--text-muted);">60s Psychomotor Vigilance reaction & memory test for spacewalk clearance.</p>
                         <button id="startPvtTestBtn" class="btn btn-primary" style="margin-top: 8px;">Run Pre-EVA PVT Test</button>
                         <div id="pvtResultBox">
                             <div class="alert-item low" style="margin-top: 10px;">
                                 <div class="alert-details">
-                                    <span class="alert-title" style="color: #30D158;">FIT FOR EVA (PASSED)</span>
+                                    <span class="alert-title" style="color: var(--isro-green);">FIT FOR EVA (PASSED)</span>
                                     <span class="alert-time">Mean Reaction: 215ms | Memory: 98%</span>
                                 </div>
                             </div>
@@ -129,13 +146,13 @@
                     <!-- Quick AI Companion Check-in Widget -->
                     <div class="card col-span-2 companion-widget">
                         <div class="card-header">
-                            <h3>MAITRI Companion — Voice & Text Dialogue</h3>
+                            <h3>MAITRI AI Companion — Voice & Text Dialogue</h3>
                             <button id="voiceMicBtn" class="pill-btn">🎤 Speak Voice Command</button>
                         </div>
                         <div class="chat-mini-history" id="miniChatBox">
                             <div class="chat-bubble bot">
-                                <span class="sender">MAITRI AI:</span>
-                                Welcome back Cmdr. Shalok. All primary vitals are within normal astronaut safety bounds. How are you feeling today after your lunar EVA simulation?
+                                <span class="sender">ISRO MAITRI AI:</span>
+                                Welcome back Cmdr. Shalok. All primary Gaganyaan orbital vitals are within normal safety bounds. How are you feeling today after your spacewalk simulation?
                             </div>
                         </div>
                         <div class="chat-input-row">
@@ -218,22 +235,22 @@
                             <button class="mode-btn">🎭 Motivational Companion</button>
                         </div>
                         <div class="astronaut-card">
-                            <h4>Astronaut Profile</h4>
+                            <h4>ISRO Astronaut Profile</h4>
                             <p><strong>Name:</strong> Cmdr. Shalok Dadhwal</p>
-                            <p><strong>ID:</strong> ASTRO-706</p>
-                            <p><strong>Mission:</strong> Artemis Deep-Space IX</p>
+                            <p><strong>ID:</strong> ASTRO-ISRO-706</p>
+                            <p><strong>Mission:</strong> Gaganyaan Deep-Space IX</p>
                             <p><strong>Status:</strong> Nominal / Fit for Duty</p>
                         </div>
                     </div>
                     <div class="chat-main">
                         <div class="chat-header">
-                            <span>MAITRI Conversational AI Engine (Offline Voice Synthesis Ready)</span>
+                            <span>ISRO MAITRI AI Engine (Offline Voice Synthesis Active)</span>
                             <span class="status-online">● Voice TTS Active</span>
                         </div>
                         <div class="chat-logs" id="fullChatLogs">
                             <div class="chat-bubble bot">
-                                <span class="sender">MAITRI Assistant:</span>
-                                Hello Cmdr. Shalok. I am your fully offline multimodal AI companion. I monitor your emotion, voice stress, and vital trends to support your mental resilience during deep space operations. What is on your mind today?
+                                <span class="sender">ISRO MAITRI AI:</span>
+                                Namaste Cmdr. Shalok. I am your fully offline multimodal AI companion. I monitor your emotion, voice stress, and vital trends to support your mental resilience during orbital space missions. What is on your mind today?
                             </div>
                         </div>
                         <div class="quick-pills">
@@ -255,7 +272,7 @@
                 <div class="grid-layout">
                     <div class="card col-span-2">
                         <div class="card-header">
-                            <h2>OpenCV Facial Analysis Stream</h2>
+                            <h2>OpenCV Facial Analysis Radar Stream</h2>
                             <span class="card-badge">LIVE CAMERA CANVAS</span>
                         </div>
                         <div class="video-container">
@@ -267,7 +284,7 @@
                             </div>
                         </div>
                         <div class="controls-row">
-                            <button id="startCamBtn" class="btn btn-success">Start OpenCV Camera Pipeline</button>
+                            <button id="startCamBtn" class="btn btn-success">Start OpenCV Radar Stream</button>
                             <button id="stopCamBtn" class="btn btn-danger">Stop Pipeline</button>
                         </div>
                     </div>
@@ -330,7 +347,7 @@
                 <div class="grid-layout">
                     <div class="card col-span-4">
                         <div class="card-header">
-                            <h2>Ground Control Incident Logs & Black-Box Flight Exporter</h2>
+                            <h2>ISRO Incident Logs & SHA-256 Black-Box Exporter</h2>
                             <button onclick="alert('Black-box telemetry packet generated with SHA-256 integrity hash. Saved 68.5% transmission bandwidth via zlib compression.')" class="btn btn-primary">Export Black-Box Telemetry</button>
                         </div>
                         <table class="data-table">
@@ -377,7 +394,7 @@
                         <div class="sys-metrics-grid">
                             <div class="sys-box">
                                 <span class="label">Target Hardware</span>
-                                <span class="val">NVIDIA Jetson Nano / Pi 4 / Laptop</span>
+                                <span class="val">NVIDIA Jetson Nano / Pi 4 / Edge PC</span>
                             </div>
                             <div class="sys-box">
                                 <span class="label">SQLite Database Status</span>
@@ -389,7 +406,7 @@
                             </div>
                             <div class="sys-box">
                                 <span class="label">UI Design System</span>
-                                <span class="val purple">iOS Crystal UI (Liquid Glass)</span>
+                                <span class="val purple">ISRO Gaganyaan Cosmic UI</span>
                             </div>
                         </div>
                     </div>

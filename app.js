@@ -1,10 +1,11 @@
 /**
- * MAITRI - Mission Control & Offline Assistant JavaScript Controller
- * Handles tab navigation, iOS Crystal UI, Chart.js telemetry, OpenCV camera,
- * Cognitive PVT tests, Voice TTS Speech Synthesis, and Blackbox flight logs.
+ * ISRO GAGANYAAN MAITRI — Mission Control & Offline Assistant JavaScript Controller
+ * Dynamic Starfield Background, Boot Splash Overlay, Telemetry Pulse, & Voice Synthesis.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    initBootSplash();
+    initStarfield();
     initClock();
     initTabs();
     initCharts();
@@ -15,7 +16,86 @@ document.addEventListener('DOMContentLoaded', () => {
     initSpeechSynthesis();
 });
 
-// 1. Mission UTC Clock
+// 1. ISRO Boot Splash Overlay Sequence
+function initBootSplash() {
+    const splash = document.getElementById('isroBootSplash');
+    const bar = document.getElementById('bootProgressBar');
+    const text = document.getElementById('bootProgressText');
+    if (!splash || !bar) return;
+
+    const stages = [
+        "INITIALIZING ISRO GAGANYAAN CORE...",
+        "LOADING OPENCV MULTIMODAL VISION ENGINE...",
+        "AUTHENTICATING SQLITE AIR-GAP DATABASE...",
+        "VERIFYING PRE-EVA COGNITIVE READINESS MODULES...",
+        "SYSTEMS NOMINAL — LAUNCHING MISSION CONTROL"
+    ];
+
+    let progress = 0;
+    let stageIdx = 0;
+
+    const interval = setInterval(() => {
+        progress += 4;
+        bar.style.width = progress + '%';
+
+        if (progress % 20 === 0 && stageIdx < stages.length) {
+            if (text) text.textContent = stages[stageIdx];
+            stageIdx++;
+        }
+
+        if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+                splash.classList.add('hidden');
+            }, 400);
+        }
+    }, 40);
+}
+
+// 2. Cosmic Starfield Background Canvas
+function initStarfield() {
+    const canvas = document.getElementById('starfieldCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let stars = [];
+    const numStars = 120;
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        stars = [];
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2 + 0.5,
+                alpha: Math.random(),
+                speed: Math.random() * 0.02 + 0.005
+            });
+        }
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(star => {
+            star.alpha += star.speed;
+            if (star.alpha > 1 || star.alpha < 0.2) star.speed = -star.speed;
+
+            ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(star.alpha)})`;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        requestAnimationFrame(draw);
+    }
+    draw();
+}
+
+// 3. Mission UTC Clock
 function initClock() {
     const clockEl = document.getElementById('missionClock');
     function updateClock() {
@@ -27,7 +107,7 @@ function initClock() {
     setInterval(updateClock, 1000);
 }
 
-// 2. Navigation Tabs
+// 4. Navigation Tabs
 function initTabs() {
     const tabs = document.querySelectorAll('.nav-tab');
     const contents = document.querySelectorAll('.tab-content');
@@ -45,7 +125,7 @@ function initTabs() {
     });
 }
 
-// 3. Telemetry Graphs (Chart.js)
+// 5. Telemetry Graphs (Chart.js with ISRO Palette)
 let vitalsChart, emotionChart, sleepChart;
 
 function initCharts() {
@@ -59,25 +139,25 @@ function initCharts() {
                     {
                         label: 'Heart Rate (BPM)',
                         data: [68, 70, 65, 72, 85, 74, 71, 69, 72],
-                        borderColor: '#0A84FF',
-                        backgroundColor: 'rgba(10, 132, 255, 0.12)',
-                        borderWidth: 2,
+                        borderColor: '#FF9933',
+                        backgroundColor: 'rgba(255, 153, 51, 0.15)',
+                        borderWidth: 3,
                         tension: 0.4,
                         fill: true
                     },
                     {
                         label: 'SpO2 (%)',
                         data: [98, 98, 99, 98, 97, 98, 99, 98, 98.4],
-                        borderColor: '#64D2FF',
+                        borderColor: '#00E5FF',
                         borderWidth: 2,
                         tension: 0.4
                     },
                     {
                         label: 'Stress Index (0-100)',
                         data: [15, 20, 18, 35, 42, 28, 22, 20, 24],
-                        borderColor: '#BF5AF2',
+                        borderColor: '#D500F9',
                         borderWidth: 2,
-                        borderDash: [5, 5],
+                        borderDash: [4, 4],
                         tension: 0.4
                     }
                 ]
@@ -86,11 +166,11 @@ function initCharts() {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { labels: { color: '#8E8E93', font: { family: '-apple-system' } } }
+                    legend: { labels: { color: '#849BBE', font: { family: '-apple-system', weight: 'bold' } } }
                 },
                 scales: {
-                    x: { ticks: { color: '#636366' }, grid: { color: 'rgba(255,255,255,0.08)' } },
-                    y: { ticks: { color: '#636366' }, grid: { color: 'rgba(255,255,255,0.08)' } }
+                    x: { ticks: { color: '#849BBE' }, grid: { color: 'rgba(255,255,255,0.06)' } },
+                    y: { ticks: { color: '#849BBE' }, grid: { color: 'rgba(255,255,255,0.06)' } }
                 }
             }
         });
@@ -104,7 +184,7 @@ function initCharts() {
                 labels: ['Focused', 'Calm', 'Elevated Stress', 'Fatigue'],
                 datasets: [{
                     data: [60, 25, 10, 5],
-                    backgroundColor: ['#30D158', '#64D2FF', '#FF9F0A', '#BF5AF2'],
+                    backgroundColor: ['#00E676', '#00E5FF', '#FF9933', '#D500F9'],
                     borderWidth: 0
                 }]
             },
@@ -112,7 +192,7 @@ function initCharts() {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom', labels: { color: '#8E8E93' } }
+                    legend: { position: 'bottom', labels: { color: '#849BBE' } }
                 }
             }
         });
@@ -128,17 +208,17 @@ function initCharts() {
                     {
                         label: 'Deep Sleep (hrs)',
                         data: [2.1, 1.9, 2.3, 2.0, 1.8, 2.4, 2.1],
-                        backgroundColor: '#BF5AF2'
+                        backgroundColor: '#FF9933'
                     },
                     {
                         label: 'REM Sleep (hrs)',
                         data: [1.8, 1.5, 1.9, 1.6, 1.4, 2.0, 1.6],
-                        backgroundColor: '#0A84FF'
+                        backgroundColor: '#00E5FF'
                     },
                     {
                         label: 'Light Sleep (hrs)',
                         data: [3.3, 3.4, 3.6, 3.5, 3.6, 3.1, 3.5],
-                        backgroundColor: '#3A3A3C'
+                        backgroundColor: '#1E293B'
                     }
                 ]
             },
@@ -146,18 +226,18 @@ function initCharts() {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { labels: { color: '#8E8E93' } }
+                    legend: { labels: { color: '#849BBE' } }
                 },
                 scales: {
-                    x: { stacked: true, ticks: { color: '#636366' } },
-                    y: { stacked: true, ticks: { color: '#636366' } }
+                    x: { stacked: true, ticks: { color: '#849BBE' } },
+                    y: { stacked: true, ticks: { color: '#849BBE' } }
                 }
             }
         });
     }
 }
 
-// 4. Offline AI Chatbot Logic & Speech Synthesis Out-Loud
+// 6. Offline AI Chatbot Logic & Voice Speech Synthesis Out-Loud
 function initChatbot() {
     const miniInput = document.getElementById('miniChatInput');
     const miniSendBtn = document.getElementById('miniChatSendBtn');
@@ -184,12 +264,12 @@ function initChatbot() {
             const botReply = generateOfflineResponse(msg);
             const botDiv = document.createElement('div');
             botDiv.className = 'chat-bubble bot';
-            botDiv.innerHTML = `<span class="sender">MAITRI AI:</span> ${botReply}`;
+            botDiv.innerHTML = `<span class="sender">ISRO MAITRI AI:</span> ${botReply}`;
             containerEl.appendChild(botDiv);
             containerEl.scrollTop = containerEl.scrollHeight;
 
             speakOutLoud(botReply.replace(/<[^>]*>?/gm, ''));
-        }, 600);
+        }, 500);
     }
 
     if (miniSendBtn) miniSendBtn.addEventListener('click', () => handleChat(miniInput, miniBox));
@@ -221,15 +301,15 @@ function sendQuickMsg(txt) {
 function generateOfflineResponse(userMsg) {
     const msg = userMsg.toLowerCase();
     if (msg.includes('stress') || msg.includes('anxious') || msg.includes('tired') || msg.includes('fatigued')) {
-        return "I detect elevated stress markers. Let's initiate a 4-7-8 deep breathing protocol. Inhale for 4 seconds, hold for 7, exhale for 8. Ambient relaxation audio triggered.";
+        return "ISRO Gaganyaan protocol active: Elevated stress detected. Initiating 4-7-8 deep breathing relaxation cycle. Ambient acoustic music triggered.";
     } else if (msg.includes('vital') || msg.includes('heart') || msg.includes('spo2')) {
-        return "Telemetry summary for Cmdr. Shalok Dadhwal: Heart Rate is 72 BPM (nominal), SpO2 is 98.4% (optimal), and core temperature is 36.7 °C. You are fit for mission operations.";
+        return "Telemetry summary for Cmdr. Shalok Dadhwal: Heart Rate is 72 BPM (nominal), SpO2 is 98.4% (optimal), and core temperature is 36.7 °C. You are cleared for flight duties.";
     } else if (msg.includes('cognitive') || msg.includes('eva') || msg.includes('reaction')) {
         return "Pre-EVA Psychomotor Vigilance Test active. Mean reaction speed is 215ms with 98% memory accuracy. Clearance Status: FIT FOR EVA (PASSED).";
     } else if (msg.includes('circadian') || msg.includes('light')) {
         return "Circadian Rhythm Sync active. Habitat LEDs set to 6500K Blue-Enriched Daylight to elevate morning focus and suppress melatonin.";
     } else {
-        return `Copy that, Cmdr. Shalok. Standard offline psychological companion rules active. All deep-space systems are nominal.`;
+        return `Copy that, Cmdr. Shalok. ISRO Gaganyaan offline AI rules active. All orbital deep-space systems remain nominal.`;
     }
 }
 
@@ -237,18 +317,20 @@ function escapeHtml(str) {
     return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-// 5. Camera Canvas Visualizer Placeholder
+// 7. OpenCV Camera Stream HUD Canvas
 function initCameraCanvas() {
     const canvas = document.getElementById('videoCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let animId;
+    let angle = 0;
 
     function renderMockStream() {
-        ctx.fillStyle = '#090d16';
+        ctx.fillStyle = '#030816';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.strokeStyle = 'rgba(100, 210, 255, 0.15)';
+        // Radar grid scan lines
+        ctx.strokeStyle = 'rgba(0, 229, 255, 0.15)';
         ctx.lineWidth = 1;
         for (let x = 0; x < canvas.width; x += 40) {
             ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
@@ -257,14 +339,26 @@ function initCameraCanvas() {
             ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
         }
 
-        ctx.strokeStyle = '#30D158';
+        // Radar Scanner Line Animation
+        angle += 0.03;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        ctx.strokeStyle = 'rgba(255, 153, 51, 0.4)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.lineTo(centerX + Math.cos(angle) * 220, centerY + Math.sin(angle) * 220);
+        ctx.stroke();
+
+        // Bounding box for facial tracking
+        ctx.strokeStyle = '#00E676';
         ctx.lineWidth = 3;
         const boxX = 220, boxY = 120, boxW = 200, boxH = 240;
         ctx.strokeRect(boxX, boxY, boxW, boxH);
 
-        ctx.fillStyle = '#30D158';
-        ctx.font = '14px -apple-system, monospace';
-        ctx.fillText('FACIAL DETECTED: Cmdr. Shalok', boxX, boxY - 12);
+        ctx.fillStyle = '#00E676';
+        ctx.font = '800 13px -apple-system, monospace';
+        ctx.fillText('ISRO FACIAL DETECTED: Cmdr. Shalok', boxX, boxY - 12);
         ctx.fillText('EMOTION: Focused (94.2%)', boxX, boxY + boxH + 20);
 
         animId = requestAnimationFrame(renderMockStream);
@@ -279,14 +373,14 @@ function initCameraCanvas() {
     renderMockStream();
 }
 
-// 6. Pre-EVA Cognitive Reaction Test Widget
+// 8. Pre-EVA PVT Test Widget
 function initCognitiveTest() {
     const btn = document.getElementById('startPvtTestBtn');
     const resultBox = document.getElementById('pvtResultBox');
     if (!btn || !resultBox) return;
 
     btn.addEventListener('click', () => {
-        btn.textContent = 'Testing Reaction Speed...';
+        btn.textContent = 'Testing Psychomotor Reaction Speed...';
         btn.disabled = true;
         
         setTimeout(() => {
@@ -295,7 +389,7 @@ function initCognitiveTest() {
             resultBox.innerHTML = `
                 <div class="alert-item low" style="margin-top: 10px;">
                     <div class="alert-details">
-                        <span class="alert-title" style="color: #30D158;">FIT FOR EVA (PASSED) — Score: 96%</span>
+                        <span class="alert-title" style="color: #00E676;">FIT FOR EVA (PASSED) — Score: 96%</span>
                         <span class="alert-time">Mean Reaction Speed: ${meanRx}ms | Memory Accuracy: 98% | Lapses: 0</span>
                     </div>
                 </div>
@@ -307,7 +401,7 @@ function initCognitiveTest() {
     });
 }
 
-// 7. Circadian Lighting Display
+// 9. Circadian Lighting Status
 function initCircadianLighting() {
     const lightStatusEl = document.getElementById('circadianStatusText');
     if (!lightStatusEl) return;
@@ -319,7 +413,7 @@ function initCircadianLighting() {
     }
 }
 
-// 8. Speech Synthesis Voice Command Trigger
+// 10. Voice Speech Recognition Trigger
 function initSpeechSynthesis() {
     const micBtn = document.getElementById('voiceMicBtn');
     if (!micBtn) return;
