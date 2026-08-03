@@ -3,22 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MAITRI - ISRO Gaganyaan Multimodal AI for Total Resilience & Intelligence">
-    <title>MAITRI | ISRO Gaganyaan Mission Control & Companion</title>
+    <meta name="description" content="MAITRI - Official ISRO Gaganyaan Multimodal AI Assistant">
+    <title>ISRO Gaganyaan MAITRI | Mission Control & Telemetry</title>
     <link rel="stylesheet" href="style.css">
     <!-- Chart.js CDN with offline resilient script -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="dark-mode">
 
-    <!-- ISRO Gaganyaan Boot Splash Intro Overlay -->
+    <!-- Official ISRO Boot Splash Intro Overlay -->
     <div id="isroBootSplash" class="boot-splash-overlay">
-        <div class="boot-logo-circle">
-            🚀
-            <div class="boot-scan-line"></div>
-        </div>
-        <h1 class="boot-title">ISRO GAGANYAAN — MAITRI AI CORE</h1>
-        <div class="boot-subtext" id="bootProgressText">INITIALIZING AIR-GAP MULTIMODAL CORE...</div>
+        <!-- Official ISRO Emblem SVG -->
+        <svg class="isro-logo-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Orange Rocket Plume / Satellite Wing -->
+            <path d="M100 10 L140 120 L100 95 L60 120 Z" fill="#FF9933" />
+            <path d="M100 10 L160 135 L100 110 L40 135 Z" fill="url(#isroGlow)" opacity="0.6" />
+            <!-- Blue Wing Panel -->
+            <path d="M30 75 L170 75 L100 30 Z" fill="#00A3E0" opacity="0.85" />
+            <!-- ISRO Emblem Arc -->
+            <path d="M20 120 Q100 155 180 120" stroke="#FF9933" stroke-width="6" fill="none" stroke-linecap="round" />
+            <defs>
+                <linearGradient id="isroGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#FF9933" />
+                    <stop offset="100%" stop-color="#00E5FF" />
+                </linearGradient>
+            </defs>
+        </svg>
+        <h1 class="boot-title">INDIAN SPACE RESEARCH ORGANISATION</h1>
+        <div class="boot-subtext" id="bootProgressText">INITIALIZING GAGANYAAN MAITRI AIR-GAP CORE...</div>
         <div class="boot-progress-bar-container">
             <div class="boot-progress-bar" id="bootProgressBar"></div>
         </div>
@@ -28,36 +40,53 @@
     <canvas id="starfieldCanvas"></canvas>
 
     <div class="app-container">
-        <!-- ISRO Deep Space Mission Control Header -->
+        <!-- ISRO Official Telemetry Command Center Header -->
         <header class="header">
             <div class="header-left">
-                <div class="isro-emblem-badge">
-                    <span class="pulse-dot"></span>
-                    <span class="badge-text">🚀 ISRO GAGANYAAN G1</span>
+                <div class="header-logo-container">
+                    <svg class="isro-header-logo" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100 10 L140 120 L100 95 L60 120 Z" fill="#FF9933" />
+                        <path d="M30 75 L170 75 L100 30 Z" fill="#00A3E0" />
+                        <path d="M20 120 Q100 155 180 120" stroke="#FF9933" stroke-width="8" fill="none" />
+                    </svg>
+                    <div class="brand-text-group">
+                        <span class="isro-title-main">इसरो | ISRO GAGANYAAN G1</span>
+                        <span class="isro-sub-label">MAITRI MULTIMODAL AI COMMAND CENTER</span>
+                    </div>
                 </div>
-                <h1 class="system-title">MULTIMODAL AI FOR TOTAL RESILIENCE & INTELLIGENCE</h1>
             </div>
-            <div class="header-center">
-                <div class="crew-active-pill">
-                    <span class="icon">👨‍🚀</span>
-                    <span class="text">CMD. SHALOK DADHWAL (ISRO-ARTEMIS)</span>
+
+            <!-- Live Orbital Telemetry Ticker -->
+            <div class="header-telemetry-ticker">
+                <div class="ticker-item">
+                    <span class="ticker-label">ORBIT:</span>
+                    <span class="ticker-val">408.2 KM</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-label">VELOCITY:</span>
+                    <span class="ticker-val gold">7.66 KM/S</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="ticker-label">CREW:</span>
+                    <span class="ticker-val">CMD. SHALOK DADHWAL</span>
                 </div>
             </div>
+
             <div class="header-right">
-                <div class="net-status-badge offline">
-                    <span class="status-icon">🛡️</span>
+                <div class="net-status-badge">
+                    <span class="pulse-dot"></span>
                     <span class="status-label">100% AIR-GAPPED OFFLINE</span>
                 </div>
                 <div class="clock-display" id="missionClock">00:00:00 UTC</div>
             </div>
         </header>
 
-        <!-- Dynamic Sliding Navigation Switcher -->
+        <!-- Navigation Segment Switcher -->
         <nav class="nav-tabs">
-            <button class="nav-tab active" data-tab="dashboard">📊 Mission Control Overview</button>
+            <button class="nav-tab active" data-tab="dashboard">📊 Mission Overview</button>
             <button class="nav-tab" data-tab="vitals">🫀 Vitals & Stress Telemetry</button>
             <button class="nav-tab" data-tab="companion">🧠 ISRO AI Companion</button>
-            <button class="nav-tab" data-tab="multimodal">📷 Multimodal Vision Stream</button>
+            <button class="nav-tab" data-tab="multimodal">📷 Multimodal Stream</button>
             <button class="nav-tab" data-tab="entertainment">🎵 Personalization & Media</button>
             <button class="nav-tab" data-tab="alerts">🚨 Emergency & Black-Box Logs</button>
             <button class="nav-tab" data-tab="system">⚙️ Edge Hardware Status</button>
@@ -71,7 +100,7 @@
                 <div class="grid-layout">
                     <!-- Status Metric Cards Row -->
                     <div class="card metric-card">
-                        <div class="card-icon blue">🫀</div>
+                        <div class="card-icon orange">🫀</div>
                         <div class="card-info">
                             <span class="metric-label">Heart Rate</span>
                             <span class="metric-val" id="dashHR">72 <small>BPM</small></span>
@@ -97,7 +126,7 @@
                     <div class="card metric-card">
                         <div class="card-icon emerald">🌙</div>
                         <div class="card-info">
-                            <span class="metric-label">Circadian Cabin Light</span>
+                            <span class="metric-label">Circadian Light</span>
                             <span class="metric-val" style="font-size: 14px;" id="circadianStatusText">6500K Daylight</span>
                             <span class="metric-sub positive">Melatonin Suppressed</span>
                         </div>
@@ -106,7 +135,7 @@
                     <!-- Main Vitals Trend Chart -->
                     <div class="card col-span-2 chart-card">
                         <div class="card-header">
-                            <h3>Real-Time Telemetry Trend (Last 24 Hours)</h3>
+                            <h3>Real-Time Vitals Telemetry (Last 24 Hours)</h3>
                             <span class="card-badge">LIVE SATELLITE FEED</span>
                         </div>
                         <div class="chart-container">
@@ -131,10 +160,10 @@
                             <h3>Pre-EVA Cognitive Test</h3>
                             <span class="card-badge">PVT READINESS</span>
                         </div>
-                        <p style="font-size: 12px; color: var(--text-muted);">60s Psychomotor Vigilance reaction & memory test for spacewalk clearance.</p>
-                        <button id="startPvtTestBtn" class="btn btn-primary" style="margin-top: 8px;">Run Pre-EVA PVT Test</button>
+                        <p style="font-size: 11.5px; color: var(--text-secondary);">60s Psychomotor Vigilance reaction & memory test for spacewalk clearance.</p>
+                        <button id="startPvtTestBtn" class="btn btn-primary" style="margin-top: 6px;">Run Pre-EVA PVT Test</button>
                         <div id="pvtResultBox">
-                            <div class="alert-item low" style="margin-top: 10px;">
+                            <div class="alert-item low" style="margin-top: 8px;">
                                 <div class="alert-details">
                                     <span class="alert-title" style="color: var(--isro-green);">FIT FOR EVA (PASSED)</span>
                                     <span class="alert-time">Mean Reaction: 215ms | Memory: 98%</span>
@@ -146,13 +175,13 @@
                     <!-- Quick AI Companion Check-in Widget -->
                     <div class="card col-span-2 companion-widget">
                         <div class="card-header">
-                            <h3>MAITRI AI Companion — Voice & Text Dialogue</h3>
+                            <h3>ISRO MAITRI AI Companion — Voice & Text Dialogue</h3>
                             <button id="voiceMicBtn" class="pill-btn">🎤 Speak Voice Command</button>
                         </div>
                         <div class="chat-mini-history" id="miniChatBox">
                             <div class="chat-bubble bot">
                                 <span class="sender">ISRO MAITRI AI:</span>
-                                Welcome back Cmdr. Shalok. All primary Gaganyaan orbital vitals are within normal safety bounds. How are you feeling today after your spacewalk simulation?
+                                Namaste Cmdr. Shalok. All primary Gaganyaan orbital vitals are within normal safety bounds. How are you feeling today after your spacewalk simulation?
                             </div>
                         </div>
                         <div class="chat-input-row">
@@ -284,7 +313,7 @@
                             </div>
                         </div>
                         <div class="controls-row">
-                            <button id="startCamBtn" class="btn btn-success">Start OpenCV Radar Stream</button>
+                            <button id="startCamBtn" class="btn btn-success">Start OpenCV Stream</button>
                             <button id="stopCamBtn" class="btn btn-danger">Stop Pipeline</button>
                         </div>
                     </div>
@@ -406,7 +435,7 @@
                             </div>
                             <div class="sys-box">
                                 <span class="label">UI Design System</span>
-                                <span class="val purple">ISRO Gaganyaan Cosmic UI</span>
+                                <span class="val purple">ISRO Official Command Center UI</span>
                             </div>
                         </div>
                     </div>

@@ -1,59 +1,59 @@
 /* ==========================================================================
-   ISRO GAGANYAAN MAITRI MISSION CONTROL — HYPER-DYNAMIC COSMIC DESIGN SYSTEM
-   Professional ISRO Deep Space Aesthetics, Saffron & Electric Cyan Accents,
-   Interactive Particle Orbit Background, Boot Splash Overlay, & Motion Animations.
+   ISRO GAGANYAAN MAITRI MISSION CONTROL — OFFICIAL COMMAND CENTER UI
+   Authentic ISRO Vector Branding, Deep Space Navy & Saffron Palette,
+   Pixel-Perfect Alignment, Orbital Telemetry Ticker, & Motion System.
    ========================================================================== */
 
 :root {
-    /* ISRO Deep Space Color Palette */
-    --isro-navy: #030816;
-    --isro-card-bg: rgba(6, 16, 38, 0.65);
-    --isro-card-hover: rgba(10, 26, 60, 0.85);
-    --isro-border: rgba(0, 229, 255, 0.25);
-    --isro-border-glow: rgba(255, 153, 51, 0.55);
+    /* Official ISRO Color Tokens */
+    --isro-navy-dark: #020712;
+    --isro-navy-card: rgba(7, 19, 43, 0.75);
+    --isro-navy-card-hover: rgba(12, 30, 66, 0.9);
+    --isro-saffron: #FF9933;       /* Official ISRO Orange */
+    --isro-saffron-glow: rgba(255, 153, 51, 0.45);
+    --isro-blue: #00A3E0;          /* Official ISRO Blue */
+    --isro-cyan: #00E5FF;          /* Telemetry Cyan */
+    --isro-green: #00E676;         /* Systems Nominal Green */
+    --isro-gold: #FFD700;          /* Metallic Mission Accent */
+    --isro-red: #FF1744;           /* Critical Alert Red */
     
-    /* ISRO Brand Accents */
-    --isro-saffron: #FF9933;     /* ISRO Saffron Gold */
-    --isro-cyan: #00E5FF;        /* Telemetry Electric Cyan */
-    --isro-green: #00E676;       /* Systems Nominal Green */
-    --isro-blue: #2979FF;        /* Deep Space Blue */
-    --isro-purple: #D500F9;      /* Mind/Stress Index Purple */
-    --isro-red: #FF1744;         /* Emergency Hazard Red */
+    --border-light: rgba(0, 229, 255, 0.22);
+    --border-highlight: rgba(255, 153, 51, 0.5);
     
-    /* Typography & Glass Geometry */
-    --font-primary: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Outfit", "Inter", sans-serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Outfit", "Inter", sans-serif;
     --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
-    --radius-card: 20px;
+    
+    --radius-card: 16px;
     --radius-pill: 9999px;
     
-    --text-main: #F0F6FF;
-    --text-muted: #849BBE;
+    --text-primary: #FFFFFF;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
     
-    /* Dynamic Shadows */
-    --isro-shadow: 0 16px 48px -12px rgba(0, 0, 0, 0.75), inset 0 1px 1px rgba(255, 255, 255, 0.35);
-    --isro-shadow-hover: 0 20px 60px -10px rgba(0, 229, 255, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+    --shadow-main: 0 12px 40px -8px rgba(0, 0, 0, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    --shadow-glow: 0 16px 50px -10px rgba(0, 229, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
-/* Reset & Cosmic Background Canvas */
+/* Reset & Cosmic Setup */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: var(--font-primary);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
 }
 
 body {
-    background-color: var(--isro-navy);
+    background-color: var(--isro-navy-dark);
     background-image: 
-        radial-gradient(circle at 10% 10%, rgba(255, 153, 51, 0.12) 0%, transparent 35%),
-        radial-gradient(circle at 90% 90%, rgba(0, 229, 255, 0.14) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(41, 121, 255, 0.08) 0%, transparent 50%);
+        radial-gradient(circle at 10% 10%, rgba(255, 153, 51, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 90%, rgba(0, 163, 224, 0.1) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(2, 7, 18, 0.95) 0%, #020712 100%);
     background-attachment: fixed;
-    color: var(--text-main);
+    color: var(--text-primary);
     min-height: 100vh;
     overflow-x: hidden;
-    padding: 16px 24px;
+    padding: 12px 20px;
 }
 
 #starfieldCanvas {
@@ -64,21 +64,21 @@ body {
     height: 100vh;
     pointer-events: none;
     z-index: 0;
-    opacity: 0.4;
+    opacity: 0.35;
 }
 
 .app-container {
     position: relative;
     z-index: 1;
-    max-width: 1720px;
+    max-width: 1760px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 14px;
 }
 
 /* ==========================================================================
-   ISRO BOOT SPLASH OVERLAY (PRO INTRO ANIMATION)
+   ISRO BOOT SPLASH SCREEN
    ========================================================================== */
 .boot-splash-overlay {
     position: fixed;
@@ -86,14 +86,14 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #020612;
+    background: #01040B;
     z-index: 99999;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 24px;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
+    gap: 20px;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 
 .boot-splash-overlay.hidden {
@@ -101,43 +101,23 @@ body {
     visibility: hidden;
 }
 
-.boot-logo-circle {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 3px solid var(--isro-saffron);
-    box-shadow: 0 0 40px var(--isro-saffron), inset 0 0 20px var(--isro-saffron);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 48px;
-    animation: bootLogoRotate 4s linear infinite;
-    position: relative;
+.isro-logo-svg {
+    width: 110px;
+    height: auto;
+    filter: drop-shadow(0 0 25px rgba(255, 153, 51, 0.6));
+    animation: logoPulse 2s ease-in-out infinite alternate;
 }
 
-@keyframes bootLogoRotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.boot-scan-line {
-    position: absolute;
-    width: 140%;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, var(--isro-cyan), transparent);
-    animation: bootScan 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes bootScan {
-    0% { top: 0%; }
-    100% { top: 100%; }
+@keyframes logoPulse {
+    from { transform: scale(0.98); filter: drop-shadow(0 0 15px rgba(255, 153, 51, 0.4)); }
+    to { transform: scale(1.04); filter: drop-shadow(0 0 35px rgba(0, 229, 255, 0.8)); }
 }
 
 .boot-title {
-    font-size: 26px;
-    font-weight: 800;
+    font-size: 24px;
+    font-weight: 900;
     letter-spacing: 2px;
-    background: linear-gradient(135deg, var(--isro-saffron) 0%, #FFFFFF 50%, var(--isro-cyan) 100%);
+    background: linear-gradient(135deg, var(--isro-saffron) 0%, #FFFFFF 50%, var(--isro-blue) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
@@ -145,141 +125,161 @@ body {
 
 .boot-subtext {
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 12px;
     color: var(--isro-cyan);
     letter-spacing: 1px;
 }
 
 .boot-progress-bar-container {
-    width: 320px;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.1);
+    width: 340px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-pill);
     overflow: hidden;
-    border: 1px solid var(--isro-border);
+    border: 1px solid var(--border-light);
 }
 
 .boot-progress-bar {
     width: 0%;
     height: 100%;
     background: linear-gradient(90deg, var(--isro-saffron), var(--isro-cyan));
-    box-shadow: 0 0 15px var(--isro-cyan);
+    box-shadow: 0 0 12px var(--isro-cyan);
     transition: width 0.1s linear;
 }
 
 /* ==========================================================================
-   ISRO HEADER BAR
+   ISRO COMMAND CENTER HEADER
    ========================================================================== */
 .header {
-    background: var(--isro-card-bg);
-    backdrop-filter: blur(30px) saturate(200%);
-    -webkit-backdrop-filter: blur(30px) saturate(200%);
-    border: 1px solid var(--isro-border);
-    box-shadow: var(--isro-shadow);
+    background: var(--isro-navy-card);
+    backdrop-filter: blur(28px) saturate(200%);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-main);
     border-radius: var(--radius-card);
-    padding: 16px 28px;
+    padding: 14px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    gap: 16px;
 }
 
-@keyframes slideDown {
-    from { transform: translateY(-30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.isro-emblem-badge {
-    background: linear-gradient(135deg, rgba(255, 153, 51, 0.2) 0%, rgba(0, 229, 255, 0.2) 100%);
-    border: 1px solid var(--isro-saffron);
-    border-radius: var(--radius-pill);
-    padding: 6px 16px;
+.header-left {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-size: 12px;
-    font-weight: 800;
-    color: var(--isro-saffron);
+    gap: 16px;
+}
+
+.header-logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.isro-header-logo {
+    height: 38px;
+    width: auto;
+    filter: drop-shadow(0 0 8px rgba(255, 153, 51, 0.4));
+}
+
+.brand-text-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.isro-title-main {
+    font-size: 17px;
+    font-weight: 900;
     letter-spacing: 1px;
-    box-shadow: 0 0 15px rgba(255, 153, 51, 0.3);
+    color: #FFFFFF;
 }
 
-.pulse-dot {
-    width: 10px;
-    height: 10px;
-    background-color: var(--isro-green);
-    border-radius: 50%;
-    box-shadow: 0 0 12px var(--isro-green);
-    animation: isroGlow 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes isroGlow {
-    from { opacity: 0.5; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1.3); }
-}
-
-.system-title {
-    font-size: 20px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    background: linear-gradient(135deg, #FFFFFF 0%, var(--isro-cyan) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.crew-active-pill {
-    background: rgba(255, 153, 51, 0.12);
-    border: 1px solid rgba(255, 153, 51, 0.4);
-    border-radius: var(--radius-pill);
-    padding: 8px 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 13px;
+.isro-sub-label {
+    font-size: 10px;
     font-weight: 700;
     color: var(--isro-saffron);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
 }
 
-.net-status-badge.offline {
-    background: rgba(0, 230, 118, 0.15);
+.header-telemetry-ticker {
+    display: flex;
+    gap: 14px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 6px 16px;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-mono);
+    font-size: 11px;
+}
+
+.ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ticker-label { color: var(--text-muted); }
+.ticker-val { color: var(--isro-cyan); font-weight: 700; }
+.ticker-val.gold { color: var(--isro-gold); }
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.net-status-badge {
+    background: rgba(0, 230, 118, 0.12);
     border: 1px solid var(--isro-green);
     border-radius: var(--radius-pill);
-    padding: 6px 16px;
-    font-size: 12px;
-    font-weight: 700;
+    padding: 5px 14px;
+    font-size: 11px;
+    font-weight: 800;
     color: var(--isro-green);
     display: flex;
     align-items: center;
     gap: 6px;
 }
 
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--isro-green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--isro-green);
+    animation: isroPulse 1.8s infinite;
+}
+
+@keyframes isroPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.5; }
+}
+
 .clock-display {
     font-family: var(--font-mono);
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--isro-cyan);
     background: rgba(0, 0, 0, 0.4);
-    border: 1px solid var(--isro-border);
-    padding: 6px 16px;
+    border: 1px solid var(--border-light);
+    padding: 5px 14px;
     border-radius: var(--radius-pill);
-    box-shadow: inset 0 0 10px rgba(0, 229, 255, 0.2);
 }
 
 /* ==========================================================================
-   NAVIGATION SWITCHER — DYNAMIC SLIDING TABS
+   NAVIGATION SEGMENT SWITCHER
    ========================================================================== */
 .nav-tabs {
-    background: rgba(4, 12, 30, 0.85);
-    backdrop-filter: blur(25px);
-    border: 1px solid var(--isro-border);
+    background: rgba(3, 10, 26, 0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-light);
     border-radius: var(--radius-pill);
-    padding: 6px;
+    padding: 4px;
     display: flex;
-    gap: 6px;
+    gap: 4px;
     overflow-x: auto;
     scrollbar-width: none;
-    box-shadow: var(--isro-shadow);
+    box-shadow: var(--shadow-main);
 }
 
 .nav-tabs::-webkit-scrollbar { display: none; }
@@ -287,37 +287,35 @@ body {
 .nav-tab {
     background: transparent;
     border: none;
-    color: var(--text-muted);
-    padding: 12px 22px;
+    color: var(--text-secondary);
+    padding: 10px 20px;
     border-radius: var(--radius-pill);
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 800;
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.25s ease;
 }
 
 .nav-tab:hover {
-    color: var(--text-main);
+    color: #FFFFFF;
     background: rgba(255, 255, 255, 0.08);
-    transform: translateY(-1px);
 }
 
 .nav-tab.active {
-    background: linear-gradient(135deg, var(--isro-saffron) 0%, #E67E22 100%);
+    background: linear-gradient(135deg, var(--isro-saffron) 0%, #D35400 100%);
     color: #FFFFFF;
-    box-shadow: 0 6px 20px rgba(255, 153, 51, 0.5);
-    transform: scale(1.02);
+    box-shadow: 0 4px 16px rgba(255, 153, 51, 0.45);
 }
 
 /* ==========================================================================
-   TAB CONTENT ANIMATIONS
+   TAB CONTENT ANIMATIONS & GRID
    ========================================================================== */
 .tab-content {
     display: none;
     opacity: 0;
-    transform: translateY(15px);
-    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(10px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .tab-content.active {
@@ -329,7 +327,7 @@ body {
 .grid-layout {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+    gap: 14px;
     align-items: stretch;
 }
 
@@ -339,104 +337,80 @@ body {
 .col-span-4 { grid-column: span 4; }
 
 /* ==========================================================================
-   ISRO DYNAMIC CARDS
+   CARDS SYSTEM
    ========================================================================== */
 .card {
-    background: var(--isro-card-bg);
-    backdrop-filter: blur(28px) saturate(200%);
-    -webkit-backdrop-filter: blur(28px) saturate(200%);
-    border: 1px solid var(--isro-border);
-    box-shadow: var(--isro-shadow);
+    background: var(--isro-navy-card);
+    backdrop-filter: blur(24px) saturate(200%);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-main);
     border-radius: var(--radius-card);
-    padding: 22px;
+    padding: 18px 20px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    gap: 14px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
     overflow: hidden;
 }
 
-.card::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.04), transparent);
-    transform: rotate(30deg);
-    transition: transform 0.8s ease;
-    pointer-events: none;
-}
-
-.card:hover::after {
-    transform: rotate(30deg) translate(20%, 20%);
-}
-
 .card:hover {
-    border-color: var(--isro-border-glow);
-    box-shadow: var(--isro-shadow-hover);
-    transform: translateY(-4px) scale(1.008);
+    border-color: var(--border-highlight);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-3px);
 }
 
 .card-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 10px;
 }
 
 .card-header h2, .card-header h3 {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 800;
-    color: var(--text-main);
+    color: #FFFFFF;
     letter-spacing: -0.2px;
 }
 
 .card-badge, .mode-tag, .badge-count {
-    font-size: 11px;
-    font-weight: 800;
+    font-size: 10px;
+    font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    padding: 4px 12px;
+    padding: 3px 10px;
     border-radius: var(--radius-pill);
-    background: rgba(0, 229, 255, 0.12);
+    background: rgba(0, 229, 255, 0.1);
     border: 1px solid var(--isro-cyan);
     color: var(--isro-cyan);
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.2);
 }
 
 /* Metric Cards */
 .metric-card {
     flex-direction: row;
     align-items: center;
-    gap: 18px;
-    padding: 20px;
+    gap: 14px;
+    padding: 16px 18px;
 }
 
 .card-icon {
-    width: 54px;
-    height: 54px;
-    border-radius: 18px;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 26px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid var(--isro-border);
+    font-size: 22px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-light);
     flex-shrink: 0;
-    transition: transform 0.3s ease;
 }
 
-.card:hover .card-icon {
-    transform: scale(1.1) rotate(5deg);
-}
-
-.card-icon.blue { background: rgba(41, 121, 255, 0.18); border-color: var(--isro-blue); }
-.card-icon.cyan { background: rgba(0, 229, 255, 0.18); border-color: var(--isro-cyan); }
-.card-icon.purple { background: rgba(213, 0, 249, 0.18); border-color: var(--isro-purple); }
-.card-icon.emerald { background: rgba(0, 230, 118, 0.18); border-color: var(--isro-green); }
+.card-icon.orange { background: rgba(255, 153, 51, 0.15); border-color: var(--isro-saffron); }
+.card-icon.cyan { background: rgba(0, 229, 255, 0.15); border-color: var(--isro-cyan); }
+.card-icon.purple { background: rgba(213, 0, 249, 0.15); border-color: var(--isro-gold); }
+.card-icon.emerald { background: rgba(0, 230, 118, 0.15); border-color: var(--isro-green); }
 
 .card-info {
     display: flex;
@@ -445,30 +419,30 @@ body {
 }
 
 .metric-label {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    color: var(--text-muted);
+    color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .metric-val {
-    font-size: 25px;
-    font-weight: 800;
-    color: var(--text-main);
+    font-size: 22px;
+    font-weight: 900;
+    color: #FFFFFF;
 }
 
 .metric-val small {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
-    color: var(--text-muted);
+    color: var(--text-secondary);
 }
 
-.metric-sub.positive { color: var(--isro-green); font-weight: 600; }
+.metric-sub.positive { color: var(--isro-green); font-size: 11px; font-weight: 700; }
 
 /* Chart Cards Fix */
 .chart-card {
-    height: 380px;
+    height: 370px;
     display: flex;
     flex-direction: column;
 }
@@ -476,60 +450,54 @@ body {
 .chart-container {
     position: relative;
     width: 100%;
-    height: 280px;
+    height: 270px;
     flex: 1;
 }
 
-.chart-container.large { height: 340px; }
+.chart-container.large { height: 330px; }
 
 canvas { width: 100% !important; height: 100% !important; }
 
 /* Companion Widget */
 .companion-widget {
-    height: 380px;
+    height: 370px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .chat-mini-history {
-    background: rgba(2, 8, 20, 0.5);
-    border: 1px solid var(--isro-border);
-    border-radius: 16px;
-    padding: 16px;
-    height: 220px;
+    background: rgba(1, 5, 14, 0.6);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 14px;
+    height: 210px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .chat-bubble {
-    padding: 12px 16px;
-    border-radius: 18px;
-    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 12.5px;
     line-height: 1.45;
     max-width: 85%;
-    animation: fadeInBubble 0.3s ease;
-}
-
-@keyframes fadeInBubble {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 .chat-bubble.bot {
-    background: rgba(0, 229, 255, 0.12);
-    border: 1px solid rgba(0, 229, 255, 0.35);
-    color: var(--text-main);
+    background: rgba(0, 163, 224, 0.12);
+    border: 1px solid rgba(0, 163, 224, 0.35);
+    color: #FFFFFF;
     align-self: flex-start;
     border-bottom-left-radius: 4px;
 }
 
 .chat-bubble.user {
     background: rgba(255, 153, 51, 0.15);
-    border: 1px solid rgba(255, 153, 51, 0.35);
-    color: var(--text-main);
+    border: 1px solid rgba(255, 153, 51, 0.4);
+    color: #FFFFFF;
     align-self: flex-end;
     border-bottom-right-radius: 4px;
 }
@@ -537,118 +505,116 @@ canvas { width: 100% !important; height: 100% !important; }
 .chat-bubble .sender {
     font-weight: 800;
     display: block;
-    margin-bottom: 4px;
-    font-size: 11px;
+    margin-bottom: 3px;
+    font-size: 10.5px;
     color: var(--isro-saffron);
 }
 
 .chat-input-row, .chat-input-container {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     align-items: center;
 }
 
 input[type="text"] {
     flex: 1;
-    background: rgba(2, 8, 20, 0.6);
-    border: 1px solid var(--isro-border);
+    background: rgba(1, 5, 14, 0.7);
+    border: 1px solid var(--border-light);
     border-radius: var(--radius-pill);
-    padding: 12px 20px;
-    color: var(--text-main);
-    font-size: 13px;
+    padding: 10px 18px;
+    color: #FFFFFF;
+    font-size: 12.5px;
     outline: none;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
 }
 
 input[type="text"]:focus {
     border-color: var(--isro-cyan);
-    box-shadow: 0 0 16px rgba(0, 229, 255, 0.4);
+    box-shadow: 0 0 14px rgba(0, 229, 255, 0.35);
 }
 
-/* ISRO Dynamic Buttons */
+/* ISRO Buttons */
 .btn {
     border: none;
     border-radius: var(--radius-pill);
-    padding: 12px 24px;
-    font-size: 13px;
+    padding: 10px 20px;
+    font-size: 12px;
     font-weight: 800;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.25s ease;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--isro-saffron) 0%, #E67E22 100%);
+    background: linear-gradient(135deg, var(--isro-saffron) 0%, #D35400 100%);
     color: #FFFFFF;
-    box-shadow: 0 4px 16px rgba(255, 153, 51, 0.4);
+    box-shadow: 0 4px 14px rgba(255, 153, 51, 0.4);
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px) scale(1.04);
-    box-shadow: 0 6px 24px rgba(255, 153, 51, 0.6);
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(255, 153, 51, 0.6);
 }
 
 .btn-success { background: var(--isro-green); color: #000000; font-weight: 800; }
 .btn-danger { background: var(--isro-red); color: #FFFFFF; }
-.btn-secondary { background: rgba(255, 255, 255, 0.1); color: var(--text-main); border: 1px solid var(--isro-border); }
+.btn-secondary { background: rgba(255, 255, 255, 0.08); color: #FFFFFF; border: 1px solid var(--border-light); }
 
 /* Alerts Feed */
-.alerts-widget { height: 380px; }
-.alert-feed { display: flex; flex-direction: column; gap: 12px; overflow-y: auto; height: 280px; }
+.alerts-widget { height: 370px; }
+.alert-feed { display: flex; flex-direction: column; gap: 10px; overflow-y: auto; height: 270px; }
 
 .alert-item {
-    background: rgba(2, 8, 20, 0.5);
-    border: 1px solid var(--isro-border);
-    border-radius: 16px;
-    padding: 12px 16px;
+    background: rgba(1, 5, 14, 0.6);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 10px 14px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    transition: transform 0.2s ease;
+    gap: 10px;
 }
 
-.alert-item:hover { transform: translateX(4px); }
-.alert-item.low { border-left: 4px solid var(--isro-cyan); }
-.alert-item.medium { border-left: 4px solid var(--isro-saffron); }
+.alert-item.low { border-left: 3px solid var(--isro-cyan); }
+.alert-item.medium { border-left: 3px solid var(--isro-saffron); }
 
-.alert-title { font-size: 13px; font-weight: 700; color: var(--text-main); display: block; }
-.alert-time { font-size: 11px; color: var(--text-muted); }
+.alert-title { font-size: 12.5px; font-weight: 700; color: #FFFFFF; display: block; }
+.alert-time { font-size: 10.5px; color: var(--text-secondary); }
 
 /* Detail Boxes */
 .vitals-detail-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 20px;
+    gap: 14px;
+    margin-bottom: 16px;
 }
 
 .detail-box {
-    background: rgba(2, 8, 20, 0.5);
-    border: 1px solid var(--isro-border);
-    border-radius: 18px;
-    padding: 16px;
+    background: rgba(1, 5, 14, 0.6);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 14px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3px;
 }
 
-.detail-box .label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; }
-.detail-box .value { font-size: 22px; font-weight: 800; }
+.detail-box .label { font-size: 10px; color: var(--text-secondary); text-transform: uppercase; }
+.detail-box .value { font-size: 20px; font-weight: 900; }
 .detail-box .value.green { color: var(--isro-green); }
 .detail-box .value.blue { color: var(--isro-cyan); }
-.detail-box .value.purple { color: var(--isro-purple); }
+.detail-box .value.purple { color: var(--isro-gold); }
 .detail-box .value.cyan { color: var(--isro-saffron); }
 
 /* Video & Wave Visualizer */
 .video-container {
     background: #000000;
-    border-radius: 18px;
+    border-radius: 14px;
     overflow: hidden;
-    border: 1px solid var(--isro-border);
+    border: 1px solid var(--border-light);
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
-    height: 320px;
+    height: 310px;
 }
 
 .video-preview-box { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
@@ -658,168 +624,168 @@ input[type="text"]:focus {
     position: absolute;
     top: 20%; left: 35%; width: 30%; height: 50%;
     border: 2px solid var(--isro-green);
-    border-radius: 12px;
-    box-shadow: 0 0 20px var(--isro-green);
+    border-radius: 10px;
+    box-shadow: 0 0 15px var(--isro-green);
 }
 
 .box-label {
-    position: absolute; top: -24px; left: 0;
+    position: absolute; top: -22px; left: 0;
     background: var(--isro-green); color: #000;
-    font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px;
+    font-size: 10px; font-weight: 900; padding: 2px 6px; border-radius: 4px;
 }
 
-.controls-row { display: flex; gap: 12px; }
+.controls-row { display: flex; gap: 10px; }
 
 .audio-analysis-box {
-    background: rgba(2, 8, 20, 0.5);
-    border: 1px solid var(--isro-border);
-    border-radius: 18px;
-    padding: 20px;
+    background: rgba(1, 5, 14, 0.6);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 18px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
 }
 
-.audio-wave-visualizer { display: flex; gap: 6px; align-items: center; justify-content: center; height: 60px; }
+.audio-wave-visualizer { display: flex; gap: 5px; align-items: center; justify-content: center; height: 50px; }
 .audio-wave-visualizer .bar {
-    width: 6px; height: 30px; background: var(--isro-cyan); border-radius: 4px;
+    width: 5px; height: 25px; background: var(--isro-cyan); border-radius: 3px;
     animation: waveAnim 1.2s infinite ease-in-out alternate;
 }
-.audio-wave-visualizer .bar:nth-child(2) { animation-delay: 0.2s; height: 50px; }
-.audio-wave-visualizer .bar:nth-child(3) { animation-delay: 0.4s; height: 20px; }
-.audio-wave-visualizer .bar:nth-child(4) { animation-delay: 0.6s; height: 40px; }
+.audio-wave-visualizer .bar:nth-child(2) { animation-delay: 0.2s; height: 45px; }
+.audio-wave-visualizer .bar:nth-child(3) { animation-delay: 0.4s; height: 18px; }
+.audio-wave-visualizer .bar:nth-child(4) { animation-delay: 0.6s; height: 35px; }
 
 @keyframes waveAnim {
     0% { transform: scaleY(0.3); }
     100% { transform: scaleY(1.3); }
 }
 
-.voice-metrics p { font-size: 13px; margin-bottom: 8px; color: var(--text-muted); }
-.voice-metrics strong { color: var(--text-main); }
+.voice-metrics p { font-size: 12px; margin-bottom: 6px; color: var(--text-secondary); }
+.voice-metrics strong { color: #FFFFFF; }
 
 /* Media Vault Cards */
-.media-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.media-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 
 .media-card {
-    background: rgba(2, 8, 20, 0.5);
-    border: 1px solid var(--isro-border);
-    border-radius: 18px;
-    padding: 20px;
+    background: rgba(1, 5, 14, 0.6);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 18px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 12px;
+    gap: 10px;
 }
 
-.media-card h3 { font-size: 15px; color: var(--text-main); }
-.media-card p { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+.media-card h3 { font-size: 14px; color: #FFFFFF; }
+.media-card p { font-size: 11.5px; color: var(--text-secondary); line-height: 1.4; }
 
 /* Full Companion Container */
-.companion-full-container { display: grid; grid-template-columns: 280px 1fr; gap: 18px; height: 600px; }
+.companion-full-container { display: grid; grid-template-columns: 260px 1fr; gap: 14px; height: 580px; }
 
 .chat-sidebar {
-    background: var(--isro-card-bg);
-    backdrop-filter: blur(28px);
-    border: 1px solid var(--isro-border);
+    background: var(--isro-navy-card);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--border-light);
     border-radius: var(--radius-card);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.mode-selector { display: flex; flex-direction: column; gap: 8px; }
-
-.mode-btn {
-    background: rgba(2, 8, 20, 0.5);
-    border: 1px solid var(--isro-border);
-    border-radius: 12px;
-    padding: 10px 14px;
-    color: var(--text-muted);
-    font-size: 12px;
-    font-weight: 700;
-    text-align: left;
-    cursor: pointer;
-    transition: all 0.25s ease;
-}
-
-.mode-btn.active, .mode-btn:hover {
-    background: rgba(255, 153, 51, 0.18);
-    border-color: var(--isro-saffron);
-    color: var(--text-main);
-}
-
-.astronaut-card {
-    background: rgba(2, 8, 20, 0.6);
-    border-radius: 14px;
-    padding: 14px;
-    font-size: 12px;
-    line-height: 1.6;
-    color: var(--text-muted);
-    margin-top: auto;
-}
-
-.astronaut-card h4 { color: var(--text-main); margin-bottom: 6px; }
-
-.chat-main {
-    background: var(--isro-card-bg);
-    backdrop-filter: blur(28px);
-    border: 1px solid var(--isro-border);
-    border-radius: var(--radius-card);
-    padding: 20px;
+    padding: 18px;
     display: flex;
     flex-direction: column;
     gap: 14px;
 }
 
-.chat-header {
-    display: flex; justifyContent: space-between; align-items: center;
-    font-size: 13px; font-weight: 700; padding-bottom: 10px; border-bottom: 1px solid var(--isro-border);
+.mode-selector { display: flex; flex-direction: column; gap: 6px; }
+
+.mode-btn {
+    background: rgba(1, 5, 14, 0.6);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    padding: 9px 12px;
+    color: var(--text-secondary);
+    font-size: 11.5px;
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.status-online { color: var(--isro-green); font-size: 12px; }
+.mode-btn.active, .mode-btn:hover {
+    background: rgba(255, 153, 51, 0.15);
+    border-color: var(--isro-saffron);
+    color: #FFFFFF;
+}
 
-.chat-logs {
-    flex: 1;
-    background: rgba(2, 8, 20, 0.5);
-    border: 1px solid var(--isro-border);
-    border-radius: 16px;
+.astronaut-card {
+    background: rgba(1, 5, 14, 0.7);
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    margin-top: auto;
+}
+
+.astronaut-card h4 { color: #FFFFFF; margin-bottom: 4px; }
+
+.chat-main {
+    background: var(--isro-navy-card);
+    backdrop-filter: blur(24px);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-card);
     padding: 18px;
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.quick-pills { display: flex; gap: 8px; overflow-x: auto; }
+.chat-header {
+    display: flex; justifyContent: space-between; align-items: center;
+    font-size: 12.5px; font-weight: 800; padding-bottom: 8px; border-bottom: 1px solid var(--border-light);
+}
+
+.status-online { color: var(--isro-green); font-size: 11px; }
+
+.chat-logs {
+    flex: 1;
+    background: rgba(1, 5, 14, 0.6);
+    border: 1px solid var(--border-light);
+    border-radius: 14px;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quick-pills { display: flex; gap: 6px; overflow-x: auto; }
 
 .pill-btn {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid var(--isro-border);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-light);
     border-radius: var(--radius-pill);
-    padding: 6px 14px;
-    color: var(--text-muted);
-    font-size: 11px;
+    padding: 5px 12px;
+    color: var(--text-secondary);
+    font-size: 10.5px;
     cursor: pointer;
     white-space: nowrap;
 }
 
-.pill-btn:hover { background: rgba(0, 229, 255, 0.2); color: var(--text-main); }
+.pill-btn:hover { background: rgba(0, 229, 255, 0.18); color: #FFFFFF; }
 
-/* Table System */
-.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-.data-table th, .data-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--isro-border); }
-.data-table th { color: var(--text-muted); font-weight: 700; text-transform: uppercase; font-size: 11px; }
+/* Data Tables */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.data-table th, .data-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border-light); }
+.data-table th { color: var(--text-secondary); font-weight: 800; text-transform: uppercase; font-size: 10px; }
 
-.badge { padding: 4px 10px; border-radius: var(--radius-pill); font-size: 11px; font-weight: 800; }
+.badge { padding: 3px 8px; border-radius: var(--radius-pill); font-size: 10px; font-weight: 900; }
 .badge.low { background: rgba(0, 229, 255, 0.15); color: var(--isro-cyan); }
 .badge.medium { background: rgba(255, 153, 51, 0.15); color: var(--isro-saffron); }
 .badge.success { background: rgba(0, 230, 118, 0.15); color: var(--isro-green); }
 
-.sys-metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.sys-box { background: rgba(2, 8, 20, 0.5); border: 1px solid var(--isro-border); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 4px; }
-.sys-box .label { font-size: 11px; color: var(--text-muted); }
-.sys-box .val { font-size: 14px; font-weight: 800; color: var(--text-main); }
+.sys-metrics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.sys-box { background: rgba(1, 5, 14, 0.6); border: 1px solid var(--border-light); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 3px; }
+.sys-box .label { font-size: 10px; color: var(--text-secondary); }
+.sys-box .val { font-size: 13px; font-weight: 800; color: #FFFFFF; }
 .sys-box .val.green { color: var(--isro-green); }
 .sys-box .val.cyan { color: var(--isro-cyan); }
 .sys-box .val.purple { color: var(--isro-saffron); }
