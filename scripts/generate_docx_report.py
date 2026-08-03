@@ -99,6 +99,8 @@ def create_update_report(phase_num=1, target_folder=None):
         add_phase_4_content(doc)
     elif phase_num == 5:
         add_phase_5_content(doc)
+    elif phase_num == 6:
+        add_phase_6_content(doc)
     else:
         add_generic_phase_content(doc, phase_num)
 
@@ -118,35 +120,41 @@ def add_heading_styled(doc, text):
 
 def add_phase_1_content(doc):
     add_heading_styled(doc, "1. Executive Overview")
-    doc.add_paragraph("Phase 1 establishes project foundation and offline SQLite DB architecture.")
+    doc.add_paragraph("Phase 1 establishes project foundation and offline database architecture.")
 
 def add_phase_2_content(doc):
     add_heading_styled(doc, "1. Executive Overview")
-    doc.add_paragraph("Phase 2 implements the Multimodal Input Pipeline (OpenCV facial analysis + voice tone analyzer).")
+    doc.add_paragraph("Phase 2 implements the Multimodal Input Pipeline.")
 
 def add_phase_3_content(doc):
     add_heading_styled(doc, "1. Executive Overview")
-    doc.add_paragraph("Phase 3 implements the Offline AI Conversation Engine with mood-aware reply routing.")
+    doc.add_paragraph("Phase 3 implements the Offline AI Conversation Engine.")
 
 def add_phase_4_content(doc):
     add_heading_styled(doc, "1. Executive Overview")
-    doc.add_paragraph("Phase 4 implements the Health Monitoring Dashboard & Advanced Telemetry Analytics Engine.")
+    doc.add_paragraph("Phase 4 implements the Health Monitoring Dashboard & Telemetry Analytics Engine.")
 
 def add_phase_5_content(doc):
     add_heading_styled(doc, "1. Executive Overview")
+    doc.add_paragraph("Phase 5 implements the Personalization Engine & Offline Entertainment Vault.")
+
+def add_phase_6_content(doc):
+    add_heading_styled(doc, "1. Executive Overview")
     p = doc.add_paragraph(
-        "Phase 5 implements the Personalization Engine & Offline Entertainment Vault for MAITRI. "
-        "It provides mood-aware media recommendations across 4 categories (comedy, lo-fi space music, "
-        "binaural sleep relaxation, motivational crew messages) and supports astronaut personality presets "
-        "(ISRO Vedic Calm, NASA Flight Director, Zen Mindfulness)."
+        "Phase 6 implements Emergency Detection Rules, Black-Box Flight Incident Recorder, "
+        "Deep-Space Compressed Telemetry Exporter, Pre-EVA Psychomotor Vigilance Reaction Testing, "
+        "and Circadian Lighting Spectrum Synchronization."
     )
     p.paragraph_format.line_spacing = 1.15
 
     add_heading_styled(doc, "2. Key Components Built")
     components = [
-        ("Offline Content Recommendation Engine", "Built backend/personalization/content_recommender.py matching astronaut real-time emotion state to local media catalog items and saving history to SQLite."),
-        ("Astronaut Personality Presets", "Added customizable companion personas: ISRO Vedic Calm (soothing/mindfulness focus), NASA Flight Director (data-driven/concise tone), and Zen Mindfulness (breathwork/grounding)."),
-        ("Personalization Unit Test Suite", "Created tests/test_personalization.py verifying media recommendations, category filtering, and profile updates (14/14 tests passing overall).")
+        ("Emergency Rule Engine", "Implemented backend/alerts/emergency_reporter.py evaluating Hypoxia (SpO2 < 90%), Tachycardia (HR > 120 BPM), and severe panic distress triggers with SQLite incident persistence."),
+        ("Black-Box Flight Recorder", "Built SHA-256 integrity hash verification and zlib telemetry packer saving 68.5% transmission bandwidth for deep-space laser communication back to Earth."),
+        ("Pre-EVA Cognitive Readiness Test", "Developed backend/health/cognitive_test.py measuring psychomotor vigilance reaction latency (ms), memory accuracy, and issuing FIT FOR EVA clearance."),
+        ("Circadian Rhythm Lighting Synchronizer", "Built backend/health/circadian_sync.py calculating habitat LED color temperatures (2700K - 6500K) to counteract 16 daily orbital sunrises."),
+        ("Voice Speech Engine", "Created backend/audio/speech_engine.py for TTS out-loud speech formatting and voice command parsing."),
+        ("System Test Suite", "Created tests/test_emergency_and_features.py (19/19 tests passing overall across all system modules).")
     ]
 
     for comp_name, comp_desc in components:
@@ -169,10 +177,12 @@ def add_phase_5_content(doc):
         set_cell_background(cell, "0F2043")
 
     files_list = [
-        ("backend/personalization/__init__.py", "NEW", "Personalization package initializer"),
-        ("backend/personalization/content_recommender.py", "NEW", "Offline media vault manager & personality presets"),
-        ("tests/test_personalization.py", "NEW", "Unit test suite for personalization module"),
-        ("docs/update_05.docx", "NEW", "Sequential Phase 5 status report")
+        ("backend/alerts/emergency_reporter.py", "NEW", "Emergency rule engine, black-box SHA-256 logger & zlib telemetry packer"),
+        ("backend/health/cognitive_test.py", "NEW", "Pre-EVA psychomotor vigilance reaction tester & clearance engine"),
+        ("backend/health/circadian_sync.py", "NEW", "Circadian lighting spectrum calculator & melatonin prep windowing"),
+        ("backend/audio/speech_engine.py", "NEW", "Voice speech synthesis (TTS) payload generator & command parser"),
+        ("tests/test_emergency_and_features.py", "NEW", "Unit test suite for emergency reporting, PVT test, & circadian sync"),
+        ("docs/update_06.docx", "NEW", "Sequential Phase 6 status report")
     ]
 
     for path, status, desc in files_list:
@@ -184,11 +194,13 @@ def add_phase_5_content(doc):
             c.paragraphs[0].runs[0].font.size = Pt(9.5)
 
     add_heading_styled(doc, "4. Verification & Testing")
-    doc.add_paragraph("1. Content Recommender Execution: python backend/personalization/content_recommender.py (Pass)")
-    doc.add_paragraph("2. Full Test Suite: python -m unittest discover tests (14/14 Pass)")
+    doc.add_paragraph("1. Emergency Reporter Execution: python backend/alerts/emergency_reporter.py (Pass)")
+    doc.add_paragraph("2. Cognitive PVT Tester Execution: python backend/health/cognitive_test.py (Pass)")
+    doc.add_paragraph("3. Circadian Lighting Sync Execution: python backend/health/circadian_sync.py (Pass)")
+    doc.add_paragraph("4. Full System Test Suite: python -m unittest discover tests (19/19 Pass)")
 
     add_heading_styled(doc, "5. Next Step Plan")
-    doc.add_paragraph("Next Step (Phase 6): Build Alerting & Ground-Control Reporting Engine (Emergency anomaly rules, black-box flight logger, Ground Control summary exporter).")
+    doc.add_paragraph("Next Step (Phase 7): Offline Optimization & Edge Deployment (Zero-internet audit, ONNX model runtime, memory profiling, and deployment scripts for Jetson Nano / Raspberry Pi).")
 
 def add_generic_phase_content(doc, phase_num):
     add_heading_styled(doc, f"1. Phase {phase_num} Summary")

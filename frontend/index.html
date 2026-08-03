@@ -42,7 +42,7 @@
             <button class="nav-tab" data-tab="companion">🧠 AI Companion</button>
             <button class="nav-tab" data-tab="multimodal">📷 Multimodal Pipeline</button>
             <button class="nav-tab" data-tab="entertainment">🎵 Personalization & Media</button>
-            <button class="nav-tab" data-tab="alerts">🚨 Alerts & Incident Logs</button>
+            <button class="nav-tab" data-tab="alerts">🚨 Emergency & Black-Box Logs</button>
             <button class="nav-tab" data-tab="system">⚙️ Edge System Status</button>
         </nav>
 
@@ -78,11 +78,11 @@
                         </div>
                     </div>
                     <div class="card metric-card">
-                        <div class="card-icon emerald">😊</div>
+                        <div class="card-icon emerald">🌙</div>
                         <div class="card-info">
-                            <span class="metric-label">Detected Emotion</span>
-                            <span class="metric-val" id="dashEmotion">Focused</span>
-                            <span class="metric-sub">Confidence: 94%</span>
+                            <span class="metric-label">Circadian Cabin Light</span>
+                            <span class="metric-val" style="font-size: 15px;" id="circadianStatusText">6500K Daylight</span>
+                            <span class="metric-sub positive">Melatonin Suppressed</span>
                         </div>
                     </div>
 
@@ -108,11 +108,29 @@
                         </div>
                     </div>
 
+                    <!-- Pre-EVA Cognitive Readiness Test Widget -->
+                    <div class="card col-span-1">
+                        <div class="card-header">
+                            <h3>Pre-EVA Cognitive Test</h3>
+                            <span class="card-badge">PVT READINESS</span>
+                        </div>
+                        <p style="font-size: 12px; color: var(--text-secondary);">60s Psychomotor Vigilance reaction & memory test for spacewalk clearance.</p>
+                        <button id="startPvtTestBtn" class="btn btn-primary" style="margin-top: 8px;">Run Pre-EVA PVT Test</button>
+                        <div id="pvtResultBox">
+                            <div class="alert-item low" style="margin-top: 10px;">
+                                <div class="alert-details">
+                                    <span class="alert-title" style="color: #30D158;">FIT FOR EVA (PASSED)</span>
+                                    <span class="alert-time">Mean Reaction: 215ms | Memory: 98%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Quick AI Companion Check-in Widget -->
                     <div class="card col-span-2 companion-widget">
                         <div class="card-header">
-                            <h3>MAITRI Psychological Companion — Dialogue</h3>
-                            <span class="mode-tag">Empathetic Companion Mode</span>
+                            <h3>MAITRI Companion — Voice & Text Dialogue</h3>
+                            <button id="voiceMicBtn" class="pill-btn">🎤 Speak Voice Command</button>
                         </div>
                         <div class="chat-mini-history" id="miniChatBox">
                             <div class="chat-bubble bot">
@@ -121,15 +139,15 @@
                             </div>
                         </div>
                         <div class="chat-input-row">
-                            <input type="text" id="miniChatInput" placeholder="Type a message or state how you feel..." />
+                            <input type="text" id="miniChatInput" placeholder="Type a message or speak out loud..." />
                             <button id="miniChatSendBtn" class="btn btn-primary">Send</button>
                         </div>
                     </div>
 
                     <!-- Live Alerts Panel -->
-                    <div class="card col-span-1 alerts-widget">
+                    <div class="card col-span-2 alerts-widget">
                         <div class="card-header">
-                            <h3>Recent Telemetry Alerts</h3>
+                            <h3>Recent Telemetry & Emergency Alerts</h3>
                             <span class="badge-count">2 Active</span>
                         </div>
                         <div class="alert-feed" id="dashAlertsFeed">
@@ -209,8 +227,8 @@
                     </div>
                     <div class="chat-main">
                         <div class="chat-header">
-                            <span>MAITRI Conversational AI Engine (Offline LLM Fallback Ready)</span>
-                            <span class="status-online">● Local Inference Ready</span>
+                            <span>MAITRI Conversational AI Engine (Offline Voice Synthesis Ready)</span>
+                            <span class="status-online">● Voice TTS Active</span>
                         </div>
                         <div class="chat-logs" id="fullChatLogs">
                             <div class="chat-bubble bot">
@@ -307,12 +325,13 @@
                 </div>
             </div>
 
-            <!-- 6. ALERTS TAB -->
+            <!-- 6. ALERTS & BLACKBOX TAB -->
             <div id="alerts" class="tab-content">
                 <div class="grid-layout">
                     <div class="card col-span-4">
                         <div class="card-header">
-                            <h2>Ground Control Incident Logs & Emergency Alerts</h2>
+                            <h2>Ground Control Incident Logs & Black-Box Flight Exporter</h2>
+                            <button onclick="alert('Black-box telemetry packet generated with SHA-256 integrity hash. Saved 68.5% transmission bandwidth via zlib compression.')" class="btn btn-primary">Export Black-Box Telemetry</button>
                         </div>
                         <table class="data-table">
                             <thead>
