@@ -1,15 +1,14 @@
 /* ==========================================================================
-   ISRO GAGANYAAN MAITRI MISSION CONTROL — EPIC 3-STAGE BOOT & DESIGN SYSTEM
-   Stage 1: Pitch Black ASCII Art Terminal Typing
-   Stage 2: Animated Rocket Buffering Launch with Exhaust Particles
-   Stage 3: Unlock into ISRO Gaganyaan Mission Control Command Center
+   ISRO GAGANYAAN MAITRI — MULTI-PAGE ROUTING & COMMAND CENTER UI
+   Page 1 (index.html): Interactive Landing Portal with Logo Click-to-Launch Rocket Animation
+   Page 2 (dashboard.html): Full ISRO Gaganyaan Mission Control & Offline AI Assistant
    ========================================================================== */
 
 :root {
     --isro-navy-dark: #020712;
     --isro-navy-card: rgba(7, 19, 43, 0.75);
     --isro-saffron: #FF9933;
-    --isro-saffron-glow: rgba(255, 153, 51, 0.5);
+    --isro-saffron-glow: rgba(255, 153, 51, 0.6);
     --isro-blue: #00A3E0;
     --isro-cyan: #00E5FF;
     --isro-green: #00E676;
@@ -32,7 +31,7 @@
     --shadow-glow: 0 16px 50px -10px rgba(0, 229, 255, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
-/* Reset & Setup */
+/* Reset & Cosmic Background Setup */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -76,178 +75,162 @@ body {
 }
 
 /* ==========================================================================
-   EPIC 3-STAGE BOOT OVERLAY SYSTEM
+   PAGE ROUTE 1: LANDING PORTAL & INTERACTIVE ROCKET LAUNCH
    ========================================================================== */
-.epic-boot-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #000000;
-    z-index: 99999;
+.landing-page {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
+    min-height: 100vh;
 }
 
-.epic-boot-overlay.hidden {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.boot-stage {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.boot-stage.active {
-    display: flex;
-    opacity: 1;
-}
-
-/* STAGE 1: ASCII ART TERMINAL */
-.ascii-terminal-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-}
-
-.ascii-terminal-output {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    color: var(--isro-saffron);
-    text-shadow: 0 0 12px var(--isro-saffron-glow);
-    white-space: pre;
-    line-height: 1.25;
-    text-align: center;
-}
-
-.terminal-status-line {
-    font-family: var(--font-mono);
-    font-size: 14px;
-    color: var(--isro-cyan);
-    letter-spacing: 2px;
-}
-
-.terminal-cursor {
-    display: inline-block;
-    width: 10px;
-    height: 16px;
-    background: var(--isro-cyan);
-    animation: blinkCursor 0.8s infinite;
-}
-
-@keyframes blinkCursor {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-/* STAGE 2: ROCKET BUFFERING LAUNCH */
-.rocket-launch-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-}
-
-.rocket-wrapper {
+.landing-portal-container {
     position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: rocketFloat 1.2s infinite ease-in-out alternate;
+    justify-content: center;
+    gap: 32px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-@keyframes rocketFloat {
-    0% { transform: translateY(0px); }
-    100% { transform: translateY(-12px); }
+.isro-portal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
-.rocket-icon {
-    font-size: 80px;
-    filter: drop-shadow(0 0 25px rgba(255, 153, 51, 0.8));
-    transform: rotate(-45deg);
+.portal-badge {
+    background: rgba(255, 153, 51, 0.15);
+    border: 1px solid var(--isro-saffron);
+    border-radius: var(--radius-pill);
+    padding: 6px 18px;
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--isro-saffron);
+    letter-spacing: 1.5px;
+    box-shadow: 0 0 15px rgba(255, 153, 51, 0.3);
 }
 
-.exhaust-flame {
-    width: 24px;
-    height: 60px;
-    background: linear-gradient(180deg, var(--isro-saffron) 0%, #FF1744 60%, transparent 100%);
-    border-radius: 50%;
-    filter: blur(4px);
-    box-shadow: 0 0 30px var(--isro-saffron);
-    animation: flameFlicker 0.15s infinite alternate;
-}
-
-@keyframes flameFlicker {
-    0% { transform: scaleY(1) scaleX(1); opacity: 0.9; }
-    100% { transform: scaleY(1.3) scaleX(0.85); opacity: 1; }
-}
-
-.stage2-title {
-    font-size: 22px;
+.portal-title {
+    font-size: 32px;
     font-weight: 900;
     letter-spacing: 2px;
-    background: linear-gradient(135deg, var(--isro-saffron) 0%, #FFFFFF 50%, var(--isro-cyan) 100%);
+    background: linear-gradient(135deg, var(--isro-saffron) 0%, #FFFFFF 50%, var(--isro-blue) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.rocket-progress-box {
-    width: 380px;
-    height: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-pill);
-    overflow: hidden;
-    border: 1px solid var(--border-light);
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+.portal-subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
 }
 
-.rocket-progress-fill {
-    width: 0%;
+/* Interactive Clickable ISRO Logo & Launch Engine */
+.isro-interactive-logo-wrapper {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.isro-interactive-logo-wrapper:hover {
+    transform: scale(1.08);
+}
+
+.logo-glow-ring {
+    position: absolute;
+    width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, var(--isro-saffron), var(--isro-cyan));
-    box-shadow: 0 0 15px var(--isro-cyan);
-    transition: width 0.05s linear;
+    border-radius: 50%;
+    border: 2px dashed var(--isro-saffron);
+    box-shadow: 0 0 35px var(--isro-saffron-glow);
+    animation: ringRotate 8s linear infinite;
 }
 
-.rocket-telemetry-text {
-    font-family: var(--font-mono);
+@keyframes ringRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.isro-landing-logo-svg {
+    width: 150px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(255, 153, 51, 0.5));
+    transition: transform 0.3s ease;
+}
+
+.logo-rocket-body {
+    transition: transform 1.2s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.8s ease;
+}
+
+/* ROCKET LAUNCH ANIMATION TRIGGER */
+.isro-interactive-logo-wrapper.launching .logo-rocket-body {
+    transform: translateY(-600px) scale(0.4);
+    opacity: 0;
+}
+
+.rocket-thruster-flame {
+    display: none;
+    position: absolute;
+    bottom: 20px;
+    width: 30px;
+    height: 90px;
+    background: linear-gradient(180deg, var(--isro-saffron) 0%, var(--isro-red) 60%, transparent 100%);
+    border-radius: 50%;
+    filter: blur(4px);
+    box-shadow: 0 0 40px var(--isro-saffron);
+}
+
+.rocket-thruster-flame.active {
+    display: block;
+    animation: rocketThrusterBlast 1.5s ease-out forwards;
+}
+
+@keyframes rocketThrusterBlast {
+    0% { transform: translateY(0px) scaleY(0.5); opacity: 1; }
+    100% { transform: translateY(-600px) scaleY(2.5); opacity: 0; }
+}
+
+.launch-prompt-box {
+    background: rgba(7, 19, 43, 0.8);
+    border: 1px solid var(--border-highlight);
+    border-radius: var(--radius-pill);
+    padding: 12px 28px;
+    box-shadow: var(--shadow-glow);
+    animation: promptPulse 2s infinite ease-in-out alternate;
+}
+
+@keyframes promptPulse {
+    0% { transform: scale(0.98); box-shadow: 0 0 15px rgba(255, 153, 51, 0.3); }
+    100% { transform: scale(1.02); box-shadow: 0 0 30px rgba(255, 153, 51, 0.7); }
+}
+
+.prompt-text {
     font-size: 13px;
+    font-weight: 900;
+    color: var(--isro-saffron);
+    letter-spacing: 1px;
+}
+
+.launch-telemetry-status {
+    font-family: var(--font-mono);
+    font-size: 12px;
     color: var(--isro-cyan);
     letter-spacing: 1px;
 }
 
-.skip-intro-btn {
-    position: absolute;
-    bottom: 30px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid var(--border-light);
-    border-radius: var(--radius-pill);
-    padding: 8px 20px;
-    color: var(--text-secondary);
-    font-size: 11px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.skip-intro-btn:hover {
-    color: #FFFFFF;
-    background: rgba(255, 153, 51, 0.2);
-}
-
 /* ==========================================================================
-   HEADER & STYLES
+   PAGE ROUTE 2: MISSION CONTROL DASHBOARD UI
    ========================================================================== */
 .header {
     background: var(--isro-navy-card);
@@ -264,7 +247,8 @@ body {
 
 .header-left { display: flex; align-items: center; gap: 16px; }
 .header-logo-container { display: flex; align-items: center; gap: 12px; }
-.isro-header-logo { height: 38px; width: auto; filter: drop-shadow(0 0 8px rgba(255, 153, 51, 0.4)); }
+.isro-header-logo { height: 38px; width: auto; filter: drop-shadow(0 0 8px rgba(255, 153, 51, 0.4)); transition: transform 0.2s ease; }
+.isro-header-logo:hover { transform: scale(1.1); }
 .brand-text-group { display: flex; flex-direction: column; }
 .isro-title-main { font-size: 17px; font-weight: 900; letter-spacing: 1px; color: #FFFFFF; }
 .isro-sub-label { font-size: 10px; font-weight: 700; color: var(--isro-saffron); letter-spacing: 1.5px; text-transform: uppercase; }
