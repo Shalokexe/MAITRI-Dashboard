@@ -11,29 +11,34 @@
 </head>
 <body class="dark-mode">
 
-    <!-- Official ISRO Boot Splash Intro Overlay -->
-    <div id="isroBootSplash" class="boot-splash-overlay">
-        <!-- Official ISRO Emblem SVG -->
-        <svg class="isro-logo-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Orange Rocket Plume / Satellite Wing -->
-            <path d="M100 10 L140 120 L100 95 L60 120 Z" fill="#FF9933" />
-            <path d="M100 10 L160 135 L100 110 L40 135 Z" fill="url(#isroGlow)" opacity="0.6" />
-            <!-- Blue Wing Panel -->
-            <path d="M30 75 L170 75 L100 30 Z" fill="#00A3E0" opacity="0.85" />
-            <!-- ISRO Emblem Arc -->
-            <path d="M20 120 Q100 155 180 120" stroke="#FF9933" stroke-width="6" fill="none" stroke-linecap="round" />
-            <defs>
-                <linearGradient id="isroGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#FF9933" />
-                    <stop offset="100%" stop-color="#00E5FF" />
-                </linearGradient>
-            </defs>
-        </svg>
-        <h1 class="boot-title">INDIAN SPACE RESEARCH ORGANISATION</h1>
-        <div class="boot-subtext" id="bootProgressText">INITIALIZING GAGANYAAN MAITRI AIR-GAP CORE...</div>
-        <div class="boot-progress-bar-container">
-            <div class="boot-progress-bar" id="bootProgressBar"></div>
+    <!-- EPIC 3-STAGE BOOT OVERLAY SYSTEM -->
+    <div id="epicBootOverlay" class="epic-boot-overlay">
+        <!-- STAGE 1: Pitch Black ASCII Art Terminal Typing -->
+        <div id="bootStage1" class="boot-stage active">
+            <div class="ascii-terminal-container">
+                <pre class="ascii-terminal-output" id="asciiTerminalOutput"></pre>
+                <div class="terminal-status-line">
+                    ISRO GAGANYAAN CORE INITIATING <span class="terminal-cursor"></span>
+                </div>
+            </div>
         </div>
+
+        <!-- STAGE 2: Animated Rocket Buffering Launch -->
+        <div id="bootStage2" class="boot-stage">
+            <div class="rocket-launch-container">
+                <div class="rocket-wrapper">
+                    <div class="rocket-icon">🚀</div>
+                    <div class="exhaust-flame"></div>
+                </div>
+                <h2 class="stage2-title">ISRO GAGANYAAN LMV3 ORBITAL INJECTION</h2>
+                <div class="rocket-progress-box">
+                    <div class="rocket-progress-fill" id="rocketProgressFill"></div>
+                </div>
+                <div class="rocket-telemetry-text" id="rocketTelemetryText">IGNITION SEQUENCE START... FLIGHT NOMINAL</div>
+            </div>
+        </div>
+
+        <button id="skipIntroBtn" class="skip-intro-btn">SKIP INTRO [ESC]</button>
     </div>
 
     <!-- Cosmic Starfield Background Canvas -->

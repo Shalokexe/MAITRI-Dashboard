@@ -1,10 +1,12 @@
 /**
- * ISRO GAGANYAAN MAITRI — Mission Control & Offline Assistant JavaScript Controller
- * Dynamic Starfield Background, Boot Splash Overlay, Telemetry Pulse, & Voice Synthesis.
+ * ISRO GAGANYAAN MAITRI — EPIC 3-STAGE BOOT & MISSION CONTROL CONTROLLER
+ * Stage 1: Pitch Black ASCII Art Terminal Typing
+ * Stage 2: Animated Rocket Buffering Launch with Telemetry Progress
+ * Stage 3: Unlock into ISRO Gaganyaan Mission Control Command Center
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    initBootSplash();
+    init3StageBoot();
     initStarfield();
     initClock();
     initTabs();
@@ -16,40 +18,81 @@ document.addEventListener('DOMContentLoaded', () => {
     initSpeechSynthesis();
 });
 
-// 1. ISRO Boot Splash Overlay Sequence
-function initBootSplash() {
-    const splash = document.getElementById('isroBootSplash');
-    const bar = document.getElementById('bootProgressBar');
-    const text = document.getElementById('bootProgressText');
-    if (!splash || !bar) return;
+// 1. EPIC 3-STAGE BOOT CONTROLLER
+function init3StageBoot() {
+    const bootOverlay = document.getElementById('epicBootOverlay');
+    const stage1 = document.getElementById('bootStage1');
+    const stage2 = document.getElementById('bootStage2');
+    const asciiOutput = document.getElementById('asciiTerminalOutput');
+    const rocketBar = document.getElementById('rocketProgressFill');
+    const rocketText = document.getElementById('rocketTelemetryText');
+    const skipBtn = document.getElementById('skipIntroBtn');
 
-    const stages = [
-        "INITIALIZING ISRO GAGANYAAN CORE...",
-        "LOADING OPENCV MULTIMODAL VISION ENGINE...",
-        "AUTHENTICATING SQLITE AIR-GAP DATABASE...",
-        "VERIFYING PRE-EVA COGNITIVE READINESS MODULES...",
-        "SYSTEMS NOMINAL — LAUNCHING MISSION CONTROL"
+    if (!bootOverlay || !stage1 || !stage2) return;
+
+    // Skip Intro Handler
+    function skipIntro() {
+        bootOverlay.classList.add('hidden');
+    }
+    if (skipBtn) skipBtn.addEventListener('click', skipIntro);
+
+    const asciiLines = [
+        "   ██████╗  █████╗  ██████╗  █████╗ ███╗   ██╗██╗   ██╗ █████╗  █████╗ ███╗   ██╗",
+        "  ██╔════╝ ██╔══██╗██╔════╝ ██╔══██╗████╗  ██║╚██╗ ██╔╝██╔══██╗██╔══██╗████╗  ██║",
+        "  ██║  ███╗███████║██║  ███╗███████║██╔██╗ ██║ ╚████╔╝ ███████║███████║██╔██╗ ██║",
+        "  ██║   ██║██╔══██║██║   ██║██╔══██║██║╚██╗██║  ╚██╔╝  ██╔══██║██╔══██║██║╚██╗██║",
+        "  ╚██████╔╝██║  ██║╚██████╔╝██║  ██║██║ ╚████║   ██║   ██║  ██║██║  ██║██║ ╚████║",
+        "   ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝",
+        "                [ ISRO AIR-GAPPED MAITRI MULTIMODAL AI CORE v1.0 ]"
     ];
 
-    let progress = 0;
-    let stageIdx = 0;
-
-    const interval = setInterval(() => {
-        progress += 4;
-        bar.style.width = progress + '%';
-
-        if (progress % 20 === 0 && stageIdx < stages.length) {
-            if (text) text.textContent = stages[stageIdx];
-            stageIdx++;
+    // STAGE 1: ASCII Art Typing Sequence
+    let lineIdx = 0;
+    const typeInterval = setInterval(() => {
+        if (lineIdx < asciiLines.length) {
+            asciiOutput.textContent += asciiLines[lineIdx] + "\n";
+            lineIdx++;
+        } else {
+            clearInterval(typeInterval);
+            // Transition to STAGE 2 after 1.2s
+            setTimeout(startStage2, 1200);
         }
+    }, 180);
 
-        if (progress >= 100) {
-            clearInterval(interval);
-            setTimeout(() => {
-                splash.classList.add('hidden');
-            }, 400);
-        }
-    }, 40);
+    // STAGE 2: Rocket Launch Buffering Loader Sequence
+    function startStage2() {
+        stage1.classList.remove('active');
+        stage2.classList.add('active');
+
+        const telemetrySteps = [
+            "IGNITION SEQUENCE START... LMV3 ROCKET FLIGHT NOMINAL",
+            "CALCULATING ORBITAL INJECTION VELOCITY: 7.66 KM/S...",
+            "LOADING OPENCV MULTIMODAL FACIAL VISION PIPELINE...",
+            "AUTHENTICATING SQLITE AIR-GAPPED TELEMETRY DATABASE...",
+            "VERIFYING PRE-EVA PSYCHOMOTOR VIGILANCE MODULES...",
+            "ISRO MAITRI SYSTEMS 100% NOMINAL — UNLOCKING MISSION CONTROL"
+        ];
+
+        let progress = 0;
+        let stepIdx = 0;
+
+        const rocketInterval = setInterval(() => {
+            progress += 2.5;
+            if (rocketBar) rocketBar.style.width = progress + '%';
+
+            if (progress % 16 === 0 && stepIdx < telemetrySteps.length) {
+                if (rocketText) rocketText.textContent = telemetrySteps[stepIdx];
+                stepIdx++;
+            }
+
+            if (progress >= 100) {
+                clearInterval(rocketInterval);
+                setTimeout(() => {
+                    bootOverlay.classList.add('hidden');
+                }, 500);
+            }
+        }, 40);
+    }
 }
 
 // 2. Cosmic Starfield Background Canvas
@@ -155,7 +198,7 @@ function initCharts() {
                     {
                         label: 'Stress Index (0-100)',
                         data: [15, 20, 18, 35, 42, 28, 22, 20, 24],
-                        borderColor: '#D500F9',
+                        borderColor: '#FFD700',
                         borderWidth: 2,
                         borderDash: [4, 4],
                         tension: 0.4
@@ -166,11 +209,11 @@ function initCharts() {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { labels: { color: '#849BBE', font: { family: '-apple-system', weight: 'bold' } } }
+                    legend: { labels: { color: '#94A3B8', font: { family: '-apple-system', weight: 'bold' } } }
                 },
                 scales: {
-                    x: { ticks: { color: '#849BBE' }, grid: { color: 'rgba(255,255,255,0.06)' } },
-                    y: { ticks: { color: '#849BBE' }, grid: { color: 'rgba(255,255,255,0.06)' } }
+                    x: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.06)' } },
+                    y: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(255,255,255,0.06)' } }
                 }
             }
         });
@@ -184,7 +227,7 @@ function initCharts() {
                 labels: ['Focused', 'Calm', 'Elevated Stress', 'Fatigue'],
                 datasets: [{
                     data: [60, 25, 10, 5],
-                    backgroundColor: ['#00E676', '#00E5FF', '#FF9933', '#D500F9'],
+                    backgroundColor: ['#00E676', '#00E5FF', '#FF9933', '#FFD700'],
                     borderWidth: 0
                 }]
             },
@@ -192,7 +235,7 @@ function initCharts() {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom', labels: { color: '#849BBE' } }
+                    legend: { position: 'bottom', labels: { color: '#94A3B8' } }
                 }
             }
         });
@@ -226,11 +269,11 @@ function initCharts() {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { labels: { color: '#849BBE' } }
+                    legend: { labels: { color: '#94A3B8' } }
                 },
                 scales: {
-                    x: { stacked: true, ticks: { color: '#849BBE' } },
-                    y: { stacked: true, ticks: { color: '#849BBE' } }
+                    x: { stacked: true, ticks: { color: '#94A3B8' } },
+                    y: { stacked: true, ticks: { color: '#94A3B8' } }
                 }
             }
         });
