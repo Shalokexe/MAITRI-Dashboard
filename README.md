@@ -15,12 +15,12 @@
 **ISRO Gaganyaan & NASA Artemis Deep-Space Command Center Architecture**
 
 [![Offline Air-Gap](https://img.shields.io/badge/Air--Gap%20Certified-100%25%20Offline-brightgreen.svg?style=for-the-badge&logo=shield)]()
-[![Version](https://img.shields.io/badge/Release-v2.1.0%20Phase%209-gold.svg?style=for-the-badge)]()
+[![Version](https://img.shields.io/badge/Release-v2.2.0%20Phase%2010-gold.svg?style=for-the-badge)]()
 [![Qwen LLM](https://img.shields.io/badge/Qwen%20LLM-Local%20Ollama%20%2F%20llama.cpp-orange.svg?style=for-the-badge)]()
 [![Python](https://img.shields.io/badge/Python-3.12%2B-blue.svg?style=for-the-badge&logo=python)]()
 [![OpenCV](https://img.shields.io/badge/OpenCV-Facial%20HUD-red.svg?style=for-the-badge&logo=opencv)]()
 [![SQLite](https://img.shields.io/badge/SQLite-Local%20DB-003B57.svg?style=for-the-badge&logo=sqlite)]()
-[![Tests](https://img.shields.io/badge/Unit%20Tests-26%2F26%20Passed-green.svg?style=for-the-badge)]()
+[![Tests](https://img.shields.io/badge/Unit%20Tests-30%2F30%20Passed-green.svg?style=for-the-badge)]()
 
 [Architecture](#-system-architecture) • [Features](#-key-capabilities) • [Local Qwen LLM](#-downloadable-local-qwen-offline-model) • [Quick Start](#-quick-start--local-execution) • [DOCX Reports](#-sequential-docx-progress-reports)
 
@@ -29,7 +29,7 @@
 </div>
 
 > [!IMPORTANT]
-> **100% Zero-Internet Air-Gap Guarantee**: MAITRI is engineered from the ground up to operate completely without internet connectivity. All facial analysis, voice tone stress evaluation, physiological telemetry processing, downloadable local Qwen LLM dialogue, biofeedback respiration AR, pre-EVA cognitive testing, and SQLite database storage execute locally on edge hardware.
+> **100% Zero-Internet Air-Gap Guarantee**: MAITRI is engineered from the ground up to operate completely without internet connectivity. All facial analysis, voice tone stress evaluation, physiological telemetry processing, downloadable local Qwen LLM dialogue, biofeedback respiration AR, space mini-games, pre-EVA cognitive testing, and SQLite database storage execute locally on edge hardware.
 
 ---
 
@@ -50,59 +50,41 @@
                                              |
                                              v
                   +-------------------------------------------------------+
-                  |          backend/ai_engine/local_llm.py              |
-                  |     Downloadable Offline Qwen LLM (Ollama/llama.cpp)  |
+                  |       backend/vision/activity_suggester.py           |
+                  |     OpenCV Mood Recognition & Task Recommender       |
                   +--------------------------+----------------------------+
                                              |
          +-----------------------------------+-----------------------------------+
          |                                   |                                   |
          v                                   v                                   v
-[🧘 Bio-Pulse AR Coach]             [🧠 Offline AI Companion]          [📊 ISRO Mission Control]
-4-7-8 Breathing Sphere              Voice TTS Out-Loud Dialogue        Telemetry Ticker & Charts
+[🎮 Space Games Suite]              [🧘 Bio-Pulse AR Coach]             [🧠 Local Qwen LLM Engine]
+Reflex & Docking Sims               4-7-8 Breathing Sphere              Zero-Internet Dialogue
 ```
 
 ---
 
 ## ✨ Key Capabilities
 
-### 🤖 1. Downloadable Local Qwen Offline LLM Engine (`backend/ai_engine/local_llm.py`)
-- Bridges **Qwen-2 0.5B / 1.5B / 7B GGUF models** running locally via Ollama (`http://localhost:11434`) or llama.cpp (`http://localhost:8080`).
-- **Zero-Network Fallback Engine**: If no local LLM daemon is running, MAITRI seamlessly uses its embedded zero-delay edge rule engine.
+### 🎮 1. Space Mini-Games Suite & OpenCV Mood Activity Recommender (`backend/vision/activity_suggester.py`)
+- Analyzes real-time astronaut facial expressions (Happy, Calm, Stressed, Fatigued, Anxious, Bored) from the OpenCV vision stream.
+- Recommends tailored tasks, therapeutic activities, and interactive space mini-games:
+  - **🎮 Space Reaction Reflex Challenge**: Solar flare target reflex game measuring zero-g hand-eye coordination speed in milliseconds.
+  - **🚀 Gaganyaan Shuttle Docking Simulator**: Thruster vector alignment docking game.
 
-### 🧘 2. Gaganyaan Bio-Pulse AR Respiration Coach (`backend/health/biofeedback_coach.py`)
+### 🤖 2. Downloadable Local Qwen Offline LLM Engine (`backend/ai_engine/local_llm.py`)
+- Bridges **Qwen-2 0.5B / 1.5B / 7B GGUF models** running locally via Ollama (`http://localhost:11434`) or llama.cpp (`http://localhost:8080`).
+
+### 🧘 3. Gaganyaan Bio-Pulse AR Respiration Coach (`backend/health/biofeedback_coach.py`)
 - Computes **Heart Rate Variability (HRV RMSSD)** and **Autonomic Coherence Scores ($0\% \rightarrow 100\%$)**.
 - Interactive **Canvas 3D AR Pulse Sphere** with real-time Inhale, Hold, and Exhale voice out-loud audio guidance.
 
-### 🚀 3. Interactive ISRO Logo Rocket Launch Routing (`index.html` -> `dashboard.html`)
+### 🚀 4. Interactive ISRO Logo Rocket Launch Routing (`index.html` -> `dashboard.html`)
 - Entrance portal features an interactive **ISRO Vector Emblem**.
 - Clicking the emblem ignites thruster flames, synthesizes rocket audio, and launches the rocket into space to land on the Mission Control Dashboard!
 
-### 🚨 4. SHA-256 Black-Box Logger & Telemetry Compressor (`backend/alerts/emergency_reporter.py`)
+### 🚨 5. SHA-256 Black-Box Logger & Telemetry Compressor (`backend/alerts/emergency_reporter.py`)
 - Evaluates Hypoxia ($SpO_2 < 90\%$) and Tachycardia ($HR > 120$ BPM) triggers.
 - Generates SHA-256 integrity hashed black-box telemetry packets and zlib compression saving 68.5% transmission bandwidth.
-
-### 🧠 5. Pre-EVA Psychomotor Vigilance Reaction Test (`backend/health/cognitive_test.py`)
-- 60s reaction speed and memory recall testing to generate `FIT FOR EVA` clearance badges.
-
----
-
-## 🤖 Downloadable Local Qwen Offline Model Setup
-
-To run MAITRI with a local downloadable LLM:
-
-1. **Install Ollama** (or llama.cpp):
-   ```bash
-   # Download Ollama from https://ollama.com
-   ollama pull qwen2:1.5b
-   ```
-
-2. **Launch Qwen locally**:
-   ```bash
-   ollama run qwen2:1.5b
-   ```
-
-3. **Start MAITRI**:
-   MAITRI will automatically detect your local Qwen model on `http://localhost:11434` and route all AI companion dialogues through Qwen in 100% offline air-gapped mode!
 
 ---
 
@@ -114,7 +96,7 @@ python -m http.server 8080
 ```
 Open **[http://localhost:8080](http://localhost:8080)** in your browser!
 
-### 2. Run All 26 Unit Tests
+### 2. Run All 30 Unit Tests
 ```bash
 python -m unittest discover tests
 ```
@@ -128,7 +110,7 @@ python scripts/audit_offline_integrity.py
 
 ## 📄 Sequential DOCX Progress Reports
 
-The repository contains 9 Word (`.docx`) progress reports generated automatically in `docs/`:
+The repository contains 10 Word (`.docx`) progress reports generated automatically in `docs/`:
 
 | Report File | Phase & Scope | Status |
 | :--- | :--- | :--- |
@@ -141,6 +123,7 @@ The repository contains 9 Word (`.docx`) progress reports generated automaticall
 | `docs/update_07.docx` | Phase 7: Zero-Internet Air-Gap Audit & Edge Deployment | ✅ Verified |
 | `docs/update_08.docx` | Phase 8: Bio-Pulse AR Coach & HRV Coherence Engine | ✅ Verified |
 | `docs/update_09.docx` | Phase 9: Local Downloadable Qwen Offline LLM Integration | ✅ Verified |
+| `docs/update_10.docx` | Phase 10: Space Mini-Games Suite & OpenCV Mood Activity Recommender | ✅ Verified |
 
 ---
 

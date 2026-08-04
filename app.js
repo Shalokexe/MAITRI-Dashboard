@@ -4,6 +4,7 @@
  * Stage 2: Animated Rocket Buffering Launch with Telemetry Progress
  * Stage 3: Unlock into ISRO Gaganyaan Mission Control Command Center
  * Phase 8: Bio-Pulse AR Respiration Sphere & HRV Coherence Visualizer
+ * Phase 10: Space Mini-Games Suite & OpenCV Mood Activity Recommender
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initCircadianLighting();
     initSpeechSynthesis();
     initBioPulseCanvas();
+    initSpaceGames();
 });
 
 // 1. Cosmic Starfield Background Canvas
@@ -62,7 +64,139 @@ function initStarfield() {
     draw();
 }
 
-// 2. PHASE 8: BIO-PULSE AR RESPIRED COHERENCE SPHERE CANVAS
+// 2. PHASE 10: SPACE MINI-GAMES SUITE
+function initSpaceGames() {
+    // A. Space Reaction Reflex Challenge
+    const reflexCanvas = document.getElementById('reflexGameCanvas');
+    const reflexScoreEl = document.getElementById('reflexScore');
+    const startReflexBtn = document.getElementById('startReflexGameBtn');
+
+    if (reflexCanvas) {
+        const ctx = reflexCanvas.getContext('2d');
+        let score = 0;
+        let isGameRunning = false;
+        let targetX = 200, targetY = 130, targetRadius = 25;
+        let spawnTime = Date.now();
+
+        function spawnTarget() {
+            targetX = Math.random() * (reflexCanvas.width - 80) + 40;
+            targetY = Math.random() * (reflexCanvas.height - 80) + 40;
+            spawnTime = Date.now();
+        }
+
+        function drawReflex() {
+            ctx.fillStyle = '#010614';
+            ctx.fillRect(0, 0, reflexCanvas.width, reflexCanvas.height);
+
+            if (isGameRunning) {
+                // Target Solar Flare
+                ctx.fillStyle = '#FF9933';
+                ctx.shadowColor = '#00E5FF';
+                ctx.shadowBlur = 20;
+                ctx.beginPath();
+                ctx.arc(targetX, targetY, targetRadius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = '900 11px -apple-system, monospace';
+                ctx.fillText('TARGET', targetX - 22, targetY + 4);
+                requestAnimationFrame(drawReflex);
+            } else {
+                ctx.fillStyle = '#94A3B8';
+                ctx.font = '800 14px -apple-system, sans-serif';
+                ctx.fillText('CLICK "START REFLEX GAME" TO TEST ZERO-G REACTION SPEED', 30, reflexCanvas.height / 2);
+            }
+        }
+
+        reflexCanvas.addEventListener('click', (e) => {
+            if (!isGameRunning) return;
+            const rect = reflexCanvas.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const clickY = e.clientY - rect.top;
+
+            const dist = Math.hypot(clickX - targetX, clickY - targetY);
+            if (dist <= targetRadius) {
+                const rxTime = Date.now() - spawnTime;
+                score += 100;
+                if (reflexScoreEl) reflexScoreEl.textContent = `Score: ${score} (${rxTime}ms)`;
+                spawnTarget();
+            }
+        });
+
+        if (startReflexBtn) {
+            startReflexBtn.addEventListener('click', () => {
+                score = 0;
+                isGameRunning = true;
+                if (reflexScoreEl) reflexScoreEl.textContent = 'Score: 0';
+                spawnTarget();
+                drawReflex();
+            });
+        }
+        drawReflex();
+    }
+
+    // B. Gaganyaan Shuttle Docking Thruster Simulator
+    const dockCanvas = document.getElementById('dockingGameCanvas');
+    const dockStatusEl = document.getElementById('dockingStatus');
+    const startDockBtn = document.getElementById('startDockingGameBtn');
+
+    if (dockCanvas) {
+        const ctx = dockCanvas.getContext('2d');
+        let isDocking = false;
+        let shuttleX = 60, shuttleY = 130;
+        let distance = 100;
+
+        function drawDocking() {
+            ctx.fillStyle = '#010614';
+            ctx.fillRect(0, 0, dockCanvas.width, dockCanvas.height);
+
+            // Target Space Station Docking Ring
+            const ringX = 400, ringY = 130;
+            ctx.strokeStyle = '#00E5FF';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.arc(ringX, ringY, 35, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Shuttle LMV3 Icon
+            ctx.fillStyle = '#FF9933';
+            ctx.beginPath();
+            ctx.arc(shuttleX, shuttleY, 15, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (isDocking) {
+                shuttleX += 1.5;
+                distance = Math.max(0, Math.round(100 - (shuttleX / ringX) * 100));
+                if (dockStatusEl) dockStatusEl.textContent = `Distance: ${distance}m`;
+
+                if (shuttleX >= ringX - 10) {
+                    isDocking = false;
+                    if (dockStatusEl) dockStatusEl.textContent = 'STATUS: DOCKED SUCCESSFULLY!';
+                    speakOutLoud("Gaganyaan shuttle docked successfully with orbital space station.");
+                } else {
+                    requestAnimationFrame(drawDocking);
+                }
+            } else {
+                ctx.fillStyle = '#94A3B8';
+                ctx.font = '800 13px -apple-system, sans-serif';
+                ctx.fillText('CLICK "START DOCKING SIM" TO COMMENCE THRUSTER APPROACH', 20, 30);
+            }
+        }
+
+        if (startDockBtn) {
+            startDockBtn.addEventListener('click', () => {
+                shuttleX = 60;
+                shuttleY = 130;
+                isDocking = true;
+                drawDocking();
+            });
+        }
+        drawDocking();
+    }
+}
+
+// 3. PHASE 8: BIO-PULSE AR RESPIRED COHERENCE SPHERE CANVAS
 function initBioPulseCanvas() {
     const canvas = document.getElementById('bioPulseCanvas');
     const phaseText = document.getElementById('breathingPhaseText');
@@ -76,18 +210,14 @@ function initBioPulseCanvas() {
     let isRunning = false;
     let currentRadius = 50;
     let targetRadius = 50;
-    let animId;
-    let currentPhase = "IDLE";
 
     function drawSphere() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
 
-        // Smooth radius interpolation
         currentRadius += (targetRadius - currentRadius) * 0.05;
 
-        // Outer Glow Ring
         const grad = ctx.createRadialGradient(centerX, centerY, currentRadius * 0.2, centerX, centerY, currentRadius * 1.5);
         grad.addColorStop(0, 'rgba(255, 153, 51, 0.8)');
         grad.addColorStop(0.5, 'rgba(0, 229, 255, 0.4)');
@@ -98,7 +228,6 @@ function initBioPulseCanvas() {
         ctx.arc(centerX, centerY, currentRadius * 1.5, 0, Math.PI * 2);
         ctx.fill();
 
-        // Inner Core Sphere
         ctx.fillStyle = '#FF9933';
         ctx.shadowColor = '#00E5FF';
         ctx.shadowBlur = 25;
@@ -108,7 +237,7 @@ function initBioPulseCanvas() {
         ctx.shadowBlur = 0;
 
         if (isRunning) {
-            animId = requestAnimationFrame(drawSphere);
+            requestAnimationFrame(drawSphere);
         }
     }
 
@@ -139,7 +268,6 @@ function initBioPulseCanvas() {
 
     function executePhase(label, radius, durationMs, nextCb) {
         if (!isRunning) return;
-        currentPhase = label;
         if (phaseText) phaseText.textContent = label;
         targetRadius = radius;
         speakOutLoud(label);
@@ -156,7 +284,7 @@ function initBioPulseCanvas() {
     drawSphere();
 }
 
-// 3. Mission UTC Clock
+// 4. Mission UTC Clock
 function initClock() {
     const clockEl = document.getElementById('missionClock');
     function updateClock() {
@@ -168,7 +296,7 @@ function initClock() {
     setInterval(updateClock, 1000);
 }
 
-// 4. Navigation Tabs
+// 5. Navigation Tabs
 function initTabs() {
     const tabs = document.querySelectorAll('.nav-tab');
     const contents = document.querySelectorAll('.tab-content');
@@ -186,7 +314,7 @@ function initTabs() {
     });
 }
 
-// 5. Telemetry Graphs (Chart.js with ISRO Palette)
+// 6. Telemetry Graphs (Chart.js with ISRO Palette)
 let vitalsChart, emotionChart, sleepChart;
 
 function initCharts() {
@@ -298,7 +426,7 @@ function initCharts() {
     }
 }
 
-// 6. Offline AI Chatbot Logic & Voice Speech Synthesis Out-Loud
+// 7. Offline AI Chatbot Logic & Voice Speech Synthesis Out-Loud
 function initChatbot() {
     const miniInput = document.getElementById('miniChatInput');
     const miniSendBtn = document.getElementById('miniChatSendBtn');
@@ -362,7 +490,7 @@ function sendQuickMsg(txt) {
 function generateOfflineResponse(userMsg) {
     const msg = userMsg.toLowerCase();
     if (msg.includes('stress') || msg.includes('anxious') || msg.includes('tired') || msg.includes('fatigued')) {
-        return "ISRO Gaganyaan protocol active: Elevated stress detected. Initiating 4-7-8 deep breathing relaxation cycle. Bio-Pulse AR sphere triggered.";
+        return "ISRO Gaganyaan protocol active: Elevated stress detected. Initiating 4-7-8 Bio-Pulse AR breathing cycle and Space Reaction Reflex Challenge.";
     } else if (msg.includes('vital') || msg.includes('heart') || msg.includes('spo2')) {
         return "Telemetry summary for Cmdr. Shalok Dadhwal: Heart Rate is 72 BPM (nominal), SpO2 is 98.4% (optimal), and core temperature is 36.7 °C. You are cleared for flight duties.";
     } else if (msg.includes('cognitive') || msg.includes('eva') || msg.includes('reaction')) {
@@ -378,7 +506,7 @@ function escapeHtml(str) {
     return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-// 7. OpenCV Camera Stream HUD Canvas
+// 8. OpenCV Camera Stream HUD Canvas
 function initCameraCanvas() {
     const canvas = document.getElementById('videoCanvas');
     if (!canvas) return;
@@ -397,7 +525,7 @@ function initCameraCanvas() {
             ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
         }
         for (let y = 0; y < canvas.height; y += 40) {
-            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.height, y); ctx.stroke();
         }
 
         // Radar Scanner Line Animation
@@ -434,7 +562,7 @@ function initCameraCanvas() {
     renderMockStream();
 }
 
-// 8. Pre-EVA PVT Test Widget
+// 9. Pre-EVA PVT Test Widget
 function initCognitiveTest() {
     const btn = document.getElementById('startPvtTestBtn');
     const resultBox = document.getElementById('pvtResultBox');
@@ -462,7 +590,7 @@ function initCognitiveTest() {
     });
 }
 
-// 9. Circadian Lighting Status
+// 10. Circadian Lighting Status
 function initCircadianLighting() {
     const lightStatusEl = document.getElementById('circadianStatusText');
     if (!lightStatusEl) return;
@@ -474,7 +602,7 @@ function initCircadianLighting() {
     }
 }
 
-// 10. Voice Speech Recognition Trigger
+// 11. Voice Speech Recognition Trigger
 function initSpeechSynthesis() {
     const micBtn = document.getElementById('voiceMicBtn');
     if (!micBtn) return;

@@ -61,6 +61,7 @@
         <!-- Navigation Segment Switcher -->
         <nav class="nav-tabs">
             <button class="nav-tab active" data-tab="dashboard">📊 Mission Overview</button>
+            <button class="nav-tab" data-tab="games">🎮 Space Games & Mood HUD</button>
             <button class="nav-tab" data-tab="biofeedback">🧘 Bio-Pulse AR Coach</button>
             <button class="nav-tab" data-tab="vitals">🫀 Vitals & Stress Telemetry</button>
             <button class="nav-tab" data-tab="companion">🧠 ISRO AI Companion</button>
@@ -194,10 +195,74 @@
                 </div>
             </div>
 
-            <!-- NEW PHASE 8: BIO-PULSE AR COACH TAB -->
+            <!-- NEW PHASE 10: SPACE GAMES & OPENCV MOOD ACTIVITY TAB -->
+            <div id="games" class="tab-content">
+                <div class="grid-layout">
+                    <!-- Real-Time Mood Activity Recommender HUD -->
+                    <div class="card col-span-4">
+                        <div class="card-header">
+                            <h2>OpenCV Mood Recognition & Activity Recommender</h2>
+                            <span class="card-badge">LIVE VISION FEED</span>
+                        </div>
+                        <div class="sys-metrics-grid">
+                            <div class="sys-box">
+                                <span class="label">Detected Astronaut Mood</span>
+                                <span class="val green" id="hudDetectedMood">FOCUSED (94.2% Confidence)</span>
+                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">OpenCV Facial Stream Active</span>
+                            </div>
+                            <div class="sys-box">
+                                <span class="label">Recommended Primary Activity</span>
+                                <span class="val cyan" id="hudPrimaryActivity">Pre-EVA Spacewalk Readiness Check</span>
+                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">Tailored for High Focus</span>
+                            </div>
+                            <div class="sys-box">
+                                <span class="label">Suggested Space Game</span>
+                                <span class="val purple" id="hudSuggestedGame">Gaganyaan Shuttle Docking Simulator</span>
+                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">Click below to launch</span>
+                            </div>
+                            <div class="sys-box">
+                                <span class="label">Recommended Operational Task</span>
+                                <span class="val green" id="hudRecommendedTask">Routine Orbital Guidance Calibration</span>
+                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">Logged in maitri_offline.db</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Game 1: Space Reaction Reflex Challenge -->
+                    <div class="card col-span-2">
+                        <div class="card-header">
+                            <h3>🎮 Space Reaction Reflex Challenge</h3>
+                            <span class="badge-count" id="reflexScore">Score: 0</span>
+                        </div>
+                        <p style="font-size: 11.5px; color: var(--text-secondary);">Test zero-g hand-eye coordination by clicking solar flare targets as fast as possible.</p>
+                        <div class="ar-sphere-container" style="height: 260px; background: #010614;">
+                            <canvas id="reflexGameCanvas" width="480" height="260"></canvas>
+                        </div>
+                        <div class="controls-row" style="margin-top: 8px;">
+                            <button id="startReflexGameBtn" class="btn btn-primary">Start Reflex Game</button>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Game 2: Gaganyaan Shuttle Docking Simulator -->
+                    <div class="card col-span-2">
+                        <div class="card-header">
+                            <h3>🚀 Shuttle Docking Thruster Simulator</h3>
+                            <span class="badge-count" id="dockingStatus">Distance: 100m</span>
+                        </div>
+                        <p style="font-size: 11.5px; color: var(--text-secondary);">Align your LMV3 thrusters with the space station docking ring using keyboard arrows.</p>
+                        <div class="ar-sphere-container" style="height: 260px; background: #010614;">
+                            <canvas id="dockingGameCanvas" width="480" height="260"></canvas>
+                        </div>
+                        <div class="controls-row" style="margin-top: 8px;">
+                            <button id="startDockingGameBtn" class="btn btn-primary">Start Docking Sim</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BIO-PULSE AR COACH TAB -->
             <div id="biofeedback" class="tab-content">
                 <div class="grid-layout">
-                    <!-- AR Sphere Visualizer Box -->
                     <div class="card col-span-2">
                         <div class="card-header">
                             <h2>Gaganyaan Bio-Pulse AR Coherence Sphere</h2>
@@ -214,7 +279,6 @@
                         </div>
                     </div>
 
-                    <!-- HRV Metrics & Autonomic Status Panel -->
                     <div class="card col-span-2">
                         <div class="card-header">
                             <h2>Heart Rate Variability (HRV) & Vagus Tone</h2>
