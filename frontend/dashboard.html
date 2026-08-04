@@ -195,7 +195,7 @@
                 </div>
             </div>
 
-            <!-- NEW PHASE 10: SPACE GAMES & OPENCV MOOD ACTIVITY TAB -->
+            <!-- PHASE 10 & 11: SPACE GAMES & CHESS ARENA TAB -->
             <div id="games" class="tab-content">
                 <div class="grid-layout">
                     <!-- Real-Time Mood Activity Recommender HUD -->
@@ -217,13 +217,56 @@
                             </div>
                             <div class="sys-box">
                                 <span class="label">Suggested Space Game</span>
-                                <span class="val purple" id="hudSuggestedGame">Gaganyaan Shuttle Docking Simulator</span>
+                                <span class="val purple" id="hudSuggestedGame">ISRO Grandmaster AI Chess Arena</span>
                                 <span class="note" style="font-size: 10px; color: var(--text-secondary);">Click below to launch</span>
                             </div>
                             <div class="sys-box">
                                 <span class="label">Recommended Operational Task</span>
                                 <span class="val green" id="hudRecommendedTask">Routine Orbital Guidance Calibration</span>
                                 <span class="note" style="font-size: 10px; color: var(--text-secondary);">Logged in maitri_offline.db</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NEW PHASE 11: ISRO GRANDMASTER AI CHESS ARENA -->
+                    <div class="card col-span-2" style="height: 480px;">
+                        <div class="card-header">
+                            <h3>♟️ ISRO Grandmaster AI Chess Arena</h3>
+                            <span class="card-badge">HUMAN VS AI AGENT</span>
+                        </div>
+                        <div class="ar-sphere-container" style="height: 360px; background: #010614;">
+                            <canvas id="chessBoardCanvas" width="360" height="360"></canvas>
+                        </div>
+                        <div class="controls-row" style="margin-top: 8px;">
+                            <button id="resetChessBtn" class="btn btn-primary">New Match vs MAITRI</button>
+                            <button id="chessHintBtn" class="btn btn-secondary">Get Tactical Hint</button>
+                        </div>
+                    </div>
+
+                    <!-- MAITRIChess Agent Dialogue & Spoken Taunts Box -->
+                    <div class="card col-span-2" style="height: 480px; justify-content: space-between;">
+                        <div class="card-header">
+                            <h3>🧠 MAITRI Agent Spoken Taunts & Tactical Advice</h3>
+                            <span class="status-online">● Voice Out-Loud Active</span>
+                        </div>
+                        <div class="chat-mini-history" style="height: 280px;" id="chessDialogueBox">
+                            <div class="chat-bubble bot">
+                                <span class="sender">ISRO MAITRI AI (Grandmaster Agent):</span>
+                                Greetings Cmdr. Shalok! I have initialized the space chess matrix. White to move — let's see your opening gambit!
+                            </div>
+                            <div class="chat-bubble bot" style="border-color: var(--isro-saffron);">
+                                <span class="sender">MAITRI Tactical Hint:</span>
+                                Controlling the central e4/d4 squares provides spatial maneuvering superiority in zero-gravity.
+                            </div>
+                        </div>
+                        <div class="sys-metrics-grid" style="margin-top: 10px;">
+                            <div class="sys-box">
+                                <span class="label">Engine Evaluation</span>
+                                <span class="val green" id="chessEvalScore">+0.0 (Equal Baseline)</span>
+                            </div>
+                            <div class="sys-box">
+                                <span class="label">Agent Persona</span>
+                                <span class="val cyan">Orbital Specialist</span>
                             </div>
                         </div>
                     </div>
@@ -235,8 +278,8 @@
                             <span class="badge-count" id="reflexScore">Score: 0</span>
                         </div>
                         <p style="font-size: 11.5px; color: var(--text-secondary);">Test zero-g hand-eye coordination by clicking solar flare targets as fast as possible.</p>
-                        <div class="ar-sphere-container" style="height: 260px; background: #010614;">
-                            <canvas id="reflexGameCanvas" width="480" height="260"></canvas>
+                        <div class="ar-sphere-container" style="height: 240px; background: #010614;">
+                            <canvas id="reflexGameCanvas" width="480" height="240"></canvas>
                         </div>
                         <div class="controls-row" style="margin-top: 8px;">
                             <button id="startReflexGameBtn" class="btn btn-primary">Start Reflex Game</button>
@@ -250,8 +293,8 @@
                             <span class="badge-count" id="dockingStatus">Distance: 100m</span>
                         </div>
                         <p style="font-size: 11.5px; color: var(--text-secondary);">Align your LMV3 thrusters with the space station docking ring using keyboard arrows.</p>
-                        <div class="ar-sphere-container" style="height: 260px; background: #010614;">
-                            <canvas id="dockingGameCanvas" width="480" height="260"></canvas>
+                        <div class="ar-sphere-container" style="height: 240px; background: #010614;">
+                            <canvas id="dockingGameCanvas" width="480" height="240"></canvas>
                         </div>
                         <div class="controls-row" style="margin-top: 8px;">
                             <button id="startDockingGameBtn" class="btn btn-primary">Start Docking Sim</button>

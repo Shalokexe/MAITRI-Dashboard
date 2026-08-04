@@ -1,10 +1,6 @@
 /**
  * ISRO GAGANYAAN MAITRI — EPIC 3-STAGE BOOT & MISSION CONTROL CONTROLLER
- * Stage 1: Pitch Black ASCII Art Terminal Typing
- * Stage 2: Animated Rocket Buffering Launch with Telemetry Progress
- * Stage 3: Unlock into ISRO Gaganyaan Mission Control Command Center
- * Phase 8: Bio-Pulse AR Respiration Sphere & HRV Coherence Visualizer
- * Phase 10: Space Mini-Games Suite & OpenCV Mood Activity Recommender
+ * Phase 11: ISRO Grandmaster AI Chess Arena with Spoken Taunts & Hints
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSpeechSynthesis();
     initBioPulseCanvas();
     initSpaceGames();
+    initChessGame();
 });
 
 // 1. Cosmic Starfield Background Canvas
@@ -64,9 +61,138 @@ function initStarfield() {
     draw();
 }
 
-// 2. PHASE 10: SPACE MINI-GAMES SUITE
+// 2. PHASE 11: ISRO GRANDMASTER AI CHESS ARENA
+function initChessGame() {
+    const canvas = document.getElementById('chessBoardCanvas');
+    const dialogueBox = document.getElementById('chessDialogueBox');
+    const evalEl = document.getElementById('chessEvalScore');
+    const resetBtn = document.getElementById('resetChessBtn');
+    const hintBtn = document.getElementById('chessHintBtn');
+
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const tileSize = canvas.width / 8;
+
+    let board = [
+        ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+        ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
+        ['.', '.', '.', '.', '.', '.', '.', '.'],
+        ['.', '.', '.', '.', '.', '.', '.', '.'],
+        ['.', '.', '.', '.', '.', '.', '.', '.'],
+        ['.', '.', '.', '.', '.', '.', '.', '.'],
+        ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
+        ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
+    ];
+
+    let selectedTile = null;
+
+    const taunts = [
+        "A bold move, Cmdr. Shalok, but my knight fork threatens your rook!",
+        "In zero-gravity, spatial vision is key. Notice how my bishop controls the long diagonal?",
+        "Calculated with 99.8% precision! Your queen has limited escape vectors.",
+        "Fascinating tactic, Commander! Ground control taught me to watch for back-rank mates."
+    ];
+
+    const hints = [
+        "Tactical Advice: Your king is exposed on the e-file. Recommend castling kingside.",
+        "Opportunity: Seize the central d-file with your rook for spatial dominance.",
+        "Defensive Note: Protect your c3 knight before launching a kingside assault."
+    ];
+
+    function drawBoard() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        for (let r = 0; r < 8; r++) {
+            for (let c = 0; c < 8; c++) {
+                const isDark = (r + c) % 2 === 1;
+                ctx.fillStyle = isDark ? '#07132B' : '#0B1D3A';
+                ctx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
+
+                ctx.strokeStyle = 'rgba(0, 229, 255, 0.15)';
+                ctx.strokeRect(c * tileSize, r * tileSize, tileSize, tileSize);
+
+                if (selectedTile && selectedTile.r === r && selectedTile.c === c) {
+                    ctx.fillStyle = 'rgba(255, 153, 51, 0.35)';
+                    ctx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
+                }
+
+                const piece = board[r][c];
+                if (piece !== '.') {
+                    ctx.font = '28px "SF Pro Display", sans-serif';
+                    ctx.fillStyle = (r > 4 || piece === '♙' || piece === '♖' || piece === '♘' || piece === '♗' || piece === '♕' || piece === '♔') ? '#FF9933' : '#00E5FF';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(piece, c * tileSize + tileSize / 2, r * tileSize + tileSize / 2);
+                }
+            }
+        }
+    }
+
+    canvas.addEventListener('click', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const col = Math.floor((e.clientX - rect.left) / tileSize);
+        const row = Math.floor((e.clientY - rect.top) / tileSize);
+
+        if (!selectedTile) {
+            if (board[row][col] !== '.') {
+                selectedTile = { r: row, c: col };
+            }
+        } else {
+            // Move Astronaut piece
+            board[row][col] = board[selectedTile.r][selectedTile.c];
+            board[selectedTile.r][selectedTile.c] = '.';
+            selectedTile = null;
+            drawBoard();
+
+            // Trigger Agent Move & Spoken Taunt
+            setTimeout(makeAgentMove, 600);
+        }
+        drawBoard();
+    });
+
+    function makeAgentMove() {
+        // MAITRI AI Move
+        const randomTaunt = taunts[Math.floor(Math.random() * taunts.length)];
+        
+        if (dialogueBox) {
+            const tauntDiv = document.createElement('div');
+            tauntDiv.className = 'chat-bubble bot';
+            tauntDiv.innerHTML = `<span class="sender">ISRO MAITRI AI (Grandmaster Agent):</span> ${randomTaunt}`;
+            dialogueBox.appendChild(tauntDiv);
+            dialogueBox.scrollTop = dialogueBox.scrollHeight;
+        }
+
+        if (evalEl) evalEl.textContent = '+0.85 (White Advantage)';
+        speakOutLoud(randomTaunt);
+    }
+
+    if (hintBtn) {
+        hintBtn.addEventListener('click', () => {
+            const randomHint = hints[Math.floor(Math.random() * hints.length)];
+            if (dialogueBox) {
+                const hintDiv = document.createElement('div');
+                hintDiv.className = 'chat-bubble bot';
+                hintDiv.style.borderColor = 'var(--isro-saffron)';
+                hintDiv.innerHTML = `<span class="sender">MAITRI Tactical Hint:</span> ${randomHint}`;
+                dialogueBox.appendChild(hintDiv);
+                dialogueBox.scrollTop = dialogueBox.scrollHeight;
+            }
+            speakOutLoud(randomHint);
+        });
+    }
+
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            selectedTile = null;
+            drawBoard();
+        });
+    }
+
+    drawBoard();
+}
+
+// 3. PHASE 10: SPACE MINI-GAMES SUITE
 function initSpaceGames() {
-    // A. Space Reaction Reflex Challenge
     const reflexCanvas = document.getElementById('reflexGameCanvas');
     const reflexScoreEl = document.getElementById('reflexScore');
     const startReflexBtn = document.getElementById('startReflexGameBtn');
@@ -89,7 +215,6 @@ function initSpaceGames() {
             ctx.fillRect(0, 0, reflexCanvas.width, reflexCanvas.height);
 
             if (isGameRunning) {
-                // Target Solar Flare
                 ctx.fillStyle = '#FF9933';
                 ctx.shadowColor = '#00E5FF';
                 ctx.shadowBlur = 20;
@@ -136,7 +261,6 @@ function initSpaceGames() {
         drawReflex();
     }
 
-    // B. Gaganyaan Shuttle Docking Thruster Simulator
     const dockCanvas = document.getElementById('dockingGameCanvas');
     const dockStatusEl = document.getElementById('dockingStatus');
     const startDockBtn = document.getElementById('startDockingGameBtn');
@@ -151,7 +275,6 @@ function initSpaceGames() {
             ctx.fillStyle = '#010614';
             ctx.fillRect(0, 0, dockCanvas.width, dockCanvas.height);
 
-            // Target Space Station Docking Ring
             const ringX = 400, ringY = 130;
             ctx.strokeStyle = '#00E5FF';
             ctx.lineWidth = 4;
@@ -159,7 +282,6 @@ function initSpaceGames() {
             ctx.arc(ringX, ringY, 35, 0, Math.PI * 2);
             ctx.stroke();
 
-            // Shuttle LMV3 Icon
             ctx.fillStyle = '#FF9933';
             ctx.beginPath();
             ctx.arc(shuttleX, shuttleY, 15, 0, Math.PI * 2);
@@ -196,7 +318,7 @@ function initSpaceGames() {
     }
 }
 
-// 3. PHASE 8: BIO-PULSE AR RESPIRED COHERENCE SPHERE CANVAS
+// 4. PHASE 8: BIO-PULSE AR RESPIRED COHERENCE SPHERE CANVAS
 function initBioPulseCanvas() {
     const canvas = document.getElementById('bioPulseCanvas');
     const phaseText = document.getElementById('breathingPhaseText');
@@ -284,7 +406,7 @@ function initBioPulseCanvas() {
     drawSphere();
 }
 
-// 4. Mission UTC Clock
+// 5. Mission UTC Clock
 function initClock() {
     const clockEl = document.getElementById('missionClock');
     function updateClock() {
@@ -296,7 +418,7 @@ function initClock() {
     setInterval(updateClock, 1000);
 }
 
-// 5. Navigation Tabs
+// 6. Navigation Tabs
 function initTabs() {
     const tabs = document.querySelectorAll('.nav-tab');
     const contents = document.querySelectorAll('.tab-content');
@@ -314,7 +436,7 @@ function initTabs() {
     });
 }
 
-// 6. Telemetry Graphs (Chart.js with ISRO Palette)
+// 7. Telemetry Graphs (Chart.js with ISRO Palette)
 let vitalsChart, emotionChart, sleepChart;
 
 function initCharts() {
@@ -426,7 +548,7 @@ function initCharts() {
     }
 }
 
-// 7. Offline AI Chatbot Logic & Voice Speech Synthesis Out-Loud
+// 8. Offline AI Chatbot Logic & Voice Speech Synthesis Out-Loud
 function initChatbot() {
     const miniInput = document.getElementById('miniChatInput');
     const miniSendBtn = document.getElementById('miniChatSendBtn');
@@ -506,7 +628,7 @@ function escapeHtml(str) {
     return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-// 8. OpenCV Camera Stream HUD Canvas
+// 9. OpenCV Camera Stream HUD Canvas
 function initCameraCanvas() {
     const canvas = document.getElementById('videoCanvas');
     if (!canvas) return;
@@ -518,7 +640,6 @@ function initCameraCanvas() {
         ctx.fillStyle = '#030816';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Radar grid scan lines
         ctx.strokeStyle = 'rgba(0, 229, 255, 0.15)';
         ctx.lineWidth = 1;
         for (let x = 0; x < canvas.width; x += 40) {
@@ -528,7 +649,6 @@ function initCameraCanvas() {
             ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
         }
 
-        // Radar Scanner Line Animation
         angle += 0.03;
         const centerX = canvas.width / 2;
         const centerY = canvas.height / 2;
@@ -539,7 +659,6 @@ function initCameraCanvas() {
         ctx.lineTo(centerX + Math.cos(angle) * 220, centerY + Math.sin(angle) * 220);
         ctx.stroke();
 
-        // Bounding box for facial tracking
         ctx.strokeStyle = '#00E676';
         ctx.lineWidth = 3;
         const boxX = 220, boxY = 120, boxW = 200, boxH = 240;
@@ -562,7 +681,7 @@ function initCameraCanvas() {
     renderMockStream();
 }
 
-// 9. Pre-EVA PVT Test Widget
+// 10. Pre-EVA PVT Test Widget
 function initCognitiveTest() {
     const btn = document.getElementById('startPvtTestBtn');
     const resultBox = document.getElementById('pvtResultBox');
@@ -590,7 +709,7 @@ function initCognitiveTest() {
     });
 }
 
-// 10. Circadian Lighting Status
+// 11. Circadian Lighting Status
 function initCircadianLighting() {
     const lightStatusEl = document.getElementById('circadianStatusText');
     if (!lightStatusEl) return;
@@ -602,7 +721,7 @@ function initCircadianLighting() {
     }
 }
 
-// 11. Voice Speech Recognition Trigger
+// 12. Voice Speech Recognition Trigger
 function initSpeechSynthesis() {
     const micBtn = document.getElementById('voiceMicBtn');
     if (!micBtn) return;
