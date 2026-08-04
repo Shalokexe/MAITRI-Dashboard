@@ -2,6 +2,14 @@
 
 All notable changes to the MAITRI project are documented here.
 
+## [v2.0.0] - Phase 8 Complete (Bio-Pulse AR Coach & Multi-Page Rocket Launch) - 2026-08-04
+### Added
+- **Gaganyaan Bio-Pulse AR Respiration Coach**: Built `backend/health/biofeedback_coach.py` for Heart Rate Variability (HRV RMSSD) calculation, Autonomic Coherence scoring, and 4-7-8 / Box Breathing pace control.
+- **AR Coherence Sphere Canvas**: Created interactive Canvas-rendered glowing AR pulse sphere with real-time Inhale/Hold/Exhale voice coaching.
+- **Interactive Multi-Page Rocket Launch Routing**: Built `index.html` Entrance Portal with clickable ISRO emblem launching rocket animation into `dashboard.html`.
+- **Biofeedback Unit Testing**: Created `tests/test_biofeedback.py` expanding test suite to 23/23 passing unit tests.
+- **Phase 8 Word Report**: Generated `docs/update_08.docx` expanding report series.
+
 ## [v1.0.0] - Phase 7 Complete (Final Release) - 2026-08-03
 ### Added
 - **Zero-Internet Air-Gap Auditor**: Created `scripts/audit_offline_integrity.py` scanning 27 code files to verify 100% offline air-gap compliance.
@@ -38,5 +46,4 @@ All notable changes to the MAITRI project are documented here.
 
 ## [v0.1.0] - Phase 1 Complete - 2026-08-02
 ### Added
-- **Project Folder Architecture**: Established clean separation between backend, frontend, media, docs, and scripts.
-- **Offline SQLite Database Layer**: Created `backend/db/schema.sql` and `backend/db/database.py`.
+- **Local SQLite Database Infrastructure**: Created schema for `vitals`, `emotions`, and `conversations`.

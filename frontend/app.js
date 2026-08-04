@@ -3,10 +3,10 @@
  * Stage 1: Pitch Black ASCII Art Terminal Typing
  * Stage 2: Animated Rocket Buffering Launch with Telemetry Progress
  * Stage 3: Unlock into ISRO Gaganyaan Mission Control Command Center
+ * Phase 8: Bio-Pulse AR Respiration Sphere & HRV Coherence Visualizer
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    init3StageBoot();
     initStarfield();
     initClock();
     initTabs();
@@ -16,86 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initCognitiveTest();
     initCircadianLighting();
     initSpeechSynthesis();
+    initBioPulseCanvas();
 });
 
-// 1. EPIC 3-STAGE BOOT CONTROLLER
-function init3StageBoot() {
-    const bootOverlay = document.getElementById('epicBootOverlay');
-    const stage1 = document.getElementById('bootStage1');
-    const stage2 = document.getElementById('bootStage2');
-    const asciiOutput = document.getElementById('asciiTerminalOutput');
-    const rocketBar = document.getElementById('rocketProgressFill');
-    const rocketText = document.getElementById('rocketTelemetryText');
-    const skipBtn = document.getElementById('skipIntroBtn');
-
-    if (!bootOverlay || !stage1 || !stage2) return;
-
-    // Skip Intro Handler
-    function skipIntro() {
-        bootOverlay.classList.add('hidden');
-    }
-    if (skipBtn) skipBtn.addEventListener('click', skipIntro);
-
-    const asciiLines = [
-        "   ██████╗  █████╗  ██████╗  █████╗ ███╗   ██╗██╗   ██╗ █████╗  █████╗ ███╗   ██╗",
-        "  ██╔════╝ ██╔══██╗██╔════╝ ██╔══██╗████╗  ██║╚██╗ ██╔╝██╔══██╗██╔══██╗████╗  ██║",
-        "  ██║  ███╗███████║██║  ███╗███████║██╔██╗ ██║ ╚████╔╝ ███████║███████║██╔██╗ ██║",
-        "  ██║   ██║██╔══██║██║   ██║██╔══██║██║╚██╗██║  ╚██╔╝  ██╔══██║██╔══██║██║╚██╗██║",
-        "  ╚██████╔╝██║  ██║╚██████╔╝██║  ██║██║ ╚████║   ██║   ██║  ██║██║  ██║██║ ╚████║",
-        "   ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝",
-        "                [ ISRO AIR-GAPPED MAITRI MULTIMODAL AI CORE v1.0 ]"
-    ];
-
-    // STAGE 1: ASCII Art Typing Sequence
-    let lineIdx = 0;
-    const typeInterval = setInterval(() => {
-        if (lineIdx < asciiLines.length) {
-            asciiOutput.textContent += asciiLines[lineIdx] + "\n";
-            lineIdx++;
-        } else {
-            clearInterval(typeInterval);
-            // Transition to STAGE 2 after 1.2s
-            setTimeout(startStage2, 1200);
-        }
-    }, 180);
-
-    // STAGE 2: Rocket Launch Buffering Loader Sequence
-    function startStage2() {
-        stage1.classList.remove('active');
-        stage2.classList.add('active');
-
-        const telemetrySteps = [
-            "IGNITION SEQUENCE START... LMV3 ROCKET FLIGHT NOMINAL",
-            "CALCULATING ORBITAL INJECTION VELOCITY: 7.66 KM/S...",
-            "LOADING OPENCV MULTIMODAL FACIAL VISION PIPELINE...",
-            "AUTHENTICATING SQLITE AIR-GAPPED TELEMETRY DATABASE...",
-            "VERIFYING PRE-EVA PSYCHOMOTOR VIGILANCE MODULES...",
-            "ISRO MAITRI SYSTEMS 100% NOMINAL — UNLOCKING MISSION CONTROL"
-        ];
-
-        let progress = 0;
-        let stepIdx = 0;
-
-        const rocketInterval = setInterval(() => {
-            progress += 2.5;
-            if (rocketBar) rocketBar.style.width = progress + '%';
-
-            if (progress % 16 === 0 && stepIdx < telemetrySteps.length) {
-                if (rocketText) rocketText.textContent = telemetrySteps[stepIdx];
-                stepIdx++;
-            }
-
-            if (progress >= 100) {
-                clearInterval(rocketInterval);
-                setTimeout(() => {
-                    bootOverlay.classList.add('hidden');
-                }, 500);
-            }
-        }, 40);
-    }
-}
-
-// 2. Cosmic Starfield Background Canvas
+// 1. Cosmic Starfield Background Canvas
 function initStarfield() {
     const canvas = document.getElementById('starfieldCanvas');
     if (!canvas) return;
@@ -136,6 +60,97 @@ function initStarfield() {
         requestAnimationFrame(draw);
     }
     draw();
+}
+
+// 2. PHASE 8: BIO-PULSE AR RESPIRED COHERENCE SPHERE CANVAS
+function initBioPulseCanvas() {
+    const canvas = document.getElementById('bioPulseCanvas');
+    const phaseText = document.getElementById('breathingPhaseText');
+    const start478 = document.getElementById('start478Btn');
+    const startBox = document.getElementById('startBoxBtn');
+    const stopBio = document.getElementById('stopBioBtn');
+
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+
+    let isRunning = false;
+    let currentRadius = 50;
+    let targetRadius = 50;
+    let animId;
+    let currentPhase = "IDLE";
+
+    function drawSphere() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+
+        currentRadius += (targetRadius - currentRadius) * 0.05;
+
+        const grad = ctx.createRadialGradient(centerX, centerY, currentRadius * 0.2, centerX, centerY, currentRadius * 1.5);
+        grad.addColorStop(0, 'rgba(255, 153, 51, 0.8)');
+        grad.addColorStop(0.5, 'rgba(0, 229, 255, 0.4)');
+        grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, currentRadius * 1.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = '#FF9933';
+        ctx.shadowColor = '#00E5FF';
+        ctx.shadowBlur = 25;
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, currentRadius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        if (isRunning) {
+            animId = requestAnimationFrame(drawSphere);
+        }
+    }
+
+    function runBreathingSequence(technique) {
+        isRunning = true;
+        drawSphere();
+
+        if (technique === '4-7-8') {
+            executePhase("INHALING DEEPLY (4s)...", 110, 4000, () => {
+                executePhase("HOLDING BREATH (7s)...", 110, 7000, () => {
+                    executePhase("EXHALING SLOWLY (8s)...", 40, 8000, () => {
+                        if (isRunning) runBreathingSequence('4-7-8');
+                    });
+                });
+            });
+        } else {
+            executePhase("INHALING (4s)...", 110, 4000, () => {
+                executePhase("HOLDING (4s)...", 110, 4000, () => {
+                    executePhase("EXHALING (4s)...", 40, 4000, () => {
+                        executePhase("HOLDING (4s)...", 40, 4000, () => {
+                            if (isRunning) runBreathingSequence('box');
+                        });
+                    });
+                });
+            });
+        }
+    }
+
+    function executePhase(label, radius, durationMs, nextCb) {
+        if (!isRunning) return;
+        currentPhase = label;
+        if (phaseText) phaseText.textContent = label;
+        targetRadius = radius;
+        speakOutLoud(label);
+
+        setTimeout(() => {
+            if (isRunning) nextCb();
+        }, durationMs);
+    }
+
+    if (start478) start478.addEventListener('click', () => { isRunning = false; setTimeout(() => runBreathingSequence('4-7-8'), 200); });
+    if (startBox) startBox.addEventListener('click', () => { isRunning = false; setTimeout(() => runBreathingSequence('box'), 200); });
+    if (stopBio) stopBio.addEventListener('click', () => { isRunning = false; targetRadius = 50; if (phaseText) phaseText.textContent = "COACH PAUSED"; });
+
+    drawSphere();
 }
 
 // 3. Mission UTC Clock
@@ -344,7 +359,7 @@ function sendQuickMsg(txt) {
 function generateOfflineResponse(userMsg) {
     const msg = userMsg.toLowerCase();
     if (msg.includes('stress') || msg.includes('anxious') || msg.includes('tired') || msg.includes('fatigued')) {
-        return "ISRO Gaganyaan protocol active: Elevated stress detected. Initiating 4-7-8 deep breathing relaxation cycle. Ambient acoustic music triggered.";
+        return "ISRO Gaganyaan protocol active: Elevated stress detected. Initiating 4-7-8 deep breathing relaxation cycle. Bio-Pulse AR sphere triggered.";
     } else if (msg.includes('vital') || msg.includes('heart') || msg.includes('spo2')) {
         return "Telemetry summary for Cmdr. Shalok Dadhwal: Heart Rate is 72 BPM (nominal), SpO2 is 98.4% (optimal), and core temperature is 36.7 °C. You are cleared for flight duties.";
     } else if (msg.includes('cognitive') || msg.includes('eva') || msg.includes('reaction')) {

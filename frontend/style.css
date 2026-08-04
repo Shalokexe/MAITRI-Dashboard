@@ -2,6 +2,7 @@
    ISRO GAGANYAAN MAITRI — MULTI-PAGE ROUTING & COMMAND CENTER UI
    Page 1 (index.html): Interactive Landing Portal with Logo Click-to-Launch Rocket Animation
    Page 2 (dashboard.html): Full ISRO Gaganyaan Mission Control & Offline AI Assistant
+   Phase 8: Bio-Pulse AR Respiration Sphere Visualizer
    ========================================================================== */
 
 :root {
@@ -74,9 +75,41 @@ body {
     gap: 14px;
 }
 
-/* ==========================================================================
-   PAGE ROUTE 1: LANDING PORTAL & INTERACTIVE ROCKET LAUNCH
-   ========================================================================== */
+/* PHASE 8: BIO-PULSE AR CANVAS SPHERE STYLING */
+.ar-sphere-container {
+    position: relative;
+    width: 100%;
+    height: 310px;
+    background: #000000;
+    border-radius: 14px;
+    border: 1px solid var(--border-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+#bioPulseCanvas {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.breathing-phase-overlay {
+    position: absolute;
+    bottom: 14px;
+    background: rgba(1, 5, 14, 0.85);
+    border: 1px solid var(--isro-saffron);
+    border-radius: var(--radius-pill);
+    padding: 6px 20px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--isro-saffron);
+    letter-spacing: 1px;
+    box-shadow: 0 0 15px rgba(255, 153, 51, 0.4);
+}
+
+/* PAGE ROUTE 1: LANDING PORTAL & INTERACTIVE ROCKET LAUNCH */
 .landing-page {
     display: flex;
     justify-content: center;
@@ -229,9 +262,7 @@ body {
     letter-spacing: 1px;
 }
 
-/* ==========================================================================
-   PAGE ROUTE 2: MISSION CONTROL DASHBOARD UI
-   ========================================================================== */
+/* MISSION CONTROL DASHBOARD UI */
 .header {
     background: var(--isro-navy-card);
     backdrop-filter: blur(28px) saturate(200%);

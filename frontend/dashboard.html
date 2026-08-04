@@ -61,6 +61,7 @@
         <!-- Navigation Segment Switcher -->
         <nav class="nav-tabs">
             <button class="nav-tab active" data-tab="dashboard">📊 Mission Overview</button>
+            <button class="nav-tab" data-tab="biofeedback">🧘 Bio-Pulse AR Coach</button>
             <button class="nav-tab" data-tab="vitals">🫀 Vitals & Stress Telemetry</button>
             <button class="nav-tab" data-tab="companion">🧠 ISRO AI Companion</button>
             <button class="nav-tab" data-tab="multimodal">📷 Multimodal Stream</button>
@@ -188,6 +189,62 @@
                                     <span class="alert-time">2 hours ago</span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW PHASE 8: BIO-PULSE AR COACH TAB -->
+            <div id="biofeedback" class="tab-content">
+                <div class="grid-layout">
+                    <!-- AR Sphere Visualizer Box -->
+                    <div class="card col-span-2">
+                        <div class="card-header">
+                            <h2>Gaganyaan Bio-Pulse AR Coherence Sphere</h2>
+                            <span class="card-badge">VOICE COACHING ACTIVE</span>
+                        </div>
+                        <div class="ar-sphere-container">
+                            <canvas id="bioPulseCanvas" width="480" height="320"></canvas>
+                            <div class="breathing-phase-overlay" id="breathingPhaseText">READY TO INHALE...</div>
+                        </div>
+                        <div class="controls-row" style="margin-top: 10px;">
+                            <button id="start478Btn" class="btn btn-primary">Start 4-7-8 Deep Relaxation</button>
+                            <button id="startBoxBtn" class="btn btn-secondary">Start Box Breathing (Tactical Focus)</button>
+                            <button id="stopBioBtn" class="btn btn-danger">Stop Coach</button>
+                        </div>
+                    </div>
+
+                    <!-- HRV Metrics & Autonomic Status Panel -->
+                    <div class="card col-span-2">
+                        <div class="card-header">
+                            <h2>Heart Rate Variability (HRV) & Vagus Tone</h2>
+                        </div>
+                        <div class="sys-metrics-grid">
+                            <div class="sys-box">
+                                <span class="label">Current HRV (RMSSD)</span>
+                                <span class="val green" id="hrvRmssdVal">64.5 ms</span>
+                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">Optimal Parasympathetic Balance</span>
+                            </div>
+                            <div class="sys-box">
+                                <span class="label">Autonomic Coherence Score</span>
+                                <span class="val cyan" id="coherenceScoreVal">98.2 %</span>
+                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">High Coherence Achieved</span>
+                            </div>
+                            <div class="sys-box">
+                                <span class="label">PNS Tone Indicator</span>
+                                <span class="val purple">HIGH (Vagus Active)</span>
+                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">Melatonin Synthesis Enabled</span>
+                            </div>
+                            <div class="sys-box">
+                                <span class="label">Completed Bio-Sessions</span>
+                                <span class="val green">12 Sessions (Air-Gapped)</span>
+                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">Logged in maitri_offline.db</span>
+                            </div>
+                        </div>
+                        <div class="audio-analysis-box" style="margin-top: 12px;">
+                            <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.5;">
+                                <strong>Instruction:</strong> Align your breathing with the expanding glowing AR pulse sphere. Deep 4-7-8 exhalations stimulate the vagus nerve, reducing cortisol spikes during deep-space maneuvers.
+                            </p>
                         </div>
                     </div>
                 </div>

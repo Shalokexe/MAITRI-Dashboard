@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <title>ISRO Gaganyaan | Entrance Portal</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="dark-mode landing-page">
 
     <!-- Cosmic Starfield Background Canvas -->
@@ -23,10 +25,11 @@
         <!-- Interactive Clickable ISRO Logo with Rocket Launch Engine -->
         <div class="isro-interactive-logo-wrapper" id="isroLaunchTrigger">
             <div class="logo-glow-ring"></div>
-            
+
             <svg class="isro-landing-logo-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <!-- Orange Rocket Plume / Satellite Wing -->
-                <path class="logo-rocket-body" id="launchingRocket" d="M100 10 L140 120 L100 95 L60 120 Z" fill="#FF9933" />
+                <path class="logo-rocket-body" id="launchingRocket" d="M100 10 L140 120 L100 95 L60 120 Z"
+                    fill="#FF9933" />
                 <path d="M30 75 L170 75 L100 30 Z" fill="#00A3E0" />
                 <path d="M20 120 Q100 155 180 120" stroke="#FF9933" stroke-width="8" fill="none" />
             </svg>
@@ -85,10 +88,11 @@
                     gain.connect(ctx.destination);
                     osc.start();
                     osc.stop(ctx.currentTime + 1.5);
-                } catch(e) {}
+                } catch (e) { }
             }
         });
     </script>
     <script src="app.js"></script>
 </body>
+
 </html>
