@@ -22,7 +22,7 @@
 [![SQLite](https://img.shields.io/badge/SQLite-Local%20DB-003B57.svg?style=for-the-badge&logo=sqlite)]()
 [![Tests](https://img.shields.io/badge/Unit%20Tests-34%2F34%20Passed-green.svg?style=for-the-badge)]()
 
-[Architecture](#-system-architecture) • [Features](#-key-capabilities) • [Local Qwen LLM](#-downloadable-local-qwen-offline-model) • [Quick Start](#-quick-start--local-execution) • [DOCX Reports](#-sequential-docx-progress-reports)
+[Architecture](#-system-architecture) • [Features](#-key-capabilities) • [Local Qwen LLM](#-downloadable-local-qwen-offline-model) • [Quick Start](#-quick-start--local-execution) • [DOCX Reports](#-sequential-docx-progress-reports) • [Roadmap](#-upcoming-version-roadmap-v240--phase-12)
 
 ---
 
@@ -110,6 +110,23 @@ The repository contains 11 Word (`.docx`) progress reports generated automatical
 | `docs/update_09.docx` | Phase 9: Local Downloadable Qwen Offline LLM Integration | ✅ Verified |
 | `docs/update_10.docx` | Phase 10: Space Mini-Games Suite & OpenCV Mood Activity Recommender | ✅ Verified |
 | `docs/update_11.docx` | Phase 11: ISRO Grandmaster AI Chess Agent & Spoken Taunts | ✅ Verified |
+| `docs/update_12.docx` | Phase 12: Multi-Astronaut Telemetry & Group Coherence Matrix | 🚀 In Progress (v2.4.0) |
+
+---
+
+## 🔮 Upcoming Version Roadmap (v2.4.0 & Phase 12)
+
+| Target Release | Phase & Module | Upcoming Key Features & Core Enhancements | Status |
+| :--- | :--- | :--- | :--- |
+| `v2.4.0` | **Phase 12: Multi-Astronaut Telemetry Matrix** | **Group Coherence & Crew Sync**: Simultaneous multi-crew biometric stress tracking, collective HRV monitoring, and crew interaction friction diagnostics. | 🚀 In Development |
+| `v2.5.0` | **Phase 13: Local WebGPU / Wasm Engine** | **Zero-Latency In-Browser LLM Execution**: Direct GPU acceleration for offline Qwen LLM inference without local HTTP socket bottlenecks. | 📅 Planned |
+| `v2.6.0` | **Phase 14: Automated EVA Assistance** | **Spoken EVA Checklist & Emergency Guidance**: Voice-driven procedural checklists with live bio-telemetry safety boundary enforcement. | 📅 Planned |
+
+### 🎯 Key Upgrades in Upcoming Version v2.4.0 (Phase 12):
+- **Multi-Crew Dashboard HUD**: Real-time side-by-side telemetry overlays for up to 4 astronauts.
+- **Inter-Crew Dynamic Stress Index**: Algorithmic scoring of team cohesion and cognitive burnout during long-duration deep-space simulations.
+- **Expanded Test Coverage**: Adding comprehensive multi-crew edge case tests to expand suite past 40 unit tests.
+- **Automated Update 12 DOCX Report**: Generation of `docs/update_12.docx` upon phase completion.
 
 ---
 
