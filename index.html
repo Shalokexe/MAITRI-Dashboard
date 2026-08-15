@@ -3,92 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ISRO Gaganyaan MAITRI - Indian Space Research Organisation Landing Portal">
-    <title>ISRO Gaganyaan | Entrance Portal</title>
+    <meta name="description" content="Skyroot Aerospace & ISRO Gaganyaan MAITRI - Multimodal Deep-Space AI Telemetry Platform">
+    <title>Skyroot Aerospace x Gaganyaan MAITRI | Orbital AI Platform</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Outfit:wght@400;600;800;900&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark-mode landing-page">
+<body class="skyroot-theme landing-page">
 
     <!-- Cosmic Starfield Background Canvas -->
     <canvas id="starfieldCanvas"></canvas>
 
-    <!-- ISRO Landing Portal Container -->
-    <div class="landing-portal-container">
-        <div class="isro-portal-header">
-            <span class="portal-badge">🚀 GAGANYAAN DEEP-SPACE MISSION</span>
-            <h1 class="portal-title">INDIAN SPACE RESEARCH ORGANISATION</h1>
-            <p class="portal-subtitle">Multimodal AI for Total Resilience & Intelligence (MAITRI)</p>
-        </div>
-
-        <!-- Interactive Clickable ISRO Logo with Rocket Launch Engine -->
-        <div class="isro-interactive-logo-wrapper" id="isroLaunchTrigger">
-            <div class="logo-glow-ring"></div>
-            
-            <svg class="isro-landing-logo-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Orange Rocket Plume / Satellite Wing -->
-                <path class="logo-rocket-body" id="launchingRocket" d="M100 10 L140 120 L100 95 L60 120 Z" fill="#FF9933" />
+    <!-- Skyroot Global Top Header -->
+    <header class="skyroot-header">
+        <div class="skyroot-brand-group">
+            <svg class="skyroot-logo-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 10 L140 120 L100 95 L60 120 Z" fill="#FF9933" />
                 <path d="M30 75 L170 75 L100 30 Z" fill="#00A3E0" />
                 <path d="M20 120 Q100 155 180 120" stroke="#FF9933" stroke-width="8" fill="none" />
             </svg>
-
-            <!-- Thruster Flames (Hidden until clicked) -->
-            <div class="rocket-thruster-flame" id="thrusterFlame"></div>
+            <div class="skyroot-brand-text">
+                <span class="brand-main-title">SKYROOT | ISRO GAGANYAAN</span>
+                <span class="brand-sub-tag">MAITRI MULTIMODAL AI ECOSYSTEM</span>
+            </div>
         </div>
 
-        <!-- Call To Action Prompt -->
-        <div class="launch-prompt-box">
-            <span class="pulse-ring"></span>
-            <span class="prompt-text">👉 CLICK THE ISRO EMBLEM TO LAUNCH GAGANYAAN MAITRI CORE</span>
+        <!-- Live Telemetry Ticker -->
+        <div class="skyroot-telemetry-ticker">
+            <div class="ticker-node">
+                <span class="ticker-label">ORBIT:</span>
+                <span class="ticker-val">408.2 KM LEO</span>
+            </div>
+            <div class="ticker-node">
+                <span class="ticker-label">VELOCITY:</span>
+                <span class="ticker-val saffron">7.66 KM/S</span>
+            </div>
+            <div class="ticker-node">
+                <span class="ticker-label">AI INFERENCE:</span>
+                <span class="ticker-val green">&lt; 4.8 MS</span>
+            </div>
         </div>
 
-        <div class="launch-telemetry-status" id="launchStatusText">
-            STATUS: AIR-GAP SYSTEM READY FOR ORBITAL INJECTION
+        <div class="skyroot-header-actions">
+            <div class="flag-badge">
+                <span>🇮🇳 PROUDLY ENGINEERED IN INDIA</span>
+            </div>
+            <div class="airgap-badge">
+                <span class="pulse-dot"></span>
+                <span>100% AIR-GAPPED OFFLINE</span>
+            </div>
+            <div class="clock-pill" id="landingClock">00:00:00 UTC</div>
+            <button class="sound-btn" id="soundToggleBtn" title="Toggle Atmospheric Audio Soundscapes">🔊</button>
         </div>
+    </header>
+
+    <!-- Skyroot Main Landing Portal Container -->
+    <div class="skyroot-landing-wrapper">
+        
+        <!-- HERO SECTION -->
+        <section class="hero-section">
+            <div class="hero-text-content">
+                <div class="hero-badge-pill">🚀 INDIA'S PREMIER DEEP-SPACE ASTRONAUT AI</div>
+                <h1 class="hero-title">ON-DEMAND ORBITAL LAUNCH & DEEP-SPACE RESILIENCE ARCHITECTURE</h1>
+                <p class="hero-subtitle">
+                    Powering ISRO Gaganyaan G1 and Artemis missions with air-gapped offline multimodal AI, real-time facial HUD stress detection, local Qwen LLM dialogue, and ISRO Grandmaster AI Chess.
+                </p>
+                
+                <div class="hero-cta-group">
+                    <button class="btn-skyroot-launch" id="isroLaunchTrigger">
+                        <span>🚀 IGNITE & LAUNCH COMMAND CENTER</span>
+                    </button>
+                    <a href="#configurator" class="btn-skyroot-outline">
+                        <span>🛰️ MISSION CONFIGURATOR</span>
+                    </a>
+                </div>
+
+                <div class="launch-telemetry-status" id="launchStatusText">
+                    STATUS: VIKRAM LMV3 AVIONICS READY • CLICK IGNITION TO ROUTE TO COMMAND CENTER
+                </div>
+            </div>
+
+            <!-- 3D EARTH & SPACECRAFT ORBIT CANVAS VIEWPORT -->
+            <div class="hero-canvas-card">
+                <div class="hud-corner hud-tl"></div>
+                <div class="hud-corner hud-tr"></div>
+                <div class="hud-corner hud-bl"></div>
+                <div class="hud-corner hud-br"></div>
+                
+                <div class="hero-canvas-overlay">
+                    <span class="canvas-status-tag">REAL-TIME ORBIT SIMULATOR: LIVE</span>
+                    <span class="canvas-status-tag">APOGEE: 420KM | PERIGEE: 395KM</span>
+                </div>
+
+                <canvas id="heroOrbitCanvas"></canvas>
+            </div>
+        </section>
+
+        <!-- SKYROOT MISSION STATS COUNTER GRID -->
+        <section class="skyroot-stats-grid">
+            <div class="stat-card">
+                <span class="stat-number saffron" id="statAlt">408.2</span>
+                <span class="stat-label">Orbital Altitude (KM)</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number cyan" id="statVel">7.66</span>
+                <span class="stat-label">Orbital Velocity (KM/S)</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number green" id="statSecurity">100%</span>
+                <span class="stat-label">Air-Gapped Offline</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number saffron" id="statLatency">&lt; 5ms</span>
+                <span class="stat-label">Edge Neural Latency</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number cyan" id="statTests">34/34</span>
+                <span class="stat-label">Unit Tests Verified</span>
+            </div>
+        </section>
+
+        <!-- VEHICLE & ECOSYSTEM SHOWCASE -->
+        <section class="section-header-block">
+            <span class="section-tag">ADVANCED AEROSPACE ECOSYSTEM</span>
+            <h2 class="section-title">ENGINEERED FOR EXTREME SPACE ENVIRONMENTS</h2>
+        </section>
+
+        <div class="skyroot-vehicle-grid">
+            <div class="vehicle-card">
+                <div class="vehicle-img-box">
+                    <img src="assets/rocket_launch.jpg" alt="Vikram Rocket Launch">
+                    <span class="vehicle-tag-badge">PROPULSION & AVIONICS</span>
+                </div>
+                <div class="vehicle-body">
+                    <h3 class="vehicle-title">VIKRAM LMV3 LAUNCH VEHICLE</h3>
+                    <p class="vehicle-desc">
+                        Carbon-composite orbital rocket payload architecture designed for 72-hour assembly and rapid orbital injection into Low Earth Orbit.
+                    </p>
+                    <div class="vehicle-specs-list">
+                        <div class="spec-row"><span class="spec-key">Payload Capacity:</span><span class="spec-val">480 KG to 500 KM LEO</span></div>
+                        <div class="spec-row"><span class="spec-key">Hull Structure:</span><span class="spec-val">Carbon Fiber Composite</span></div>
+                        <div class="spec-row"><span class="spec-key">Avionics Engine:</span><span class="spec-val">MAITRI Multimodal AI</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vehicle-card">
+                <div class="vehicle-img-box">
+                    <img src="assets/space_hud.jpg" alt="MAITRI Space Station HUD">
+                    <span class="vehicle-tag-badge">COMMAND & VITAL HUD</span>
+                </div>
+                <div class="vehicle-body">
+                    <h3 class="vehicle-title">OPENCV VISION & VITAL HUD</h3>
+                    <p class="vehicle-desc">
+                        Real-time facial expression tracking, emotion breakdown, pupil fatigue scanner, and vocal perturbation analysis operating offline at 60 FPS.
+                    </p>
+                    <div class="vehicle-specs-list">
+                        <div class="spec-row"><span class="spec-key">Frame Rate:</span><span class="spec-val">60 FPS Edge Vision</span></div>
+                        <div class="spec-row"><span class="spec-key">Fatigue Metric:</span><span class="spec-val">Pupil Dilation & Blink Rate</span></div>
+                        <div class="spec-row"><span class="spec-key">Stress Spectrum:</span><span class="spec-val">Voice Pitch F0 Analyzer</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vehicle-card">
+                <div class="vehicle-img-box">
+                    <img src="assets/space_hud.jpg" alt="Local Neural Qwen Engine">
+                    <span class="vehicle-tag-badge">NEURAL ENGINE & CHESS</span>
+                </div>
+                <div class="vehicle-body">
+                    <h3 class="vehicle-title">LOCAL QWEN LLM & ISRO CHESS</h3>
+                    <p class="vehicle-desc">
+                        Downloadable local Qwen 0.5B / 1.5B / 7B GGUF models paired with ISRO Grandmaster Minimax AI Chess Agent featuring spoken taunts.
+                    </p>
+                    <div class="vehicle-specs-list">
+                        <div class="spec-row"><span class="spec-key">Offline LLM:</span><span class="spec-val">Qwen-2 0.5B / 1.5B / 7B</span></div>
+                        <div class="spec-row"><span class="spec-key">Chess Agent:</span><span class="spec-val">Minimax Alpha-Beta</span></div>
+                        <div class="spec-row"><span class="spec-key">Audio Taunts:</span><span class="spec-val">Web Speech Audio Synth</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SKYROOT INTERACTIVE MISSION CONFIGURATOR -->
+        <section id="configurator" class="configurator-wrapper">
+            <div class="hud-corner hud-tl"></div>
+            <div class="hud-corner hud-tr"></div>
+            <div class="hud-corner hud-bl"></div>
+            <div class="hud-corner hud-br"></div>
+
+            <div class="config-inputs-side">
+                <div class="section-header-block" style="text-align: left; align-items: flex-start;">
+                    <span class="section-tag">SKYROOT MISSION PLANNER</span>
+                    <h3 class="section-title" style="font-size: 26px;">PAYLOAD & RESILIENCE CONFIGURATOR</h3>
+                </div>
+
+                <div class="config-group">
+                    <label class="config-label">
+                        <span>Crew Size (Astronauts):</span>
+                        <span class="slider-val" id="crewVal">1 Astronaut</span>
+                    </label>
+                    <input type="range" id="crewSlider" min="1" max="4" value="1">
+                </div>
+
+                <div class="config-group">
+                    <label class="config-label">
+                        <span>Target Orbit Altitude:</span>
+                        <span class="slider-val" id="orbitVal">408 KM LEO</span>
+                    </label>
+                    <input type="range" id="orbitSlider" min="200" max="1000" step="10" value="408">
+                </div>
+
+                <div class="config-group">
+                    <span class="config-label">Active AI Sub-Systems:</span>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-label"><input type="checkbox" id="chkVision" checked> OpenCV Vision HUD</label>
+                        <label class="checkbox-label"><input type="checkbox" id="chkQwen" checked> Local Qwen LLM</label>
+                        <label class="checkbox-label"><input type="checkbox" id="chkChess" checked> ISRO Crystal Chess</label>
+                        <label class="checkbox-label"><input type="checkbox" id="chkBio" checked> Bio-Pulse AR Coach</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="config-results-side">
+                <div class="resilience-score-box">
+                    <span class="section-tag">TOTAL RESILIENCE SCORE</span>
+                    <span class="score-number" id="resilienceScore">98.4%</span>
+                    <span style="font-size: 12px; color: var(--text-secondary);">Optimal System Synergy & Redundancy</span>
+                </div>
+
+                <div class="vehicle-specs-list" style="border: none;">
+                    <div class="spec-row"><span class="spec-key">Calculated Payload Mass:</span><span class="spec-val" id="resMass">420 KG</span></div>
+                    <div class="spec-row"><span class="spec-key">Power Consumption:</span><span class="spec-val" id="resPower">145 Watts</span></div>
+                    <div class="spec-row"><span class="spec-key">Mission Duration:</span><span class="spec-val">14 Days Orbital Stay</span></div>
+                </div>
+
+                <a href="dashboard.html" class="btn-skyroot-launch" style="justify-content: center;">
+                    <span>🚀 PROCEED TO MISSION CONTROL DASHBOARD</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- SKYROOT FOOTER -->
+        <footer class="skyroot-footer">
+            <div>
+                <strong>SKYROOT AEROSPACE x ISRO GAGANYAAN MAITRI</strong><br>
+                <span>Built for Indian Deep-Space Exploration & Astronaut Resilience. 100% Offline Certified.</span>
+            </div>
+            <div>
+                <span>Phase 11 Production Release • Cmdr. Shalok Dadhwal Architecture</span>
+            </div>
+        </footer>
     </div>
 
-    <script>
-        // Interactive Rocket Launch Routing Script
-        document.addEventListener('DOMContentLoaded', () => {
-            const trigger = document.getElementById('isroLaunchTrigger');
-            const rocket = document.getElementById('launchingRocket');
-            const flame = document.getElementById('thrusterFlame');
-            const statusText = document.getElementById('launchStatusText');
-
-            if (!trigger) return;
-
-            trigger.addEventListener('click', () => {
-                trigger.classList.add('launching');
-                if (flame) flame.classList.add('active');
-                if (statusText) statusText.textContent = "IGNITION! LAUNCHING GAGANYAAN LMV3 ROCKET...";
-
-                // Audio Launch Sound Effect (Web Audio API Synthesizer)
-                playLaunchSound();
-
-                // Route to dashboard.html after rocket launches into space
-                setTimeout(() => {
-                    window.location.href = "dashboard.html";
-                }, 1800);
-            });
-
-            // Synthesize Launch Sound
-            function playLaunchSound() {
-                try {
-                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(100, ctx.currentTime);
-                    osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 1.5);
-                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1.5);
-                    osc.connect(gain);
-                    gain.connect(ctx.destination);
-                    osc.start();
-                    osc.stop(ctx.currentTime + 1.5);
-                } catch(e) {}
-            }
-        });
-    </script>
     <script src="app.js"></script>
 </body>
 </html>

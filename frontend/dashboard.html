@@ -3,61 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MAITRI - Official ISRO Gaganyaan Multimodal AI Assistant">
-    <title>ISRO Gaganyaan MAITRI | Mission Control & Telemetry</title>
+    <meta name="description" content="Skyroot Aerospace x ISRO Gaganyaan MAITRI - Mission Control & Deep-Space AI Telemetry">
+    <title>Skyroot x ISRO Gaganyaan MAITRI | Mission Control Center</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Outfit:wght@400;600;800;900&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <!-- Chart.js CDN with offline resilient script -->
+    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="dark-mode dashboard-page">
+<body class="skyroot-theme dashboard-page">
 
     <!-- Cosmic Starfield Background Canvas -->
     <canvas id="starfieldCanvas"></canvas>
 
+    <!-- Skyroot Global Header -->
+    <header class="skyroot-header">
+        <div class="skyroot-brand-group">
+            <a href="index.html" title="Return to Skyroot Entrance Portal">
+                <svg class="skyroot-logo-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M100 10 L140 120 L100 95 L60 120 Z" fill="#FF9933" />
+                    <path d="M30 75 L170 75 L100 30 Z" fill="#00A3E0" />
+                    <path d="M20 120 Q100 155 180 120" stroke="#FF9933" stroke-width="8" fill="none" />
+                </svg>
+            </a>
+            <div class="skyroot-brand-text">
+                <span class="brand-main-title">SKYROOT | ISRO GAGANYAAN G1</span>
+                <span class="brand-sub-tag">MAITRI MULTIMODAL MISSION CONTROL</span>
+            </div>
+        </div>
+
+        <!-- Live Orbital Telemetry Ticker -->
+        <div class="skyroot-telemetry-ticker">
+            <div class="ticker-node">
+                <span class="ticker-label">ALTITUDE:</span>
+                <span class="ticker-val">408.2 KM LEO</span>
+            </div>
+            <div class="ticker-node">
+                <span class="ticker-label">VELOCITY:</span>
+                <span class="ticker-val saffron">7.66 KM/S</span>
+            </div>
+            <div class="ticker-node">
+                <span class="ticker-label">COMMANDER:</span>
+                <span class="ticker-val gold">CMD. SHALOK DADHWAL</span>
+            </div>
+            <div class="ticker-node">
+                <span class="ticker-label">CABIN O2:</span>
+                <span class="ticker-val green">99.2%</span>
+            </div>
+        </div>
+
+        <div class="skyroot-header-actions">
+            <div class="airgap-badge">
+                <span class="pulse-dot"></span>
+                <span>100% AIR-GAPPED OFFLINE</span>
+            </div>
+            <div class="clock-pill" id="missionClock">00:00:00 UTC</div>
+            <button class="sound-btn" id="soundToggleBtnDash" title="Toggle Atmospheric Audio Soundscapes">🔊</button>
+        </div>
+    </header>
+
     <div class="app-container">
-        <!-- ISRO Official Telemetry Command Center Header -->
-        <header class="header">
-            <div class="header-left">
-                <div class="header-logo-container">
-                    <a href="index.html" title="Return to ISRO Entrance Portal">
-                        <svg class="isro-header-logo" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M100 10 L140 120 L100 95 L60 120 Z" fill="#FF9933" />
-                            <path d="M30 75 L170 75 L100 30 Z" fill="#00A3E0" />
-                            <path d="M20 120 Q100 155 180 120" stroke="#FF9933" stroke-width="8" fill="none" />
-                        </svg>
-                    </a>
-                    <div class="brand-text-group">
-                        <span class="isro-title-main">इसरो | ISRO GAGANYAAN G1</span>
-                        <span class="isro-sub-label">MAITRI MULTIMODAL AI COMMAND CENTER</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Live Orbital Telemetry Ticker -->
-            <div class="header-telemetry-ticker">
-                <div class="ticker-item">
-                    <span class="ticker-label">ORBIT:</span>
-                    <span class="ticker-val">408.2 KM</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-label">VELOCITY:</span>
-                    <span class="ticker-val gold">7.66 KM/S</span>
-                </div>
-                <div class="ticker-item">
-                    <span class="ticker-label">CREW:</span>
-                    <span class="ticker-val">CMD. SHALOK DADHWAL</span>
-                </div>
-            </div>
-
-            <div class="header-right">
-                <div class="net-status-badge">
-                    <span class="pulse-dot"></span>
-                    <span class="status-label">100% AIR-GAPPED OFFLINE</span>
-                </div>
-                <div class="clock-display" id="missionClock">00:00:00 UTC</div>
-            </div>
-        </header>
-
+        
         <!-- Navigation Segment Switcher -->
         <nav class="nav-tabs">
             <button class="nav-tab active" data-tab="dashboard">📊 Mission Overview</button>
@@ -71,13 +79,13 @@
             <button class="nav-tab" data-tab="system">⚙️ Edge Hardware Status</button>
         </nav>
 
-        <!-- Main Workspace View -->
+        <!-- MAIN WORKSPACE CONTENT VIEW -->
         <main class="main-content">
-            
-            <!-- 1. DASHBOARD OVERVIEW TAB -->
+
+            <!-- 1. MISSION OVERVIEW TAB -->
             <div id="dashboard" class="tab-content active">
                 <div class="grid-layout">
-                    <!-- Status Metric Cards Row -->
+                    <!-- Status Metric Cards -->
                     <div class="card metric-card">
                         <div class="card-icon orange">🫀</div>
                         <div class="card-info">
@@ -86,6 +94,7 @@
                             <span class="metric-sub positive">Normal Rhythm</span>
                         </div>
                     </div>
+
                     <div class="card metric-card">
                         <div class="card-icon cyan">🫁</div>
                         <div class="card-info">
@@ -94,100 +103,90 @@
                             <span class="metric-sub positive">Optimal Saturation</span>
                         </div>
                     </div>
+
                     <div class="card metric-card">
                         <div class="card-icon purple">⚡</div>
                         <div class="card-info">
                             <span class="metric-label">Stress Index</span>
-                            <span class="metric-val" id="dashStress">24 <small>/100</small></span>
-                            <span class="metric-sub positive">Low Cortisol Baseline</span>
-                        </div>
-                    </div>
-                    <div class="card metric-card">
-                        <div class="card-icon emerald">🌙</div>
-                        <div class="card-info">
-                            <span class="metric-label">Circadian Light</span>
-                            <span class="metric-val" style="font-size: 14px;" id="circadianStatusText">6500K Daylight</span>
-                            <span class="metric-sub positive">Melatonin Suppressed</span>
+                            <span class="metric-val" id="dashStress">14.2 <small>/ 100</small></span>
+                            <span class="metric-sub positive">Low Stress State</span>
                         </div>
                     </div>
 
-                    <!-- Main Vitals Trend Chart -->
+                    <div class="card metric-card">
+                        <div class="card-icon emerald">🌙</div>
+                        <div class="card-info">
+                            <span class="metric-label">Sleep Score</span>
+                            <span class="metric-val" id="dashSleep">88 <small>/ 100</small></span>
+                            <span class="metric-sub positive">Restorative REM</span>
+                        </div>
+                    </div>
+
+                    <!-- 3D EARTH ORBIT TELEMETRY CANVAS CARD -->
+                    <div class="card col-span-3 hero-canvas-card" style="height: 380px;">
+                        <div class="hud-corner hud-tl"></div>
+                        <div class="hud-corner hud-tr"></div>
+                        <div class="hud-corner hud-bl"></div>
+                        <div class="hud-corner hud-br"></div>
+                        <div class="card-header" style="position: absolute; top: 14px; left: 20px; right: 20px; z-index: 10;">
+                            <h2>🛰️ SKYROOT VIKRAM / GAGANYAAN REAL-TIME ORBIT TRACKER</h2>
+                            <span class="card-badge">LIVE ORBITAL CANVAS</span>
+                        </div>
+                        <canvas id="dashOrbitCanvas"></canvas>
+                    </div>
+
+                    <!-- QUICK COMPANION CHAT CARD -->
+                    <div class="card col-span-1 companion-widget">
+                        <div class="card-header">
+                            <h3>🧠 ISRO AI Assistant</h3>
+                            <span class="mode-tag">OFFLINE QWEN</span>
+                        </div>
+                        <div class="chat-mini-history" id="chatMiniHistory">
+                            <div class="chat-bubble bot">
+                                <span class="sender">MAITRI AI:</span>
+                                Cmdr. Shalok, telemetry parameters are optimal. All air-gap sub-systems are operating at peak efficiency.
+                            </div>
+                        </div>
+                        <div class="chat-input-row">
+                            <input type="text" id="miniChatInput" placeholder="Ask MAITRI AI...">
+                            <button class="btn btn-primary" id="sendMiniChatBtn">Send</button>
+                        </div>
+                    </div>
+
+                    <!-- REAL-TIME VITALS TREND CHART -->
                     <div class="card col-span-2 chart-card">
                         <div class="card-header">
-                            <h3>Real-Time Vitals Telemetry (Last 24 Hours)</h3>
-                            <span class="card-badge">LIVE SATELLITE FEED</span>
+                            <h3>📈 Heart Rate & SpO2 Real-Time Telemetry</h3>
+                            <span class="card-badge">LIVE STREAM</span>
                         </div>
                         <div class="chart-container">
                             <canvas id="vitalsTrendChart"></canvas>
                         </div>
                     </div>
 
-                    <!-- Emotion Trend Chart -->
-                    <div class="card col-span-1 chart-card">
-                        <div class="card-header">
-                            <h3>Psychological Mood Trend</h3>
-                            <span class="card-badge">VISION & AUDIO</span>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="emotionPieChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Pre-EVA Cognitive Readiness Test Widget -->
-                    <div class="card col-span-1">
-                        <div class="card-header">
-                            <h3>Pre-EVA Cognitive Test</h3>
-                            <span class="card-badge">PVT READINESS</span>
-                        </div>
-                        <p style="font-size: 11.5px; color: var(--text-secondary);">60s Psychomotor Vigilance reaction & memory test for spacewalk clearance.</p>
-                        <button id="startPvtTestBtn" class="btn btn-primary" style="margin-top: 6px;">Run Pre-EVA PVT Test</button>
-                        <div id="pvtResultBox">
-                            <div class="alert-item low" style="margin-top: 8px;">
-                                <div class="alert-details">
-                                    <span class="alert-title" style="color: var(--isro-green);">FIT FOR EVA (PASSED)</span>
-                                    <span class="alert-time">Mean Reaction: 215ms | Memory: 98%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Quick AI Companion Check-in Widget -->
-                    <div class="card col-span-2 companion-widget">
-                        <div class="card-header">
-                            <h3>ISRO MAITRI AI Companion — Voice & Text Dialogue</h3>
-                            <button id="voiceMicBtn" class="pill-btn">🎤 Speak Voice Command</button>
-                        </div>
-                        <div class="chat-mini-history" id="miniChatBox">
-                            <div class="chat-bubble bot">
-                                <span class="sender">ISRO MAITRI AI:</span>
-                                Namaste Cmdr. Shalok. All primary Gaganyaan orbital vitals are within normal safety bounds. How are you feeling today after your spacewalk simulation?
-                            </div>
-                        </div>
-                        <div class="chat-input-row">
-                            <input type="text" id="miniChatInput" placeholder="Type a message or speak out loud..." />
-                            <button id="miniChatSendBtn" class="btn btn-primary">Send</button>
-                        </div>
-                    </div>
-
-                    <!-- Live Alerts Panel -->
+                    <!-- RECENT ALERTS WIDGET -->
                     <div class="card col-span-2 alerts-widget">
                         <div class="card-header">
-                            <h3>Recent Telemetry & Emergency Alerts</h3>
-                            <span class="badge-count">2 Active</span>
+                            <h3>🚨 System Diagnostics & Mission Log</h3>
+                            <span class="badge-count">3 PASS</span>
                         </div>
-                        <div class="alert-feed" id="dashAlertsFeed">
+                        <div class="alert-feed">
                             <div class="alert-item low">
-                                <div class="alert-icon">💡</div>
-                                <div class="alert-details">
-                                    <span class="alert-title">Hydration & Rest Suggested</span>
-                                    <span class="alert-time">12 hours ago</span>
+                                <div>
+                                    <span class="alert-title">OpenCV Vision HUD Calibrated</span>
+                                    <span class="alert-time">02 mins ago • Facial geometry locked</span>
                                 </div>
                             </div>
-                            <div class="alert-item medium">
-                                <div class="alert-icon">⚠️</div>
-                                <div class="alert-details">
-                                    <span class="alert-title">Transient Heart Rate Spike (92 BPM)</span>
-                                    <span class="alert-time">2 hours ago</span>
+                            <div class="alert-item low">
+                                <div>
+                                    <span class="alert-title">ISRO Crystal Chess Engine Initialized</span>
+                                    <span class="alert-time">08 mins ago • Minimax depth 4 ready</span>
+                                </div>
+                            </div>
+                            <div class="alert-item low">
+                                <div>
+                                    <span class="alert-title">Local Qwen-2 GGUF LLM Loaded</span>
+                                    <span class="alert-time">14 mins ago • Local Ollama / llama.cpp connected</span>
                                 </div>
                             </div>
                         </div>
@@ -195,390 +194,288 @@
                 </div>
             </div>
 
-            <!-- PHASE 10 & 11: SPACE GAMES & CHESS ARENA TAB -->
+            <!-- 2. SPACE GAMES & MOOD HUD TAB -->
             <div id="games" class="tab-content">
                 <div class="grid-layout">
-                    <!-- Real-Time Mood Activity Recommender HUD -->
-                    <div class="card col-span-4">
+                    <!-- ISRO GRANDMASTER AI CHESS ARENA CARD -->
+                    <div class="card col-span-2">
+                        <div class="hud-corner hud-tl"></div>
+                        <div class="hud-corner hud-tr"></div>
+                        <div class="hud-corner hud-bl"></div>
+                        <div class="hud-corner hud-br"></div>
                         <div class="card-header">
-                            <h2>OpenCV Mood Recognition & Activity Recommender</h2>
-                            <span class="card-badge">LIVE VISION FEED</span>
+                            <h2>♟️ ISRO GRANDMASTER AI CHESS ARENA</h2>
+                            <span class="card-badge">MINIMAX ALPHA-BETA</span>
                         </div>
-                        <div class="sys-metrics-grid">
-                            <div class="sys-box">
-                                <span class="label">Detected Astronaut Mood</span>
-                                <span class="val green" id="hudDetectedMood">FOCUSED (94.2% Confidence)</span>
-                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">OpenCV Facial Stream Active</span>
-                            </div>
-                            <div class="sys-box">
-                                <span class="label">Recommended Primary Activity</span>
-                                <span class="val cyan" id="hudPrimaryActivity">Pre-EVA Spacewalk Readiness Check</span>
-                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">Tailored for High Focus</span>
-                            </div>
-                            <div class="sys-box">
-                                <span class="label">Suggested Space Game</span>
-                                <span class="val purple" id="hudSuggestedGame">ISRO Grandmaster AI Chess Arena</span>
-                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">Click below to launch</span>
-                            </div>
-                            <div class="sys-box">
-                                <span class="label">Recommended Operational Task</span>
-                                <span class="val green" id="hudRecommendedTask">Routine Orbital Guidance Calibration</span>
-                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">Logged in maitri_offline.db</span>
+                        <div style="display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap;">
+                            <canvas id="chessBoardCanvas" width="340" height="340" style="border-radius: 12px; border: 1px solid var(--skyroot-saffron); cursor: pointer;"></canvas>
+                            <div style="flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 12px;">
+                                <div id="chessDialogueBox" style="background: rgba(1,5,14,0.7); border: 1px solid var(--border-light); border-radius: 12px; padding: 14px; font-size: 13px; color: var(--skyroot-cyan); line-height: 1.5;">
+                                    "Greeting Cmdr. Shalok! Select a white piece to initiate your first move against ISRO Minimax AI."
+                                </div>
+                                <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 12px;">
+                                    <span>EVALUATION:</span>
+                                    <span id="chessEvalScore" style="color: var(--skyroot-saffron); font-weight: 800;">+0.0 (EQUAL)</span>
+                                </div>
+                                <div style="display: flex; gap: 10px;">
+                                    <button class="btn btn-primary" id="chessHintBtn">💡 Tactical Hint</button>
+                                    <button class="btn btn-secondary" id="resetChessBtn">🔄 Reset Match</button>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- NEW PHASE 11: ISRO GRANDMASTER AI CHESS ARENA -->
-                    <div class="card col-span-2" style="height: 480px;">
-                        <div class="card-header">
-                            <h3>♟️ ISRO Grandmaster AI Chess Arena</h3>
-                            <span class="card-badge">HUMAN VS AI AGENT</span>
-                        </div>
-                        <div class="ar-sphere-container" style="height: 360px; background: #010614;">
-                            <canvas id="chessBoardCanvas" width="360" height="360"></canvas>
-                        </div>
-                        <div class="controls-row" style="margin-top: 8px;">
-                            <button id="resetChessBtn" class="btn btn-primary">New Match vs MAITRI</button>
-                            <button id="chessHintBtn" class="btn btn-secondary">Get Tactical Hint</button>
-                        </div>
-                    </div>
-
-                    <!-- MAITRIChess Agent Dialogue & Spoken Taunts Box -->
-                    <div class="card col-span-2" style="height: 480px; justify-content: space-between;">
-                        <div class="card-header">
-                            <h3>🧠 MAITRI Agent Spoken Taunts & Tactical Advice</h3>
-                            <span class="status-online">● Voice Out-Loud Active</span>
-                        </div>
-                        <div class="chat-mini-history" style="height: 280px;" id="chessDialogueBox">
-                            <div class="chat-bubble bot">
-                                <span class="sender">ISRO MAITRI AI (Grandmaster Agent):</span>
-                                Greetings Cmdr. Shalok! I have initialized the space chess matrix. White to move — let's see your opening gambit!
-                            </div>
-                            <div class="chat-bubble bot" style="border-color: var(--isro-saffron);">
-                                <span class="sender">MAITRI Tactical Hint:</span>
-                                Controlling the central e4/d4 squares provides spatial maneuvering superiority in zero-gravity.
-                            </div>
-                        </div>
-                        <div class="sys-metrics-grid" style="margin-top: 10px;">
-                            <div class="sys-box">
-                                <span class="label">Engine Evaluation</span>
-                                <span class="val green" id="chessEvalScore">+0.0 (Equal Baseline)</span>
-                            </div>
-                            <div class="sys-box">
-                                <span class="label">Agent Persona</span>
-                                <span class="val cyan">Orbital Specialist</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Interactive Game 1: Space Reaction Reflex Challenge -->
+                    <!-- SPACE MINI-GAMES SUITE & REFLEX SIMULATOR -->
                     <div class="card col-span-2">
                         <div class="card-header">
-                            <h3>🎮 Space Reaction Reflex Challenge</h3>
-                            <span class="badge-count" id="reflexScore">Score: 0</span>
+                            <h2>🎮 ASTEROID DOCKING & REFLEX SIMULATOR</h2>
+                            <span class="card-badge">COGNITIVE TRAINING</span>
                         </div>
-                        <p style="font-size: 11.5px; color: var(--text-secondary);">Test zero-g hand-eye coordination by clicking solar flare targets as fast as possible.</p>
-                        <div class="ar-sphere-container" style="height: 240px; background: #010614;">
-                            <canvas id="reflexGameCanvas" width="480" height="240"></canvas>
-                        </div>
-                        <div class="controls-row" style="margin-top: 8px;">
-                            <button id="startReflexGameBtn" class="btn btn-primary">Start Reflex Game</button>
-                        </div>
-                    </div>
-
-                    <!-- Interactive Game 2: Gaganyaan Shuttle Docking Simulator -->
-                    <div class="card col-span-2">
-                        <div class="card-header">
-                            <h3>🚀 Shuttle Docking Thruster Simulator</h3>
-                            <span class="badge-count" id="dockingStatus">Distance: 100m</span>
-                        </div>
-                        <p style="font-size: 11.5px; color: var(--text-secondary);">Align your LMV3 thrusters with the space station docking ring using keyboard arrows.</p>
-                        <div class="ar-sphere-container" style="height: 240px; background: #010614;">
-                            <canvas id="dockingGameCanvas" width="480" height="240"></canvas>
-                        </div>
-                        <div class="controls-row" style="margin-top: 8px;">
-                            <button id="startDockingGameBtn" class="btn btn-primary">Start Docking Sim</button>
+                        <div style="display: flex; flex-direction: column; gap: 14px; text-align: center;">
+                            <div id="reflexBox" style="height: 220px; background: rgba(0,0,0,0.6); border: 1px solid var(--border-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: var(--skyroot-saffron); cursor: pointer;">
+                                CLICK TO START REFLEX DOCKING SIMULATION
+                            </div>
+                            <div style="display: flex; justify-content: space-around; font-family: var(--font-mono); font-size: 13px;">
+                                <span>REACTION TIME: <strong id="reflexTime" style="color: var(--skyroot-cyan);">--- ms</strong></span>
+                                <span>SCORE: <strong id="reflexScore" style="color: var(--skyroot-green);">0 PTS</strong></span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- BIO-PULSE AR COACH TAB -->
+            <!-- 3. BIO-PULSE AR COACH TAB -->
             <div id="biofeedback" class="tab-content">
                 <div class="grid-layout">
-                    <div class="card col-span-2">
-                        <div class="card-header">
-                            <h2>Gaganyaan Bio-Pulse AR Coherence Sphere</h2>
-                            <span class="card-badge">VOICE COACHING ACTIVE</span>
-                        </div>
-                        <div class="ar-sphere-container">
-                            <canvas id="bioPulseCanvas" width="480" height="320"></canvas>
-                            <div class="breathing-phase-overlay" id="breathingPhaseText">READY TO INHALE...</div>
-                        </div>
-                        <div class="controls-row" style="margin-top: 10px;">
-                            <button id="start478Btn" class="btn btn-primary">Start 4-7-8 Deep Relaxation</button>
-                            <button id="startBoxBtn" class="btn btn-secondary">Start Box Breathing (Tactical Focus)</button>
-                            <button id="stopBioBtn" class="btn btn-danger">Stop Coach</button>
-                        </div>
-                    </div>
-
-                    <div class="card col-span-2">
-                        <div class="card-header">
-                            <h2>Heart Rate Variability (HRV) & Vagus Tone</h2>
-                        </div>
-                        <div class="sys-metrics-grid">
-                            <div class="sys-box">
-                                <span class="label">Current HRV (RMSSD)</span>
-                                <span class="val green" id="hrvRmssdVal">64.5 ms</span>
-                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">Optimal Parasympathetic Balance</span>
-                            </div>
-                            <div class="sys-box">
-                                <span class="label">Autonomic Coherence Score</span>
-                                <span class="val cyan" id="coherenceScoreVal">98.2 %</span>
-                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">High Coherence Achieved</span>
-                            </div>
-                            <div class="sys-box">
-                                <span class="label">PNS Tone Indicator</span>
-                                <span class="val purple">HIGH (Vagus Active)</span>
-                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">Melatonin Synthesis Enabled</span>
-                            </div>
-                            <div class="sys-box">
-                                <span class="label">Completed Bio-Sessions</span>
-                                <span class="val green">12 Sessions (Air-Gapped)</span>
-                                <span class="note" style="font-size: 10px; color: var(--text-secondary);">Logged in maitri_offline.db</span>
-                            </div>
-                        </div>
-                        <div class="audio-analysis-box" style="margin-top: 12px;">
-                            <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.5;">
-                                <strong>Instruction:</strong> Align your breathing with the expanding glowing AR pulse sphere. Deep 4-7-8 exhalations stimulate the vagus nerve, reducing cortisol spikes during deep-space maneuvers.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 2. VITALS & STRESS TAB -->
-            <div id="vitals" class="tab-content">
-                <div class="grid-layout">
                     <div class="card col-span-4">
                         <div class="card-header">
-                            <h2>Astronaut Health & Sleep Telemetry Dashboard</h2>
+                            <h2>🧘 BIO-PULSE AR RESPIRATION COACH (4-7-8 TECHNIQUE)</h2>
+                            <span class="card-badge">AUTONOMIC CALMING</span>
                         </div>
-                        <div class="vitals-detail-grid">
-                            <div class="detail-box">
-                                <span class="label">Heart Rate (BPM)</span>
-                                <span class="value green">72</span>
-                                <span class="note">Min: 62 | Max: 88</span>
-                            </div>
-                            <div class="detail-box">
-                                <span class="label">Oxygen Saturation (SpO2)</span>
-                                <span class="value blue">98%</span>
-                                <span class="note">Min: 96% | Target: 98%+</span>
-                            </div>
-                            <div class="detail-box">
-                                <span class="label">Sleep Duration (Last Night)</span>
-                                <span class="value purple">7.2 hrs</span>
-                                <span class="note">Deep: 2.1h | REM: 1.6h</span>
-                            </div>
-                            <div class="detail-box">
-                                <span class="label">Body Temperature</span>
-                                <span class="value cyan">36.7 °C</span>
-                                <span class="note">Normal Baseline</span>
+                        <div class="ar-sphere-container">
+                            <canvas id="bioPulseCanvas" width="600" height="300"></canvas>
+                            <div class="breathing-phase-overlay" id="breathingPhaseText">
+                                INHALE DEEPLY THROUGH NOSE (4s)
                             </div>
                         </div>
-                        <div class="chart-container large">
-                            <canvas id="sleepQualityChart"></canvas>
+                        <div style="display: flex; justify-content: space-around; font-family: var(--font-mono); font-size: 13px; margin-top: 10px;">
+                            <span>CYCLE STATUS: <strong id="breathCycleCount" style="color: var(--skyroot-saffron);">CYCLE 1 / 4</strong></span>
+                            <span>TARGET HEART RATE: <strong style="color: var(--skyroot-green);">64 BPM</strong></span>
+                            <span>RESPIRATORY RATE: <strong style="color: var(--skyroot-cyan);">6 BREATHS/MIN</strong></span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 3. AI COMPANION TAB -->
+            <!-- 4. VITALS & STRESS TELEMETRY TAB -->
+            <div id="vitals" class="tab-content">
+                <div class="vitals-detail-grid">
+                    <div class="detail-box">
+                        <span class="label">HEART RATE VARIABILITY (HRV)</span>
+                        <span class="value green">68.4 ms</span>
+                    </div>
+                    <div class="detail-box">
+                        <span class="label">CORE TEMPERATURE</span>
+                        <span class="value blue">36.8 °C</span>
+                    </div>
+                    <div class="detail-box">
+                        <span class="label">VOICE PITCH PERTURBATION (F0)</span>
+                        <span class="value purple">124.2 Hz</span>
+                    </div>
+                    <div class="detail-box">
+                        <span class="label">PUPIL FATIGUE INDEX</span>
+                        <span class="value cyan">LOW (0.12)</span>
+                    </div>
+                </div>
+
+                <div class="grid-layout">
+                    <div class="card col-span-2 chart-card">
+                        <div class="card-header">
+                            <h3>🫀 Continuous ECG & Rhythm Graph</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="ecgChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card col-span-2 chart-card">
+                        <div class="card-header">
+                            <h3>🎙️ Voice Stress Spectrum (FFT)</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="voiceStressChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. ISRO AI COMPANION (QWEN LOCAL LLM) TAB -->
             <div id="companion" class="tab-content">
                 <div class="companion-full-container">
                     <div class="chat-sidebar">
-                        <h3>Companion Mode</h3>
+                        <h3>🧠 LOCAL NEURAL ENGINE</h3>
                         <div class="mode-selector">
-                            <button class="mode-btn active">🤖 Empathetic Listener</button>
-                            <button class="mode-btn">🧘 Stress Reduction & Breathwork</button>
-                            <button class="mode-btn">🎯 Operational Assistant</button>
-                            <button class="mode-btn">🎭 Motivational Companion</button>
+                            <button class="mode-btn active">🤖 Qwen-2 1.5B (GGUF Local)</button>
+                            <button class="mode-btn">⚡ Qwen-2 0.5B (Ultra-Fast)</button>
+                            <button class="mode-btn">🧠 Qwen-2 7B (Deep Reasoning)</button>
                         </div>
+                        
                         <div class="astronaut-card">
-                            <h4>ISRO Astronaut Profile</h4>
-                            <p><strong>Name:</strong> Cmdr. Shalok Dadhwal</p>
-                            <p><strong>ID:</strong> ASTRO-ISRO-706</p>
-                            <p><strong>Mission:</strong> Gaganyaan Deep-Space IX</p>
-                            <p><strong>Status:</strong> Nominal / Fit for Duty</p>
+                            <h4>MISSION CONTEXT</h4>
+                            <span>Astronaut: Cmdr. Shalok Dadhwal<br>Orbit: 408.2 KM LEO<br>Status: Air-Gap Offline</span>
                         </div>
                     </div>
+
                     <div class="chat-main">
                         <div class="chat-header">
-                            <span>ISRO MAITRI AI Engine (Offline Voice Synthesis Active)</span>
-                            <span class="status-online">● Voice TTS Active</span>
+                            <span>QWEN-2 DEEP-SPACE ASSISTANT ENGINE</span>
+                            <span class="status-online">● LOCAL MODEL READY</span>
                         </div>
-                        <div class="chat-logs" id="fullChatLogs">
+
+                        <div class="chat-logs" id="companionFullLogs">
                             <div class="chat-bubble bot">
-                                <span class="sender">ISRO MAITRI AI:</span>
-                                Namaste Cmdr. Shalok. I am your fully offline multimodal AI companion. I monitor your emotion, voice stress, and vital trends to support your mental resilience during orbital space missions. What is on your mind today?
+                                <span class="sender">QWEN AI ASSISTANT:</span>
+                                Welcome Cmdr. Shalok Dadhwal. I am your fully local, offline Qwen AI companion. You can consult me on medical protocols, ECLSS troubleshooting, or mission telemetry analysis.
                             </div>
                         </div>
+
                         <div class="quick-pills">
-                            <button class="pill-btn" onclick="sendQuickMsg('I am feeling a bit stressed after the EVA test.')">"I am feeling stressed"</button>
-                            <button class="pill-btn" onclick="sendQuickMsg('Give me a 5-minute breathing exercise.')">"Breathing exercise"</button>
-                            <button class="pill-btn" onclick="sendQuickMsg('Recommend some relaxing music for sleep.')">"Relaxing music"</button>
-                            <button class="pill-btn" onclick="sendQuickMsg('What are my current vital signs?')">"Check vitals"</button>
+                            <button class="pill-btn" onclick="sendPresetPrompt('Run ECLSS O2 scrubber diagnostic')">🛠️ ECLSS O2 Diagnostic</button>
+                            <button class="pill-btn" onclick="sendPresetPrompt('Check SpO2 & Heart Rate trend')">🫀 Check Bio-Vitals</button>
+                            <button class="pill-btn" onclick="sendPresetPrompt('Prepare pre-EVA checklist')">👨‍🚀 Pre-EVA Checklist</button>
                         </div>
-                        <div class="chat-input-container">
-                            <input type="text" id="fullChatInput" placeholder="Speak or type your thoughts..." />
-                            <button id="fullChatSendBtn" class="btn btn-primary">Send Message</button>
+
+                        <div class="chat-input-row">
+                            <input type="text" id="companionInput" placeholder="Type prompt to local Qwen LLM engine...">
+                            <button class="btn btn-primary" id="companionSendBtn">Execute</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 4. MULTIMODAL PIPELINE TAB -->
+            <!-- 6. MULTIMODAL STREAM TAB -->
             <div id="multimodal" class="tab-content">
                 <div class="grid-layout">
                     <div class="card col-span-2">
                         <div class="card-header">
-                            <h2>OpenCV Facial Analysis Radar Stream</h2>
-                            <span class="card-badge">LIVE CAMERA CANVAS</span>
+                            <h3>📷 OpenCV Facial Emotion & Fatigue Scanner</h3>
+                            <span class="card-badge">60 FPS VISION</span>
                         </div>
                         <div class="video-container">
-                            <div class="video-preview-box" id="webcamBox">
-                                <canvas id="videoCanvas" width="640" height="480"></canvas>
-                                <div class="face-bounding-box" id="faceBox">
-                                    <span class="box-label">Cmdr. Shalok [Focused: 94%]</span>
+                            <div class="video-preview-box">
+                                <canvas id="videoCanvas" width="480" height="280"></canvas>
+                                <div class="face-bounding-box">
+                                    <span class="box-label">CMD. SHALOK [CALM 94%]</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="controls-row">
-                            <button id="startCamBtn" class="btn btn-success">Start OpenCV Stream</button>
-                            <button id="stopCamBtn" class="btn btn-danger">Stop Pipeline</button>
                         </div>
                     </div>
 
                     <div class="card col-span-2">
                         <div class="card-header">
-                            <h2>Voice Tone & Stress Analyzer</h2>
+                            <h3>🎙️ Voice Stress & Pitch Analyzer</h3>
                         </div>
                         <div class="audio-analysis-box">
                             <div class="audio-wave-visualizer">
-                                <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-                                <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
                             </div>
                             <div class="voice-metrics">
-                                <p><strong>Pitch Variance:</strong> 142 Hz (Normal)</p>
-                                <p><strong>Speech Rate:</strong> 135 wpm</p>
-                                <p><strong>Vocal Stress Indicator:</strong> Low (18%)</p>
-                                <p><strong>Detected Mood:</strong> Calm & Analytical</p>
+                                <p>Pitch Frequency (F0): <strong>124.5 Hz</strong></p>
+                                <p>RMS Amplitude: <strong>0.042</strong></p>
+                                <p>Vocal Jitter / Stress: <strong>0.02 (STABLE)</strong></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 5. PERSONALIZATION & ENTERTAINMENT TAB -->
+            <!-- 7. PERSONALIZATION & MEDIA TAB -->
             <div id="entertainment" class="tab-content">
-                <div class="grid-layout">
-                    <div class="card col-span-4">
-                        <div class="card-header">
-                            <h2>Offline Personalized Media Vault</h2>
-                        </div>
-                        <div class="media-tabs">
-                            <div class="media-card">
-                                <h3>😂 Comedy & Stand-up</h3>
-                                <p>Offline space humor, light-hearted clips, stand-up routines.</p>
-                                <button class="btn btn-secondary">Play Offline Clip 1</button>
-                            </div>
-                            <div class="media-card">
-                                <h3>🎶 Ambient Music</h3>
-                                <p>Lo-Fi space beats, binaural sleep tracks, focus melodies.</p>
-                                <button class="btn btn-secondary">Play Ambient Track</button>
-                            </div>
-                            <div class="media-card">
-                                <h3>🧘 Guided Relaxation</h3>
-                                <p>Guided imagery for zero-gravity sleep and stress relief.</p>
-                                <button class="btn btn-secondary">Start Guided Meditation</button>
-                            </div>
-                            <div class="media-card">
-                                <h3>🚀 Motivational Messages</h3>
-                                <p>Curated messages from family, ground control, & crew.</p>
-                                <button class="btn btn-secondary">Play Crew Message</button>
-                            </div>
-                        </div>
+                <div class="media-tabs">
+                    <div class="media-card">
+                        <h3>🌅 Circadian Lighting Control</h3>
+                        <p>Adjust cabin spectrum to synchronize astronaut circadian rhythm in orbit.</p>
+                        <button class="btn btn-secondary" onclick="setCircadian('dawn')">Sunrise Mode</button>
+                    </div>
+                    <div class="media-card">
+                        <h3>🎵 Deep-Space Soundscapes</h3>
+                        <p>Relaxation ambient soundscapes for deep space orbital stays.</p>
+                        <button class="btn btn-secondary" onclick="toggleSpaceAudio()">Play Ambient Drone</button>
+                    </div>
+                    <div class="media-card">
+                        <h3>📖 Mission Journal</h3>
+                        <p>Log personal astronaut entries stored locally in SQLite database.</p>
+                        <button class="btn btn-secondary">New Journal Entry</button>
+                    </div>
+                    <div class="media-card">
+                        <h3>🌌 Space Holograms</h3>
+                        <p>3D visual constellation guides for night orbit observations.</p>
+                        <button class="btn btn-secondary">Launch Star Map</button>
                     </div>
                 </div>
             </div>
 
-            <!-- 6. ALERTS & BLACKBOX TAB -->
+            <!-- 8. EMERGENCY & BLACK-BOX LOGS TAB -->
             <div id="alerts" class="tab-content">
-                <div class="grid-layout">
-                    <div class="card col-span-4">
-                        <div class="card-header">
-                            <h2>ISRO Incident Logs & SHA-256 Black-Box Exporter</h2>
-                            <button onclick="alert('Black-box telemetry packet generated with SHA-256 integrity hash. Saved 68.5% transmission bandwidth via zlib compression.')" class="btn btn-primary">Export Black-Box Telemetry</button>
-                        </div>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Timestamp</th>
-                                    <th>Severity</th>
-                                    <th>Category</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="alertsTableBody">
-                                <tr>
-                                    <td>2026-08-02 11:30:00</td>
-                                    <td><span class="badge low">LOW</span></td>
-                                    <td>PSYCHOLOGICAL</td>
-                                    <td>Hydration & Rest Suggested</td>
-                                    <td>High cognitive workload detected over 4 hours.</td>
-                                    <td><span class="badge success">Acknowledged</span></td>
-                                </tr>
-                                <tr>
-                                    <td>2026-08-02 21:15:00</td>
-                                    <td><span class="badge medium">MEDIUM</span></td>
-                                    <td>PHYSICAL</td>
-                                    <td>Elevated Heart Rate Spike</td>
-                                    <td>Resting HR spiked to 92 BPM during orbit maneuver.</td>
-                                    <td><span class="badge success">Resolved</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="card col-span-4">
+                    <div class="card-header">
+                        <h2>🚨 BLACK-BOX SYSTEM LOGS & AIR-GAP AUDIT</h2>
+                        <span class="card-badge">SQLITE LOGS</span>
                     </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp (UTC)</th>
+                                <th>Event Category</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2026-08-15 20:45:10</td>
+                                <td>AIR-GAP AUDIT</td>
+                                <td>Network interfaces inspected. Zero external web requests detected.</td>
+                                <td><span class="badge success">VERIFIED</span></td>
+                            </tr>
+                            <tr>
+                                <td>2026-08-15 20:40:02</td>
+                                <td>AI CHESS AGENT</td>
+                                <td>Minimax engine loaded depth 4 heuristics table into memory.</td>
+                                <td><span class="badge low">NOMINAL</span></td>
+                            </tr>
+                            <tr>
+                                <td>2026-08-15 20:30:15</td>
+                                <td>LOCAL QWEN LLM</td>
+                                <td>Ollama / llama.cpp endpoint check passed at http://localhost:11434.</td>
+                                <td><span class="badge low">NOMINAL</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <!-- 7. SYSTEM STATUS TAB -->
+            <!-- 9. EDGE HARDWARE STATUS TAB -->
             <div id="system" class="tab-content">
-                <div class="grid-layout">
-                    <div class="card col-span-4">
-                        <div class="card-header">
-                            <h2>Edge System Status & Local Storage (Zero Internet)</h2>
-                        </div>
-                        <div class="sys-metrics-grid">
-                            <div class="sys-box">
-                                <span class="label">Target Hardware</span>
-                                <span class="val">NVIDIA Jetson Nano / Pi 4 / Edge PC</span>
-                            </div>
-                            <div class="sys-box">
-                                <span class="label">SQLite Database Status</span>
-                                <span class="val green">CONNECTED (maitri_offline.db)</span>
-                            </div>
-                            <div class="sys-box">
-                                <span class="label">Model Runtime</span>
-                                <span class="val cyan">ONNX / OpenCV Local CPU/GPU</span>
-                            </div>
-                            <div class="sys-box">
-                                <span class="label">UI Design System</span>
-                                <span class="val purple">ISRO Official Command Center UI</span>
-                            </div>
-                        </div>
+                <div class="sys-metrics-grid">
+                    <div class="sys-box">
+                        <span class="label">CPU USAGE (8-CORE ARM64)</span>
+                        <span class="val cyan">14.2%</span>
+                    </div>
+                    <div class="sys-box">
+                        <span class="label">RAM ALLOCATION</span>
+                        <span class="val green">3.2 GB / 16 GB</span>
+                    </div>
+                    <div class="sys-box">
+                        <span class="label">NPU / NEURAL ENGINE ACCELERATION</span>
+                        <span class="val purple">ACTIVE (INT8 COMPRESSION)</span>
+                    </div>
+                    <div class="sys-box">
+                        <span class="label">SQLITE LOCAL DATABASE</span>
+                        <span class="val cyan">CONNECTED (4 TABLES)</span>
                     </div>
                 </div>
             </div>
