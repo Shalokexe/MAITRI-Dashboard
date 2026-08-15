@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Skyroot Aerospace x ISRO Gaganyaan MAITRI - Mission Control & Deep-Space AI Telemetry">
-    <title>Skyroot x ISRO Gaganyaan MAITRI | Mission Control Center</title>
+    <meta name="description" content="MAITRI - Mission Control & Deep-Space AI Telemetry Center">
+    <title>MAITRI | Mission Control Center</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,29 +13,27 @@
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="skyroot-theme dashboard-page">
+<body class="dashboard-page">
 
-    <!-- Cosmic Starfield Background Canvas -->
+    <!-- Dynamic Interactive Constellation & Shooting Star Background Canvas -->
     <canvas id="starfieldCanvas"></canvas>
 
-    <!-- Skyroot Global Header -->
-    <header class="skyroot-header">
-        <div class="skyroot-brand-group">
-            <a href="index.html" title="Return to Skyroot Entrance Portal">
-                <svg class="skyroot-logo-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M100 10 L140 120 L100 95 L60 120 Z" fill="#FF9933" />
-                    <path d="M30 75 L170 75 L100 30 Z" fill="#00A3E0" />
-                    <path d="M20 120 Q100 155 180 120" stroke="#FF9933" stroke-width="8" fill="none" />
-                </svg>
-            </a>
-            <div class="skyroot-brand-text">
-                <span class="brand-main-title">SKYROOT | ISRO GAGANYAAN G1</span>
-                <span class="brand-sub-tag">MAITRI MULTIMODAL MISSION CONTROL</span>
+    <!-- Global Top Header -->
+    <header class="global-header">
+        <a href="index.html" class="brand-group">
+            <svg class="brand-logo-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 10 L140 120 L100 95 L60 120 Z" fill="#FF9933" />
+                <path d="M30 75 L170 75 L100 30 Z" fill="#00A3E0" />
+                <path d="M20 120 Q100 155 180 120" stroke="#FF9933" stroke-width="8" fill="none" />
+            </svg>
+            <div class="brand-text-block">
+                <span class="brand-title">MAITRI | GAGANYAAN G1</span>
+                <span class="brand-tag">MULTIMODAL MISSION CONTROL</span>
             </div>
-        </div>
+        </a>
 
         <!-- Live Orbital Telemetry Ticker -->
-        <div class="skyroot-telemetry-ticker">
+        <div class="telemetry-ticker">
             <div class="ticker-node">
                 <span class="ticker-label">ALTITUDE:</span>
                 <span class="ticker-val">408.2 KM LEO</span>
@@ -54,7 +52,7 @@
             </div>
         </div>
 
-        <div class="skyroot-header-actions">
+        <div class="header-actions">
             <div class="airgap-badge">
                 <span class="pulse-dot"></span>
                 <span>100% AIR-GAPPED OFFLINE</span>
@@ -72,7 +70,7 @@
             <button class="nav-tab" data-tab="games">🎮 Space Games & Mood HUD</button>
             <button class="nav-tab" data-tab="biofeedback">🧘 Bio-Pulse AR Coach</button>
             <button class="nav-tab" data-tab="vitals">🫀 Vitals & Stress Telemetry</button>
-            <button class="nav-tab" data-tab="companion">🧠 ISRO AI Companion</button>
+            <button class="nav-tab" data-tab="companion">🧠 AI Companion (Qwen)</button>
             <button class="nav-tab" data-tab="multimodal">📷 Multimodal Stream</button>
             <button class="nav-tab" data-tab="entertainment">🎵 Personalization & Media</button>
             <button class="nav-tab" data-tab="alerts">🚨 Emergency & Black-Box Logs</button>
@@ -129,7 +127,7 @@
                         <div class="hud-corner hud-bl"></div>
                         <div class="hud-corner hud-br"></div>
                         <div class="card-header" style="position: absolute; top: 14px; left: 20px; right: 20px; z-index: 10;">
-                            <h2>🛰️ SKYROOT VIKRAM / GAGANYAAN REAL-TIME ORBIT TRACKER</h2>
+                            <h2>🛰️ MAITRI SPACECRAFT REAL-TIME ORBIT TRACKER</h2>
                             <span class="card-badge">LIVE ORBITAL CANVAS</span>
                         </div>
                         <canvas id="dashOrbitCanvas"></canvas>
@@ -138,7 +136,7 @@
                     <!-- QUICK COMPANION CHAT CARD -->
                     <div class="card col-span-1 companion-widget">
                         <div class="card-header">
-                            <h3>🧠 ISRO AI Assistant</h3>
+                            <h3>🧠 MAITRI AI Companion</h3>
                             <span class="mode-tag">OFFLINE QWEN</span>
                         </div>
                         <div class="chat-mini-history" id="chatMiniHistory">
@@ -179,7 +177,7 @@
                             </div>
                             <div class="alert-item low">
                                 <div>
-                                    <span class="alert-title">ISRO Crystal Chess Engine Initialized</span>
+                                    <span class="alert-title">Grandmaster AI Chess Engine Initialized</span>
                                     <span class="alert-time">08 mins ago • Minimax depth 4 ready</span>
                                 </div>
                             </div>
@@ -197,25 +195,25 @@
             <!-- 2. SPACE GAMES & MOOD HUD TAB -->
             <div id="games" class="tab-content">
                 <div class="grid-layout">
-                    <!-- ISRO GRANDMASTER AI CHESS ARENA CARD -->
+                    <!-- GRANDMASTER AI CHESS ARENA CARD -->
                     <div class="card col-span-2">
                         <div class="hud-corner hud-tl"></div>
                         <div class="hud-corner hud-tr"></div>
                         <div class="hud-corner hud-bl"></div>
                         <div class="hud-corner hud-br"></div>
                         <div class="card-header">
-                            <h2>♟️ ISRO GRANDMASTER AI CHESS ARENA</h2>
+                            <h2>♟️ GRANDMASTER AI CHESS ARENA</h2>
                             <span class="card-badge">MINIMAX ALPHA-BETA</span>
                         </div>
                         <div style="display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap;">
-                            <canvas id="chessBoardCanvas" width="340" height="340" style="border-radius: 12px; border: 1px solid var(--skyroot-saffron); cursor: pointer;"></canvas>
+                            <canvas id="chessBoardCanvas" width="340" height="340" style="border-radius: 12px; border: 1px solid var(--maitri-saffron); cursor: pointer;"></canvas>
                             <div style="flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 12px;">
-                                <div id="chessDialogueBox" style="background: rgba(1,5,14,0.7); border: 1px solid var(--border-light); border-radius: 12px; padding: 14px; font-size: 13px; color: var(--skyroot-cyan); line-height: 1.5;">
-                                    "Greeting Cmdr. Shalok! Select a white piece to initiate your first move against ISRO Minimax AI."
+                                <div id="chessDialogueBox" style="background: rgba(1,5,14,0.7); border: 1px solid var(--border-light); border-radius: 12px; padding: 14px; font-size: 13px; color: var(--maitri-cyan); line-height: 1.5;">
+                                    "Greeting Cmdr. Shalok! Select a white piece to initiate your first move against Minimax AI."
                                 </div>
                                 <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 12px;">
                                     <span>EVALUATION:</span>
-                                    <span id="chessEvalScore" style="color: var(--skyroot-saffron); font-weight: 800;">+0.0 (EQUAL)</span>
+                                    <span id="chessEvalScore" style="color: var(--maitri-saffron); font-weight: 800;">+0.0 (EQUAL)</span>
                                 </div>
                                 <div style="display: flex; gap: 10px;">
                                     <button class="btn btn-primary" id="chessHintBtn">💡 Tactical Hint</button>
@@ -232,12 +230,12 @@
                             <span class="card-badge">COGNITIVE TRAINING</span>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 14px; text-align: center;">
-                            <div id="reflexBox" style="height: 220px; background: rgba(0,0,0,0.6); border: 1px solid var(--border-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: var(--skyroot-saffron); cursor: pointer;">
+                            <div id="reflexBox" style="height: 220px; background: rgba(0,0,0,0.6); border: 1px solid var(--border-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: var(--maitri-saffron); cursor: pointer;">
                                 CLICK TO START REFLEX DOCKING SIMULATION
                             </div>
                             <div style="display: flex; justify-content: space-around; font-family: var(--font-mono); font-size: 13px;">
-                                <span>REACTION TIME: <strong id="reflexTime" style="color: var(--skyroot-cyan);">--- ms</strong></span>
-                                <span>SCORE: <strong id="reflexScore" style="color: var(--skyroot-green);">0 PTS</strong></span>
+                                <span>REACTION TIME: <strong id="reflexTime" style="color: var(--maitri-cyan);">--- ms</strong></span>
+                                <span>SCORE: <strong id="reflexScore" style="color: var(--maitri-green);">0 PTS</strong></span>
                             </div>
                         </div>
                     </div>
@@ -259,9 +257,9 @@
                             </div>
                         </div>
                         <div style="display: flex; justify-content: space-around; font-family: var(--font-mono); font-size: 13px; margin-top: 10px;">
-                            <span>CYCLE STATUS: <strong id="breathCycleCount" style="color: var(--skyroot-saffron);">CYCLE 1 / 4</strong></span>
-                            <span>TARGET HEART RATE: <strong style="color: var(--skyroot-green);">64 BPM</strong></span>
-                            <span>RESPIRATORY RATE: <strong style="color: var(--skyroot-cyan);">6 BREATHS/MIN</strong></span>
+                            <span>CYCLE STATUS: <strong id="breathCycleCount" style="color: var(--maitri-saffron);">CYCLE 1 / 4</strong></span>
+                            <span>TARGET HEART RATE: <strong style="color: var(--maitri-green);">64 BPM</strong></span>
+                            <span>RESPIRATORY RATE: <strong style="color: var(--maitri-cyan);">6 BREATHS/MIN</strong></span>
                         </div>
                     </div>
                 </div>
@@ -308,7 +306,7 @@
                 </div>
             </div>
 
-            <!-- 5. ISRO AI COMPANION (QWEN LOCAL LLM) TAB -->
+            <!-- 5. AI COMPANION (QWEN LOCAL LLM) TAB -->
             <div id="companion" class="tab-content">
                 <div class="companion-full-container">
                     <div class="chat-sidebar">

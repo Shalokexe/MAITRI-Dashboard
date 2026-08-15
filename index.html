@@ -3,35 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Skyroot Aerospace & ISRO Gaganyaan MAITRI - Multimodal Deep-Space AI Telemetry Platform">
-    <title>Skyroot Aerospace x Gaganyaan MAITRI | Orbital AI Platform</title>
+    <meta name="description" content="MAITRI - Multimodal Deep-Space AI Telemetry & Astronaut Resilience Platform">
+    <title>MAITRI | Multimodal Deep-Space AI Platform</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Outfit:wght@400;600;800;900&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="skyroot-theme landing-page">
+<body class="landing-page">
 
-    <!-- Cosmic Starfield Background Canvas -->
+    <!-- Dynamic Interactive Constellation & Shooting Star Background Canvas -->
     <canvas id="starfieldCanvas"></canvas>
 
-    <!-- Skyroot Global Top Header -->
-    <header class="skyroot-header">
-        <div class="skyroot-brand-group">
-            <svg class="skyroot-logo-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Top Global Header -->
+    <header class="global-header">
+        <a href="index.html" class="brand-group">
+            <svg class="brand-logo-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M100 10 L140 120 L100 95 L60 120 Z" fill="#FF9933" />
                 <path d="M30 75 L170 75 L100 30 Z" fill="#00A3E0" />
                 <path d="M20 120 Q100 155 180 120" stroke="#FF9933" stroke-width="8" fill="none" />
             </svg>
-            <div class="skyroot-brand-text">
-                <span class="brand-main-title">SKYROOT | ISRO GAGANYAAN</span>
-                <span class="brand-sub-tag">MAITRI MULTIMODAL AI ECOSYSTEM</span>
+            <div class="brand-text-block">
+                <span class="brand-title">MAITRI | GAGANYAAN G1</span>
+                <span class="brand-tag">MULTIMODAL AI & RESILIENCE PLATFORM</span>
             </div>
-        </div>
+        </a>
 
         <!-- Live Telemetry Ticker -->
-        <div class="skyroot-telemetry-ticker">
+        <div class="telemetry-ticker">
             <div class="ticker-node">
                 <span class="ticker-label">ORBIT:</span>
                 <span class="ticker-val">408.2 KM LEO</span>
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <div class="skyroot-header-actions">
+        <div class="header-actions">
             <div class="flag-badge">
                 <span>🇮🇳 PROUDLY ENGINEERED IN INDIA</span>
             </div>
@@ -59,29 +59,29 @@
         </div>
     </header>
 
-    <!-- Skyroot Main Landing Portal Container -->
-    <div class="skyroot-landing-wrapper">
+    <!-- Main Landing Portal Container -->
+    <div class="landing-wrapper">
         
         <!-- HERO SECTION -->
         <section class="hero-section">
             <div class="hero-text-content">
-                <div class="hero-badge-pill">🚀 INDIA'S PREMIER DEEP-SPACE ASTRONAUT AI</div>
-                <h1 class="hero-title">ON-DEMAND ORBITAL LAUNCH & DEEP-SPACE RESILIENCE ARCHITECTURE</h1>
+                <div class="hero-badge-pill">🚀 INDIAN DEEP-SPACE ASTRONAUT AI</div>
+                <h1 class="hero-title">ON-DEMAND ORBITAL TELEMETRY & DEEP-SPACE RESILIENCE ARCHITECTURE</h1>
                 <p class="hero-subtitle">
-                    Powering ISRO Gaganyaan G1 and Artemis missions with air-gapped offline multimodal AI, real-time facial HUD stress detection, local Qwen LLM dialogue, and ISRO Grandmaster AI Chess.
+                    Powering Gaganyaan G1 deep-space orbital missions with air-gapped offline multimodal AI, real-time facial HUD stress detection, local Qwen LLM dialogue, and Grandmaster AI Chess.
                 </p>
                 
                 <div class="hero-cta-group">
-                    <button class="btn-skyroot-launch" id="isroLaunchTrigger">
+                    <button class="btn-launch" id="launchTrigger">
                         <span>🚀 IGNITE & LAUNCH COMMAND CENTER</span>
                     </button>
-                    <a href="#configurator" class="btn-skyroot-outline">
+                    <a href="#configurator" class="btn-outline">
                         <span>🛰️ MISSION CONFIGURATOR</span>
                     </a>
                 </div>
 
                 <div class="launch-telemetry-status" id="launchStatusText">
-                    STATUS: VIKRAM LMV3 AVIONICS READY • CLICK IGNITION TO ROUTE TO COMMAND CENTER
+                    STATUS: AVIONICS ONLINE • CLICK IGNITION TO ROUTE TO MISSION CONTROL
                 </div>
             </div>
 
@@ -101,8 +101,8 @@
             </div>
         </section>
 
-        <!-- SKYROOT MISSION STATS COUNTER GRID -->
-        <section class="skyroot-stats-grid">
+        <!-- MISSION STATS COUNTER GRID -->
+        <section class="stats-grid">
             <div class="stat-card">
                 <span class="stat-number saffron" id="statAlt">408.2</span>
                 <span class="stat-label">Orbital Altitude (KM)</span>
@@ -131,16 +131,16 @@
             <h2 class="section-title">ENGINEERED FOR EXTREME SPACE ENVIRONMENTS</h2>
         </section>
 
-        <div class="skyroot-vehicle-grid">
+        <div class="vehicle-grid">
             <div class="vehicle-card">
                 <div class="vehicle-img-box">
-                    <img src="assets/rocket_launch.jpg" alt="Vikram Rocket Launch">
+                    <img src="assets/rocket_launch.jpg" alt="Orbital Rocket Launch">
                     <span class="vehicle-tag-badge">PROPULSION & AVIONICS</span>
                 </div>
                 <div class="vehicle-body">
-                    <h3 class="vehicle-title">VIKRAM LMV3 LAUNCH VEHICLE</h3>
+                    <h3 class="vehicle-title">ORBITAL PROPULSION & AVIONICS</h3>
                     <p class="vehicle-desc">
-                        Carbon-composite orbital rocket payload architecture designed for 72-hour assembly and rapid orbital injection into Low Earth Orbit.
+                        Carbon-composite orbital payload architecture designed for 72-hour assembly and rapid orbital injection into Low Earth Orbit.
                     </p>
                     <div class="vehicle-specs-list">
                         <div class="spec-row"><span class="spec-key">Payload Capacity:</span><span class="spec-val">480 KG to 500 KM LEO</span></div>
@@ -174,9 +174,9 @@
                     <span class="vehicle-tag-badge">NEURAL ENGINE & CHESS</span>
                 </div>
                 <div class="vehicle-body">
-                    <h3 class="vehicle-title">LOCAL QWEN LLM & ISRO CHESS</h3>
+                    <h3 class="vehicle-title">LOCAL QWEN LLM & AI CHESS</h3>
                     <p class="vehicle-desc">
-                        Downloadable local Qwen 0.5B / 1.5B / 7B GGUF models paired with ISRO Grandmaster Minimax AI Chess Agent featuring spoken taunts.
+                        Downloadable local Qwen 0.5B / 1.5B / 7B GGUF models paired with Grandmaster Minimax AI Chess Agent featuring spoken taunts.
                     </p>
                     <div class="vehicle-specs-list">
                         <div class="spec-row"><span class="spec-key">Offline LLM:</span><span class="spec-val">Qwen-2 0.5B / 1.5B / 7B</span></div>
@@ -187,7 +187,7 @@
             </div>
         </div>
 
-        <!-- SKYROOT INTERACTIVE MISSION CONFIGURATOR -->
+        <!-- INTERACTIVE MISSION CONFIGURATOR -->
         <section id="configurator" class="configurator-wrapper">
             <div class="hud-corner hud-tl"></div>
             <div class="hud-corner hud-tr"></div>
@@ -196,7 +196,7 @@
 
             <div class="config-inputs-side">
                 <div class="section-header-block" style="text-align: left; align-items: flex-start;">
-                    <span class="section-tag">SKYROOT MISSION PLANNER</span>
+                    <span class="section-tag">DEEP-SPACE MISSION PLANNER</span>
                     <h3 class="section-title" style="font-size: 26px;">PAYLOAD & RESILIENCE CONFIGURATOR</h3>
                 </div>
 
@@ -221,7 +221,7 @@
                     <div class="checkbox-grid">
                         <label class="checkbox-label"><input type="checkbox" id="chkVision" checked> OpenCV Vision HUD</label>
                         <label class="checkbox-label"><input type="checkbox" id="chkQwen" checked> Local Qwen LLM</label>
-                        <label class="checkbox-label"><input type="checkbox" id="chkChess" checked> ISRO Crystal Chess</label>
+                        <label class="checkbox-label"><input type="checkbox" id="chkChess" checked> AI Crystal Chess</label>
                         <label class="checkbox-label"><input type="checkbox" id="chkBio" checked> Bio-Pulse AR Coach</label>
                     </div>
                 </div>
@@ -240,16 +240,16 @@
                     <div class="spec-row"><span class="spec-key">Mission Duration:</span><span class="spec-val">14 Days Orbital Stay</span></div>
                 </div>
 
-                <a href="dashboard.html" class="btn-skyroot-launch" style="justify-content: center;">
+                <a href="dashboard.html" class="btn-launch" style="justify-content: center; text-decoration: none;">
                     <span>🚀 PROCEED TO MISSION CONTROL DASHBOARD</span>
                 </a>
             </div>
         </section>
 
-        <!-- SKYROOT FOOTER -->
-        <footer class="skyroot-footer">
+        <!-- GLOBAL FOOTER -->
+        <footer class="global-footer">
             <div>
-                <strong>SKYROOT AEROSPACE x ISRO GAGANYAAN MAITRI</strong><br>
+                <strong>MAITRI DEEP-SPACE MULTIMODAL AI ARCHITECTURE</strong><br>
                 <span>Built for Indian Deep-Space Exploration & Astronaut Resilience. 100% Offline Certified.</span>
             </div>
             <div>

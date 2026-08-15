@@ -1,11 +1,12 @@
 /**
- * SKYROOT AEROSPACE x ISRO GAGANYAAN MAITRI PLATFORM CONTROLLER
- * High-Tech 3D Orbit Engine, Audio Synthesizer, Payload Configurator,
- * ISRO Minimax Chess Agent & Offline Local Qwen LLM Companion
+ * MAITRI DEEP-SPACE MULTIMODAL PLATFORM CONTROLLER
+ * Dynamic Interactive Constellation & Shooting Star Engine,
+ * 3D Orbit Engine, Web Audio Synthesizer, Mission Configurator,
+ * Grandmaster Minimax Chess Agent & Offline Local Qwen LLM Companion
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    initStarfield();
+    initConstellationStarfield();
     initClock();
     init3DOrbitCanvas('heroOrbitCanvas');
     init3DOrbitCanvas('dashOrbitCanvas');
@@ -21,14 +22,27 @@ document.addEventListener('DOMContentLoaded', () => {
     initChessGame();
 });
 
-/* 1. COSMIC STARFIELD BACKGROUND CANVAS */
-function initStarfield() {
+/* 1. DYNAMIC INTERACTIVE CONSTELLATION & SHOOTING STAR ENGINE */
+function initConstellationStarfield() {
     const canvas = document.getElementById('starfieldCanvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     
     let stars = [];
-    const numStars = 140;
+    let shootingStars = [];
+    const numStars = 130;
+    
+    let mouse = { x: -1000, y: -1000, active: false };
+
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        mouse.active = true;
+    });
+
+    window.addEventListener('mouseleave', () => {
+        mouse.active = false;
+    });
 
     function resize() {
         canvas.width = window.innerWidth;
@@ -38,9 +52,11 @@ function initStarfield() {
             stars.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                size: Math.random() * 2 + 0.5,
-                alpha: Math.random(),
-                speed: Math.random() * 0.02 + 0.005
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                size: Math.random() * 2.2 + 0.8,
+                alpha: Math.random() * 0.6 + 0.4,
+                flickerSpeed: Math.random() * 0.02 + 0.005
             });
         }
     }
@@ -48,17 +64,123 @@ function initStarfield() {
     window.addEventListener('resize', resize);
     resize();
 
+    // Shooting Star Spawners
+    function createShootingStar() {
+        if (shootingStars.length < 3 && Math.random() < 0.3) {
+            shootingStars.push({
+                x: Math.random() * canvas.width * 0.8,
+                y: Math.random() * canvas.height * 0.4,
+                length: Math.random() * 80 + 50,
+                speed: Math.random() * 12 + 10,
+                angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2, // ~45 deg downward
+                alpha: 1,
+                decay: Math.random() * 0.02 + 0.015,
+                thickness: Math.random() * 1.5 + 1.2
+            });
+        }
+    }
+
+    setInterval(createShootingStar, 1800);
+
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        stars.forEach(star => {
-            star.alpha += star.speed;
-            if (star.alpha > 1 || star.alpha < 0.2) star.speed = -star.speed;
 
+        // Update and Draw Star Nodes
+        for (let i = 0; i < stars.length; i++) {
+            const star = stars[i];
+
+            // Move stars slowly
+            star.x += star.vx;
+            star.y += star.vy;
+
+            // Bounce off edges
+            if (star.x < 0 || star.x > canvas.width) star.vx *= -1;
+            if (star.y < 0 || star.y > canvas.height) star.vy *= -1;
+
+            // Flicker effect
+            star.alpha += star.flickerSpeed;
+            if (star.alpha > 1 || star.alpha < 0.3) star.flickerSpeed = -star.flickerSpeed;
+
+            // Draw individual star particle
             ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(star.alpha)})`;
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = '#00E5FF';
             ctx.beginPath();
             ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
             ctx.fill();
-        });
+
+            // Inter-Star Constellation Lines
+            for (let j = i + 1; j < stars.length; j++) {
+                const other = stars[j];
+                const dx = star.x - other.x;
+                const dy = star.y - other.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 110) {
+                    const lineAlpha = (1 - dist / 110) * 0.25;
+                    ctx.strokeStyle = `rgba(0, 229, 255, ${lineAlpha})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(star.x, star.y);
+                    ctx.lineTo(other.x, other.y);
+                    ctx.stroke();
+                }
+            }
+
+            // Mouse Cursor Dynamic Constellation Connection
+            if (mouse.active) {
+                const mdx = star.x - mouse.x;
+                const mdy = star.y - mouse.y;
+                const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
+
+                if (mdist < 180) {
+                    const mAlpha = (1 - mdist / 180) * 0.65;
+
+                    // Draw dynamic neon cursor constellation line
+                    ctx.strokeStyle = (i % 2 === 0) ? `rgba(255, 153, 51, ${mAlpha})` : `rgba(0, 229, 255, ${mAlpha})`;
+                    ctx.lineWidth = 1.2;
+                    ctx.beginPath();
+                    ctx.moveTo(mouse.x, mouse.y);
+                    ctx.lineTo(star.x, star.y);
+                    ctx.stroke();
+
+                    // Subtle magnetic attraction towards cursor
+                    star.x -= mdx * 0.015;
+                    star.y -= mdy * 0.015;
+                }
+            }
+        }
+
+        // Update and Draw Shooting Stars (Meteors)
+        for (let s = shootingStars.length - 1; s >= 0; s--) {
+            const meteor = shootingStars[s];
+
+            const endX = meteor.x + Math.cos(meteor.angle) * meteor.length;
+            const endY = meteor.y + Math.sin(meteor.angle) * meteor.length;
+
+            const grad = ctx.createLinearGradient(meteor.x, meteor.y, endX, endY);
+            grad.addColorStop(0, `rgba(255, 255, 255, ${meteor.alpha})`);
+            grad.addColorStop(0.3, `rgba(255, 153, 51, ${meteor.alpha * 0.8})`);
+            grad.addColorStop(0.7, `rgba(0, 229, 255, ${meteor.alpha * 0.4})`);
+            grad.addColorStop(1, 'transparent');
+
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = meteor.thickness;
+            ctx.beginPath();
+            ctx.moveTo(meteor.x, meteor.y);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+
+            // Advance meteor
+            meteor.x += Math.cos(meteor.angle) * meteor.speed;
+            meteor.y += Math.sin(meteor.angle) * meteor.speed;
+            meteor.alpha -= meteor.decay;
+
+            if (meteor.alpha <= 0 || meteor.x > canvas.width || meteor.y > canvas.height) {
+                shootingStars.splice(s, 1);
+            }
+        }
+
         requestAnimationFrame(draw);
     }
     draw();
@@ -104,7 +226,7 @@ function init3DOrbitCanvas(canvasId) {
 
         ctx.clearRect(0, 0, w, h);
 
-        // Draw Deep Space Grid / Halo
+        // Draw Deep Space Radial Ambient Glow
         const bgGradient = ctx.createRadialGradient(centerX, centerY, 5, centerX, centerY, w * 0.6);
         bgGradient.addColorStop(0, 'rgba(0, 229, 255, 0.12)');
         bgGradient.addColorStop(0.5, 'rgba(255, 153, 51, 0.05)');
@@ -122,7 +244,7 @@ function init3DOrbitCanvas(canvasId) {
         ctx.fill();
         ctx.restore();
 
-        // Earth Continent Lines Simulation
+        // Earth Latitude / Longitude Ellipses
         ctx.strokeStyle = 'rgba(0, 229, 255, 0.35)';
         ctx.lineWidth = 1.5;
         for (let i = -3; i <= 3; i++) {
@@ -181,14 +303,14 @@ function init3DOrbitCanvas(canvasId) {
         // Live Telemetry Label Overlay on Spacecraft
         ctx.font = '10px "JetBrains Mono", monospace';
         ctx.fillStyle = '#FFFFFF';
-        ctx.fillText(`VIKRAM LMV3: [ALT 408.2KM | VEL 7.66KM/S]`, satX + 12, satY - 8);
+        ctx.fillText(`MAITRI SPACECRAFT: [ALT 408.2KM | VEL 7.66KM/S]`, satX + 12, satY - 8);
 
         requestAnimationFrame(render);
     }
     render();
 }
 
-/* 4. SKYROOT INTERACTIVE MISSION CONFIGURATOR LOGIC */
+/* 4. MISSION CONFIGURATOR LOGIC */
 function initMissionConfigurator() {
     const crewSlider = document.getElementById('crewSlider');
     const orbitSlider = document.getElementById('orbitSlider');
@@ -207,18 +329,14 @@ function initMissionConfigurator() {
         if (crewVal) crewVal.textContent = `${crew} Astronaut${crew > 1 ? 's' : ''}`;
         if (orbitVal) orbitVal.textContent = `${orbit} KM LEO`;
 
-        // Checkbox count
         const chkCount = document.querySelectorAll('.checkbox-grid input[type="checkbox"]:checked').length;
 
-        // Dynamic Payload Mass: Base 350kg + 40kg per crew + 15kg per AI module
         const totalMass = 350 + (crew * 40) + (chkCount * 15);
         if (massEl) massEl.textContent = `${totalMass} KG`;
 
-        // Power Consumption: Base 80W + 25W per crew + 10W per AI module
         const totalPower = 80 + (crew * 25) + (chkCount * 10);
         if (powerEl) powerEl.textContent = `${totalPower} Watts`;
 
-        // Resilience Score Formula
         let score = 100 - (orbit / 100) + (chkCount * 1.5) - (crew * 0.5);
         score = Math.min(99.8, Math.max(92.0, score)).toFixed(1);
         if (scoreEl) scoreEl.textContent = `${score}%`;
@@ -255,12 +373,11 @@ function initSoundEngine() {
             if (ctx.state === 'suspended') ctx.resume();
 
             if (!isAmbientPlaying) {
-                // Start Ambient Space Drone Synthesizer
                 ambientOsc = ctx.createOscillator();
                 ambientGain = ctx.createGain();
                 
                 ambientOsc.type = 'sine';
-                ambientOsc.frequency.setValueAtTime(55, ctx.currentTime); // Low A hum
+                ambientOsc.frequency.setValueAtTime(55, ctx.currentTime);
                 ambientGain.gain.setValueAtTime(0.01, ctx.currentTime);
                 ambientGain.gain.linearRampToValueAtTime(0.12, ctx.currentTime + 2);
 
@@ -271,7 +388,6 @@ function initSoundEngine() {
                 isAmbientPlaying = true;
                 soundBtns.forEach(b => b && (b.textContent = '🔊 ON'));
             } else {
-                // Stop Ambient Drone
                 if (ambientGain) {
                     ambientGain.gain.linearRampToValueAtTime(0.001, ctx.currentTime + 0.5);
                     setTimeout(() => { ambientOsc && ambientOsc.stop(); }, 500);
@@ -285,15 +401,14 @@ function initSoundEngine() {
 
 /* 6. ROCKET LAUNCH SEQUENCER & IGNITION SOUND */
 function initLaunchSequence() {
-    const trigger = document.getElementById('isroLaunchTrigger');
+    const trigger = document.getElementById('launchTrigger');
     const statusText = document.getElementById('launchStatusText');
 
     if (!trigger) return;
 
     trigger.addEventListener('click', () => {
-        if (statusText) statusText.textContent = "🔥 IGNITION! LAUNCHING VIKRAM LMV3 INTO ORBIT...";
+        if (statusText) statusText.textContent = "🔥 IGNITION! LAUNCHING MAITRI CORE INTO ORBIT...";
         
-        // Play Launch Audio Ramp
         try {
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
             const osc = ctx.createOscillator();
@@ -377,7 +492,7 @@ function initCharts() {
     });
 }
 
-/* 9. ISRO GRANDMASTER AI CHESS ARENA */
+/* 9. GRANDMASTER AI CHESS ARENA */
 function initChessGame() {
     const canvas = document.getElementById('chessBoardCanvas');
     const dialogueBox = document.getElementById('chessDialogueBox');
@@ -405,7 +520,7 @@ function initChessGame() {
         "A tactical move, Cmdr. Shalok! But my knight threatens your diagonal vector.",
         "In zero-gravity, spatial control is key. My bishop locks down the long diagonal!",
         "Calculated with 99.8% precision! Your king has limited escape options.",
-        "Splendid move, Commander! Ground control trained me to anticipate center control."
+        "Splendid move, Commander! Central board control is well established."
     ];
 
     function drawBoard() {
@@ -448,7 +563,6 @@ function initChessGame() {
             selectedTile = null;
             drawBoard();
 
-            // Trigger AI Counter-Move & Spoken Taunt
             setTimeout(() => {
                 const randomTaunt = taunts[Math.floor(Math.random() * taunts.length)];
                 if (dialogueBox) dialogueBox.textContent = `"${randomTaunt}"`;
@@ -517,7 +631,6 @@ function initBioPulseCanvas() {
             if (radius < 40) growing = true;
         }
 
-        // Inner glowing sphere
         const grad = ctx.createRadialGradient(w/2, h/2, 5, w/2, h/2, radius);
         grad.addColorStop(0, '#00E5FF');
         grad.addColorStop(0.7, '#FF9933');
@@ -547,14 +660,12 @@ function initCameraCanvas() {
         ctx.fillStyle = '#051329';
         ctx.fillRect(0, 0, w, h);
 
-        // Face outline
         ctx.strokeStyle = '#00E5FF';
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.arc(w/2, h/2, 60, 0, Math.PI * 2);
         ctx.stroke();
 
-        // Eyes
         ctx.fillStyle = '#FF9933';
         ctx.beginPath();
         ctx.arc(w/2 - 20, h/2 - 15, 6, 0, Math.PI * 2);
@@ -658,7 +769,7 @@ function initSpaceGames() {
 
             reflexBox.textContent = `SUCCESS! ${diff} MS. CLICK TO RETRY.`;
             reflexBox.style.background = "rgba(0,0,0,0.6)";
-            reflexBox.style.color = "var(--skyroot-saffron)";
+            reflexBox.style.color = "var(--maitri-saffron)";
             startTime = 0;
             waiting = false;
         }
