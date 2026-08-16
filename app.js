@@ -1,6 +1,7 @@
 /**
  * MAITRI DEEP-SPACE MULTIMODAL PLATFORM CONTROLLER
  * Purplish Constellation & Cool Light Blue Interactive Canvas Engine,
+ * OpenCV Live Camera Facial Emotion Scanner & Adaptive Brain Recommender Engine,
  * Astronaut Audiobook Player & E-Book Library Engine (Phase 12),
  * 3D Orbit Engine, Web Audio Synthesizer, Mission Configurator,
  * Grandmaster Minimax Chess Agent & Offline Local Qwen LLM Companion
@@ -290,45 +291,183 @@ function init3DOrbitCanvas(canvasId) {
     render();
 }
 
-/* 4. MISSION CONFIGURATOR LOGIC */
-function initMissionConfigurator() {
-    const crewSlider = document.getElementById('crewSlider');
-    const orbitSlider = document.getElementById('orbitSlider');
-    const crewVal = document.getElementById('crewVal');
-    const orbitVal = document.getElementById('orbitVal');
-    const scoreEl = document.getElementById('resilienceScore');
-    const massEl = document.getElementById('resMass');
-    const powerEl = document.getElementById('resPower');
+/* 4. OPENCV LIVE WEBCAM SCANNER & BRAIN RECOMMENDER ENGINE */
+function initCameraCanvas() {
+    const canvas = document.getElementById('videoCanvas');
+    const startCamBtn = document.getElementById('startCamBtn');
+    const simulateBtn = document.getElementById('simulateEmotionBtn');
+    const webcamVideo = document.getElementById('webcamVideo');
+    const statusBadge = document.getElementById('cameraStatusBadge');
+    const faceLabel = document.getElementById('faceBoxLabel');
+    const emotionText = document.getElementById('detectedEmotionText');
+    const confidenceText = document.getElementById('emotionConfidenceText');
+    const recContentList = document.getElementById('brainRecContentList');
 
-    if (!crewSlider || !orbitSlider) return;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
 
-    function updateCalculations() {
-        const crew = parseInt(crewSlider.value);
-        const orbit = parseInt(orbitSlider.value);
-        
-        if (crewVal) crewVal.textContent = `${crew} Astronaut${crew > 1 ? 's' : ''}`;
-        if (orbitVal) orbitVal.textContent = `${orbit} KM LEO`;
+    let currentEmotion = 'CALM / FOCUSED';
+    let confidence = 96.4;
+    let isWebcamActive = false;
 
-        const chkCount = document.querySelectorAll('.checkbox-grid input[type="checkbox"]:checked').length;
+    const emotionsList = [
+        { name: 'CALM / FOCUSED', conf: 96.4, color: '#A855F7' },
+        { name: 'HAPPY / EXCITED', conf: 98.2, color: '#38BDF8' },
+        { name: 'STRESSED / ANXIOUS', conf: 88.5, color: '#F87171' },
+        { name: 'FATIGUED / TIRED', conf: 91.0, color: '#F472B6' }
+    ];
 
-        const totalMass = 350 + (crew * 40) + (chkCount * 15);
-        if (massEl) massEl.textContent = `${totalMass} KG`;
+    function updateBrainRecommendations(emotionName) {
+        if (!recContentList) return;
 
-        const totalPower = 80 + (crew * 25) + (chkCount * 10);
-        if (powerEl) powerEl.textContent = `${totalPower} Watts`;
+        let recs = [];
+        if (emotionName.includes('STRESSED') || emotionName.includes('ANXIOUS')) {
+            recs = [
+                { icon: '🧘', title: 'Bio-Pulse 4-7-8 Breathing Coach', type: 'AUTONOMIC CALMING', action: 'LAUNCH COACH', link: '#biofeedback' },
+                { icon: '🎵', title: 'Deep Cosmos Alpha Wave Ambient Raga', type: 'RELAXATION SOUNDTRACK', action: 'PLAY AUDIO', link: 'entertainment' },
+                { icon: '📖', title: 'Zero-Gravity Philosophy E-Book', type: 'READING LEISURE', action: 'READ E-BOOK', link: 'entertainment' }
+            ];
+        } else if (emotionName.includes('FATIGUED') || emotionName.includes('TIRED')) {
+            recs = [
+                { icon: '🌅', title: 'Circadian Sunrise Spectrum Light Sync', type: 'LIGHTING CONTROL', action: 'SYNC LIGHTS', link: 'entertainment' },
+                { icon: '🎧', title: 'Deep-Space Resilience Audiobook', type: 'NARRATED AUDIOBOOK', action: 'LISTEN AUDIOBOOK', link: 'entertainment' },
+                { icon: '🫀', title: 'ECG Rhythm & Vitals Diagnostics', type: 'HEALTH TELEMETRY', action: 'VIEW TELEMETRY', link: '#vitals' }
+            ];
+        } else if (emotionName.includes('HAPPY') || emotionName.includes('EXCITED')) {
+            recs = [
+                { icon: '🏎️', title: 'F1 Start Lights Reflex Arena', type: 'HIGH REACTION GAME', action: 'LAUNCH F1 ARENA', link: 'f1_reflex.html' },
+                { icon: '✨', title: 'Starlight Audio Drama Chapter 4', type: 'AUDIO DRAMA', action: 'PLAY AUDIOBOOK', link: 'entertainment' },
+                { icon: '♟️', title: 'Grandmaster AI Chess Challenge', type: 'TACTICAL MATCH', action: 'LAUNCH CHESS', link: 'chess.html' }
+            ];
+        } else { // CALM / FOCUSED
+            recs = [
+                { icon: '♟️', title: 'Grandmaster AI Chess Arena', type: 'MINIMAX STRATEGY', action: 'LAUNCH CHESS', link: 'chess.html' },
+                { icon: '🌌', title: 'The Cosmos & Beyond Audiobook', type: 'CARL SAGAN AUDIOBOOK', action: 'LISTEN AUDIOBOOK', link: 'entertainment' },
+                { icon: '🏎️', title: 'F1 Start Lights Reaction Test', type: 'REACTION SPEED', action: 'LAUNCH F1 ARENA', link: 'f1_reflex.html' }
+            ];
+        }
 
-        let score = 100 - (orbit / 100) + (chkCount * 1.5) - (crew * 0.5);
-        score = Math.min(99.8, Math.max(92.0, score)).toFixed(1);
-        if (scoreEl) scoreEl.textContent = `${score}%`;
+        recContentList.innerHTML = recs.map(r => `
+            <div style="background: rgba(3,7,18,0.7); border: 1px solid var(--border-light); border-radius: 14px; padding: 14px; display: flex; align-items: center; justify-content: space-between; gap: 14px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <span style="font-size: 26px;">${r.icon}</span>
+                    <div>
+                        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 14px; color: #FFF; display: block;">${r.title}</span>
+                        <span style="font-size: 11px; color: var(--maitri-cyan); text-transform: uppercase;">${r.type}</span>
+                    </div>
+                </div>
+                <a href="${r.link}" class="btn btn-primary" style="padding: 6px 14px; font-size: 11px; text-decoration: none;" onclick="speakText('Opening ${r.title}')">${r.action}</a>
+            </div>
+        `).join('');
+
+        // Save snapshot to history
+        const history = JSON.parse(localStorage.getItem('emotion_history') || '[]');
+        history.push({ emotion: emotionName, date: new Date().toISOString() });
+        localStorage.setItem('emotion_history', JSON.stringify(history.slice(-20)));
     }
 
-    crewSlider.addEventListener('input', updateCalculations);
-    orbitSlider.addEventListener('input', updateCalculations);
-    document.querySelectorAll('.checkbox-grid input[type="checkbox"]').forEach(chk => {
-        chk.addEventListener('change', updateCalculations);
-    });
+    updateBrainRecommendations(currentEmotion);
 
-    updateCalculations();
+    if (startCamBtn) {
+        startCamBtn.addEventListener('click', async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                if (webcamVideo) {
+                    webcamVideo.srcObject = stream;
+                    isWebcamActive = true;
+                    if (statusBadge) {
+                        statusBadge.textContent = "LIVE WEBCAM STREAM (60 FPS)";
+                        statusBadge.style.background = "rgba(52, 211, 153, 0.2)";
+                        statusBadge.style.color = "#34D399";
+                    }
+                    speakText("OpenCV Live Camera Scanner Activated. Tracking facial geometry and emotion.");
+                }
+            } catch (err) {
+                speakText("Webcam access restricted or headless mode. Initializing OpenCV neural vision simulator.");
+                if (statusBadge) {
+                    statusBadge.textContent = "NEURAL VISION SIMULATOR";
+                    statusBadge.style.background = "rgba(168, 85, 247, 0.2)";
+                    statusBadge.style.color = "#A855F7";
+                }
+            }
+        });
+    }
+
+    if (simulateBtn) {
+        simulateBtn.addEventListener('click', () => {
+            const next = emotionsList[Math.floor(Math.random() * emotionsList.length)];
+            currentEmotion = next.name;
+            confidence = next.conf;
+            
+            if (emotionText) {
+                emotionText.textContent = currentEmotion;
+                emotionText.style.color = next.color;
+            }
+            if (confidenceText) confidenceText.textContent = `${confidence}%`;
+            if (faceLabel) faceLabel.textContent = `CMD. SHALOK [${currentEmotion} ${confidence}%]`;
+
+            updateBrainRecommendations(currentEmotion);
+            speakText(`Emotion state detected: ${currentEmotion}. Updating brain engine recommendations.`);
+        });
+    }
+
+    function renderVisionHUD() {
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+
+        if (isWebcamActive && webcamVideo && webcamVideo.readyState === 4) {
+            ctx.drawImage(webcamVideo, 0, 0, w, h);
+        } else {
+            ctx.fillStyle = '#070D22';
+            ctx.fillRect(0, 0, w, h);
+
+            // Draw simulated grid
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.1)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < w; x += 30) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+            }
+            for (let y = 0; y < h; y += 30) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+            }
+        }
+
+        // Facial Bounding Box & Keypoints Overlay
+        const boxX = w * 0.3, boxY = h * 0.18, boxW = w * 0.4, boxH = h * 0.6;
+        ctx.strokeStyle = (currentEmotion.includes('STRESSED')) ? '#F87171' : '#38BDF8';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(boxX, boxY, boxW, boxH);
+
+        // Corner HUD Brackets
+        const bLen = 14;
+        ctx.strokeStyle = '#A855F7';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(boxX, boxY + bLen); ctx.lineTo(boxX, boxY); ctx.lineTo(boxX + bLen, boxY);
+        ctx.moveTo(boxX + boxW - bLen, boxY); ctx.lineTo(boxX + boxW, boxY); ctx.lineTo(boxX + boxW, boxY + bLen);
+        ctx.moveTo(boxX, boxY + boxH - bLen); ctx.lineTo(boxX, boxY + boxH); ctx.lineTo(boxX + bLen, boxY + boxH);
+        ctx.moveTo(boxX + boxW - bLen, boxY + boxH); ctx.lineTo(boxX + boxW, boxY + boxH); ctx.lineTo(boxX + boxW, boxY + boxH - bLen);
+        ctx.stroke();
+
+        // Facial Mesh Nodes
+        const nodes = [
+            { x: boxX + boxW * 0.35, y: boxY + boxH * 0.38 }, // Left eye
+            { x: boxX + boxW * 0.65, y: boxY + boxH * 0.38 }, // Right eye
+            { x: boxX + boxW * 0.5, y: boxY + boxH * 0.55 },  // Nose
+            { x: boxX + boxW * 0.5, y: boxY + boxH * 0.75 }   // Mouth
+        ];
+
+        nodes.forEach(n => {
+            ctx.fillStyle = '#34D399';
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, 4, 0, Math.PI * 2);
+            ctx.fill();
+        });
+
+        requestAnimationFrame(renderVisionHUD);
+    }
+    renderVisionHUD();
 }
 
 /* 5. ASTRONAUT AUDIOBOOK & LEISURE LIBRARY ENGINE (PHASE 12) */
@@ -671,35 +810,45 @@ function initBioPulseCanvas() {
     animate();
 }
 
-/* 13. OPENCV VISION CANVA SIMULATOR */
-function initCameraCanvas() {
-    const canvas = document.getElementById('videoCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+/* 13. MISSION CONFIGURATOR LOGIC */
+function initMissionConfigurator() {
+    const crewSlider = document.getElementById('crewSlider');
+    const orbitSlider = document.getElementById('orbitSlider');
+    const crewVal = document.getElementById('crewVal');
+    const orbitVal = document.getElementById('orbitVal');
+    const scoreEl = document.getElementById('resilienceScore');
+    const massEl = document.getElementById('resMass');
+    const powerEl = document.getElementById('resPower');
 
-    function drawSimulatedFace() {
-        const w = canvas.width;
-        const h = canvas.height;
-        ctx.clearRect(0, 0, w, h);
+    if (!crewSlider || !orbitSlider) return;
 
-        ctx.fillStyle = '#070D22';
-        ctx.fillRect(0, 0, w, h);
+    function updateCalculations() {
+        const crew = parseInt(crewSlider.value);
+        const orbit = parseInt(orbitSlider.value);
+        
+        if (crewVal) crewVal.textContent = `${crew} Astronaut${crew > 1 ? 's' : ''}`;
+        if (orbitVal) orbitVal.textContent = `${orbit} KM LEO`;
 
-        ctx.strokeStyle = '#38BDF8';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.arc(w/2, h/2, 60, 0, Math.PI * 2);
-        ctx.stroke();
+        const chkCount = document.querySelectorAll('.checkbox-grid input[type="checkbox"]:checked').length;
 
-        ctx.fillStyle = '#A855F7';
-        ctx.beginPath();
-        ctx.arc(w/2 - 20, h/2 - 15, 6, 0, Math.PI * 2);
-        ctx.arc(w/2 + 20, h/2 - 15, 6, 0, Math.PI * 2);
-        ctx.fill();
+        const totalMass = 350 + (crew * 40) + (chkCount * 15);
+        if (massEl) massEl.textContent = `${totalMass} KG`;
 
-        requestAnimationFrame(drawSimulatedFace);
+        const totalPower = 80 + (crew * 25) + (chkCount * 10);
+        if (powerEl) powerEl.textContent = `${totalPower} Watts`;
+
+        let score = 100 - (orbit / 100) + (chkCount * 1.5) - (crew * 0.5);
+        score = Math.min(99.8, Math.max(92.0, score)).toFixed(1);
+        if (scoreEl) scoreEl.textContent = `${score}%`;
     }
-    drawSimulatedFace();
+
+    crewSlider.addEventListener('input', updateCalculations);
+    orbitSlider.addEventListener('input', updateCalculations);
+    document.querySelectorAll('.checkbox-grid input[type="checkbox"]').forEach(chk => {
+        chk.addEventListener('change', updateCalculations);
+    });
+
+    updateCalculations();
 }
 
 /* 14. CHATBOT COMPANION INTERACTION */

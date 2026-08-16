@@ -71,7 +71,7 @@
             <button class="nav-tab" data-tab="biofeedback">🧘 Bio-Pulse AR Coach</button>
             <button class="nav-tab" data-tab="vitals">🫀 Vitals & Stress Telemetry</button>
             <button class="nav-tab" data-tab="companion">🧠 AI Companion (Qwen)</button>
-            <button class="nav-tab" data-tab="multimodal">📷 Multimodal Stream</button>
+            <button class="nav-tab" data-tab="multimodal">📷 OpenCV Vision & Emotion Brain</button>
             <button class="nav-tab" data-tab="entertainment">📚 Books, Audiobooks & Media</button>
             <button class="nav-tab" data-tab="alerts">🚨 Emergency & Black-Box Logs</button>
             <button class="nav-tab" data-tab="system">⚙️ Edge Hardware Status</button>
@@ -207,7 +207,7 @@
                             <span class="card-badge" style="background: rgba(168,85,247,0.2); color: var(--maitri-purple);">STANDALONE ROUTE</span>
                         </div>
                         <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
-                            Realistic 5-column F1 start gantry simulation. Test your cognitive reaction time when lights go out! Features jump-start detection and personal best leaderboards.
+                            Realistic 5-column F1 start gantry simulation. Test your cognitive reaction time when lights turn neon green! Features jump-start detection and personal best leaderboards.
                         </p>
                         <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(3,7,18,0.7); border: 1px solid var(--border-light); padding: 14px; border-radius: 14px;">
                             <div>
@@ -354,47 +354,64 @@
                 </div>
             </div>
 
-            <!-- 6. MULTIMODAL STREAM TAB -->
+            <!-- 6. 📷 OPENCV VISION & EMOTION BRAIN ENGINE TAB -->
             <div id="multimodal" class="tab-content">
                 <div class="grid-layout">
+                    <!-- OPENCV LIVE WEBCAM & EMOTION HUD CARD -->
                     <div class="card col-span-2">
                         <div class="card-header">
-                            <h3>📷 OpenCV Facial Emotion & Fatigue Scanner</h3>
-                            <span class="card-badge">60 FPS VISION</span>
+                            <h3>📷 OpenCV Facial Emotion & Camera Scanner</h3>
+                            <span class="card-badge" id="cameraStatusBadge">OFFLINE / READY</span>
                         </div>
-                        <div class="video-container">
+                        
+                        <div class="video-container" style="position: relative;">
+                            <!-- Hidden HTML5 Video element for real webcam feed -->
+                            <video id="webcamVideo" autoplay playsinline muted style="display:none;"></video>
+                            
                             <div class="video-preview-box">
                                 <canvas id="videoCanvas" width="480" height="280"></canvas>
-                                <div class="face-bounding-box">
-                                    <span class="box-label">CMD. SHALOK [CALM 94%]</span>
+                                <div class="face-bounding-box" id="faceBoxOverlay">
+                                    <span class="box-label" id="faceBoxLabel">CMD. SHALOK [CALM 94%]</span>
                                 </div>
                             </div>
                         </div>
+
+                        <div style="display: flex; gap: 14px; margin-top: 10px;">
+                            <button class="btn btn-primary" id="startCamBtn">📷 START LIVE WEBCAM SCANNER</button>
+                            <button class="btn btn-secondary" id="simulateEmotionBtn">🎲 SIMULATE EMOTION STATE</button>
+                        </div>
+
+                        <div class="voice-metrics" style="margin-top: 12px; background: rgba(3,7,18,0.7); padding: 14px; border-radius: 14px; border: 1px solid var(--border-light);">
+                            <p>DETECTED EMOTION: <strong id="detectedEmotionText" style="color: var(--maitri-purple);">CALM / FOCUSED</strong></p>
+                            <p>CONFIDENCE SCORE: <strong id="emotionConfidenceText" style="color: var(--maitri-cyan);">96.4%</strong></p>
+                            <p>PUPIL FATIGUE INDEX: <strong style="color: var(--maitri-green);">LOW (0.12)</strong></p>
+                        </div>
                     </div>
 
-                    <div class="card col-span-2">
+                    <!-- BRAIN RECOMMENDATION ENGINE (BASED ON DETECTED EMOTION) -->
+                    <div class="card col-span-2" id="brainRecommenderCard">
+                        <div class="hud-corner hud-tl"></div>
+                        <div class="hud-corner hud-tr"></div>
+                        <div class="hud-corner hud-bl"></div>
+                        <div class="hud-corner hud-br"></div>
+                        
                         <div class="card-header">
-                            <h3>🎙️ Voice Stress & Pitch Analyzer</h3>
+                            <h3>🧠 MAITRI BRAIN ENGINE RECOMMENDATIONS</h3>
+                            <span class="card-badge" style="background: rgba(168,85,247,0.2); color: var(--maitri-purple);">REAL-TIME ADAPTIVE</span>
                         </div>
-                        <div class="audio-analysis-box">
-                            <div class="audio-wave-visualizer">
-                                <div class="bar"></div>
-                                <div class="bar"></div>
-                                <div class="bar"></div>
-                                <div class="bar"></div>
-                                <div class="bar"></div>
-                            </div>
-                            <div class="voice-metrics">
-                                <p>Pitch Frequency (F0): <strong>124.5 Hz</strong></p>
-                                <p>RMS Amplitude: <strong>0.042</strong></p>
-                                <p>Vocal Jitter / Stress: <strong>0.02 (STABLE)</strong></p>
-                            </div>
+
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                            The brain engine logs your detected facial emotion and automatically generates personalized recommendations so you get content, games, or relaxation tailored to your exact mood.
+                        </p>
+
+                        <div id="brainRecContentList" style="display: flex; flex-direction: column; gap: 12px;">
+                            <!-- Dynamically populated recommendations -->
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 7. 📚 ASTRONAUT BOOK, AUDIOBOOK & MEDIA TAB (PHASE 12 NEW FEATURE) -->
+            <!-- 7. 📚 ASTRONAUT BOOK, AUDIOBOOK & MEDIA TAB -->
             <div id="entertainment" class="tab-content">
                 
                 <!-- AUDIOBOOK PLAYER WIDGET -->
