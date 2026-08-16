@@ -195,7 +195,32 @@
             <!-- 2. SPACE GAMES & MOOD HUD TAB -->
             <div id="games" class="tab-content">
                 <div class="grid-layout">
-                    <!-- GRANDMASTER AI CHESS ARENA CARD -->
+                    
+                    <!-- F1 START LIGHTS REFLEX GAME ROUTE CARD -->
+                    <div class="card col-span-2">
+                        <div class="hud-corner hud-tl"></div>
+                        <div class="hud-corner hud-tr"></div>
+                        <div class="hud-corner hud-bl"></div>
+                        <div class="hud-corner hud-br"></div>
+                        <div class="card-header">
+                            <h2>🏎️ F1 START LIGHTS REFLEX ARENA</h2>
+                            <span class="card-badge" style="background: rgba(168,85,247,0.2); color: var(--maitri-purple);">STANDALONE ROUTE</span>
+                        </div>
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                            Realistic 5-column F1 start gantry simulation. Test your cognitive reaction time when lights go out! Features jump-start detection and personal best leaderboards.
+                        </p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(3,7,18,0.7); border: 1px solid var(--border-light); padding: 14px; border-radius: 14px;">
+                            <div>
+                                <span style="font-size: 11px; color: var(--text-muted); display: block;">YOUR BEST REACTION:</span>
+                                <span style="font-family: var(--font-heading); font-size: 24px; font-weight: 900; color: var(--maitri-cyan);" id="dashF1Best">--- ms</span>
+                            </div>
+                            <a href="f1_reflex.html" class="btn btn-primary" style="text-decoration: none;">
+                                🏎️ LAUNCH F1 REFLEX ARENA
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- GRANDMASTER AI CHESS ROUTE CARD -->
                     <div class="card col-span-2">
                         <div class="hud-corner hud-tl"></div>
                         <div class="hud-corner hud-tr"></div>
@@ -203,39 +228,30 @@
                         <div class="hud-corner hud-br"></div>
                         <div class="card-header">
                             <h2>♟️ GRANDMASTER AI CHESS ARENA</h2>
-                            <span class="card-badge">MINIMAX ALPHA-BETA</span>
+                            <span class="card-badge" style="background: rgba(56,189,248,0.2); color: var(--maitri-cyan);">STANDALONE ROUTE</span>
                         </div>
-                        <div style="display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap;">
-                            <canvas id="chessBoardCanvas" width="340" height="340" style="border-radius: 12px; border: 1px solid var(--maitri-purple); cursor: pointer;"></canvas>
-                            <div style="flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 12px;">
-                                <div id="chessDialogueBox" style="background: rgba(3,7,18,0.7); border: 1px solid var(--border-light); border-radius: 12px; padding: 14px; font-size: 13px; color: var(--maitri-cyan); line-height: 1.5;">
-                                    "Greeting Cmdr. Shalok! Select a white piece to initiate your first move against Minimax AI."
-                                </div>
-                                <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 12px;">
-                                    <span>EVALUATION:</span>
-                                    <span id="chessEvalScore" style="color: var(--maitri-purple); font-weight: 800;">+0.0 (EQUAL)</span>
-                                </div>
-                                <div style="display: flex; gap: 10px;">
-                                    <button class="btn btn-primary" id="chessHintBtn">💡 Tactical Hint</button>
-                                    <button class="btn btn-secondary" id="resetChessBtn">🔄 Reset Match</button>
-                                </div>
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                            Play against ISRO Minimax Alpha-Beta AI chess agent on a 3D space crystal board. Includes spoken audio taunts, position evaluation, and tactical hints.
+                        </p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(3,7,18,0.7); border: 1px solid var(--border-light); padding: 14px; border-radius: 14px;">
+                            <div>
+                                <span style="font-size: 11px; color: var(--text-muted); display: block;">AI MATCH RATING:</span>
+                                <span style="font-family: var(--font-heading); font-size: 24px; font-weight: 900; color: var(--maitri-purple);">MINIMAX D4</span>
                             </div>
+                            <a href="chess.html" class="btn btn-primary" style="text-decoration: none;">
+                                ♟️ LAUNCH AI CHESS ARENA
+                            </a>
                         </div>
                     </div>
 
-                    <!-- SPACE MINI-GAMES SUITE & REFLEX SIMULATOR -->
-                    <div class="card col-span-2">
+                    <!-- EMBEDDED QUICK REFLEX SIMULATOR PREVIEW -->
+                    <div class="card col-span-4">
                         <div class="card-header">
-                            <h2>🎮 ASTEROID DOCKING & REFLEX SIMULATOR</h2>
-                            <span class="card-badge">COGNITIVE TRAINING</span>
+                            <h2>⚡ QUICK REFLEX COGNITIVE CHECK</h2>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 14px; text-align: center;">
-                            <div id="reflexBox" style="height: 220px; background: rgba(0,0,0,0.6); border: 1px solid var(--border-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: var(--maitri-purple); cursor: pointer;">
-                                CLICK TO START REFLEX DOCKING SIMULATION
-                            </div>
-                            <div style="display: flex; justify-content: space-around; font-family: var(--font-mono); font-size: 13px;">
-                                <span>REACTION TIME: <strong id="reflexTime" style="color: var(--maitri-cyan);">--- ms</strong></span>
-                                <span>SCORE: <strong id="reflexScore" style="color: var(--maitri-green);">0 PTS</strong></span>
+                            <div id="reflexBox" style="height: 180px; background: rgba(0,0,0,0.6); border: 1px solid var(--border-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: var(--maitri-purple); cursor: pointer;">
+                                CLICK HERE FOR QUICK REFLEX TEST
                             </div>
                         </div>
                     </div>
@@ -482,5 +498,17 @@
     </div>
 
     <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load F1 Best Score on Dashboard
+            const history = JSON.parse(localStorage.getItem('f1_reaction_history') || '[]');
+            const valid = history.filter(h => typeof h.time === 'number' && h.time > 0);
+            const dashBest = document.getElementById('dashF1Best');
+            if (dashBest && valid.length > 0) {
+                const minTime = Math.min(...valid.map(h => h.time));
+                dashBest.textContent = `${minTime} ms`;
+            }
+        });
+    </script>
 </body>
 </html>

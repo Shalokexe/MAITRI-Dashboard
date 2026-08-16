@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ISRO Minimax Grandmaster AI Chess Arena - Standalone Route">
+    <title>Grandmaster AI Chess Arena | MAITRI Deep-Space Platform</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Outfit:wght@400;600;800;900&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .chess-game-wrapper {
+            max-width: 1300px;
+            margin: 30px auto;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .chess-board-card {
+            background: var(--maitri-card-bg);
+            backdrop-filter: blur(28px);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            box-shadow: var(--shadow-main), var(--shadow-glow-purple);
+        }
+
+        #chessBoardCanvasPage {
+            border-radius: 16px;
+            border: 2px solid var(--maitri-purple);
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+            cursor: pointer;
+        }
+
+        .chess-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .score-tally-box {
+            background: var(--maitri-card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="chess-page">
+
+    <!-- Cosmic Dynamic Constellation Canvas -->
+    <canvas id="starfieldCanvas"></canvas>
+
+    <!-- Global Top Header -->
+    <header class="global-header">
+        <a href="dashboard.html" class="brand-group">
+            <svg class="brand-logo-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M100 10 L140 120 L100 95 L60 120 Z" fill="#A855F7" />
+                <path d="M30 75 L170 75 L100 30 Z" fill="#38BDF8" />
+                <path d="M20 120 Q100 155 180 120" stroke="#A855F7" stroke-width="8" fill="none" />
+            </svg>
+            <div class="brand-text-block">
+                <span class="brand-title">MAITRI | AI CHESS ARENA</span>
+                <span class="brand-tag">MINIMAX ALPHA-BETA ENGINE</span>
+            </div>
+        </a>
+
+        <div class="header-actions">
+            <a href="dashboard.html" class="btn-outline" style="padding: 8px 20px; font-size: 12px;">
+                ◀ RETURN TO DASHBOARD
+            </a>
+            <div class="clock-pill" id="landingClock">00:00:00 UTC</div>
+        </div>
+    </header>
+
+    <div class="chess-game-wrapper">
+        <!-- CHESS BOARD CARD -->
+        <div class="chess-board-card">
+            <div class="card-header" style="width: 100%;">
+                <h2>♟️ GRANDMASTER MINIMAX AI CHESS ARENA</h2>
+                <span class="card-badge" style="background: rgba(168,85,247,0.2); color: var(--maitri-purple);">DEPTH 4 ALPHA-BETA</span>
+            </div>
+
+            <canvas id="chessBoardCanvasPage" width="480" height="480"></canvas>
+
+            <div style="display: flex; gap: 14px; width: 100%; justify-content: center;">
+                <button class="btn btn-primary" id="pageHintBtn">💡 Request Tactical Hint</button>
+                <button class="btn btn-secondary" id="pageResetBtn">🔄 Restart Match</button>
+            </div>
+        </div>
+
+        <!-- CHESS SIDEBAR -->
+        <div class="chess-sidebar">
+            <div class="score-tally-box">
+                <div>
+                    <span style="font-size: 11px; color: var(--text-muted); display: block;">PLAYER WINS</span>
+                    <span style="font-family: var(--font-heading); font-size: 32px; font-weight: 900; color: var(--maitri-green);" id="playerWins">0</span>
+                </div>
+                <div>
+                    <span style="font-size: 11px; color: var(--text-muted); display: block;">AI WINS</span>
+                    <span style="font-family: var(--font-heading); font-size: 32px; font-weight: 900; color: var(--maitri-purple);" id="aiWins">0</span>
+                </div>
+                <div>
+                    <span style="font-size: 11px; color: var(--text-muted); display: block;">DRAWS</span>
+                    <span style="font-family: var(--font-heading); font-size: 32px; font-weight: 900; color: var(--maitri-cyan);" id="drawsCount">0</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>🗣️ AI GRANDMASTER TAUNT & DIALOGUE</h3>
+                </div>
+                <div id="pageDialogueBox" style="background: rgba(3,7,18,0.7); border: 1px solid var(--border-light); border-radius: 14px; padding: 16px; font-size: 13.5px; color: var(--maitri-cyan); line-height: 1.6;">
+                    "Welcome Cmdr. Shalok to the Deep-Space Chess Arena! Select a white piece to initiate your opening move."
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3>📈 MATCH EVALUATION SCORE</h3>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 14px;">
+                    <span>POSITIONAL EVAL:</span>
+                    <span id="pageEvalScore" style="color: var(--maitri-purple); font-weight: 800;">+0.0 (EQUAL)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initChessPageGame();
+        });
+
+        function initChessPageGame() {
+            const canvas = document.getElementById('chessBoardCanvasPage');
+            const dialogueBox = document.getElementById('pageDialogueBox');
+            const resetBtn = document.getElementById('pageResetBtn');
+            const hintBtn = document.getElementById('pageHintBtn');
+            const evalEl = document.getElementById('pageEvalScore');
+
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const tileSize = canvas.width / 8;
+
+            let board = [
+                ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+                ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
+                ['.', '.', '.', '.', '.', '.', '.', '.'],
+                ['.', '.', '.', '.', '.', '.', '.', '.'],
+                ['.', '.', '.', '.', '.', '.', '.', '.'],
+                ['.', '.', '.', '.', '.', '.', '.', '.'],
+                ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
+                ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
+            ];
+
+            let selectedTile = null;
+
+            const taunts = [
+                "A bold move, Cmdr. Shalok! But my knight threatens your diagonal vector.",
+                "In zero-gravity, spatial vision is key. My bishop controls the long diagonal!",
+                "Calculated with 99.8% precision! Your queen has limited escape options.",
+                "Fascinating tactic, Commander! Ground control taught me to watch for back-rank mates."
+            ];
+
+            function drawBoard() {
+                for (let r = 0; r < 8; r++) {
+                    for (let c = 0; c < 8; c++) {
+                        const isLight = (r + c) % 2 === 0;
+                        ctx.fillStyle = isLight ? '#131B36' : '#070D22';
+                        ctx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
+
+                        if (selectedTile && selectedTile.r === r && selectedTile.c === c) {
+                            ctx.fillStyle = 'rgba(168, 85, 247, 0.45)';
+                            ctx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
+                        }
+
+                        ctx.strokeStyle = 'rgba(56, 189, 248, 0.18)';
+                        ctx.strokeRect(c * tileSize, r * tileSize, tileSize, tileSize);
+
+                        const piece = board[r][c];
+                        if (piece !== '.') {
+                            ctx.font = '36px sans-serif';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillStyle = (piece === piece.toUpperCase() && piece !== '♜' && piece !== '♞' && piece !== '♝' && piece !== '♛' && piece !== '♚' && piece !== '♟') ? '#A855F7' : '#38BDF8';
+                            ctx.fillText(piece, c * tileSize + tileSize / 2, r * tileSize + tileSize / 2);
+                        }
+                    }
+                }
+            }
+
+            canvas.addEventListener('click', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const c = Math.floor((e.clientX - rect.left) / tileSize);
+                const r = Math.floor((e.clientY - rect.top) / tileSize);
+
+                if (!selectedTile) {
+                    if (board[r][c] !== '.') selectedTile = {r, c};
+                } else {
+                    board[r][c] = board[selectedTile.r][selectedTile.c];
+                    board[selectedTile.r][selectedTile.c] = '.';
+                    selectedTile = null;
+                    drawBoard();
+
+                    setTimeout(() => {
+                        const randomTaunt = taunts[Math.floor(Math.random() * taunts.length)];
+                        if (dialogueBox) dialogueBox.textContent = `"${randomTaunt}"`;
+                        speakText(randomTaunt);
+                    }, 600);
+                }
+                drawBoard();
+            });
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    board = [
+                        ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+                        ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
+                        ['.', '.', '.', '.', '.', '.', '.', '.'],
+                        ['.', '.', '.', '.', '.', '.', '.', '.'],
+                        ['.', '.', '.', '.', '.', '.', '.', '.'],
+                        ['.', '.', '.', '.', '.', '.', '.', '.'],
+                        ['♙', '♙', '♙', '♙', '♙', '♙', '♙', '♙'],
+                        ['♖', '♘', '♗', '♕', '♔', '♗', '♘', '♖']
+                    ];
+                    drawBoard();
+                });
+            }
+
+            if (hintBtn) {
+                hintBtn.addEventListener('click', () => {
+                    const hint = "Tactical Advice: Advance your e2 pawn to e4 to claim center board dominance.";
+                    if (dialogueBox) dialogueBox.textContent = hint;
+                    speakText(hint);
+                });
+            }
+
+            drawBoard();
+        }
+
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 1.0;
+                utterance.pitch = 1.1;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+    </script>
+</body>
+</html>
