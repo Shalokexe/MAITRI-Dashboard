@@ -30,6 +30,12 @@
             display: flex;
             gap: 20px;
             box-shadow: var(--shadow-main), var(--shadow-glow-purple);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .f1-gantry.green-active {
+            border-color: #34D399;
+            box-shadow: 0 0 40px rgba(52, 211, 153, 0.6);
         }
 
         .f1-light-column {
@@ -48,18 +54,18 @@
             border-radius: 50%;
             background: #1e293b;
             border: 2px solid #334155;
-            transition: background 0.1s ease, box-shadow 0.1s ease;
+            transition: background 0.08s ease, box-shadow 0.08s ease;
         }
 
         .f1-light.red-on {
             background: #EF4444;
-            box-shadow: 0 0 25px #EF4444, 0 0 50px #EF4444;
+            box-shadow: 0 0 30px #EF4444, 0 0 60px #EF4444;
             border-color: #F87171;
         }
 
         .f1-light.green-on {
             background: #34D399;
-            box-shadow: 0 0 25px #34D399, 0 0 50px #34D399;
+            box-shadow: 0 0 35px #34D399, 0 0 70px #34D399;
             border-color: #6EE7B7;
         }
 
@@ -73,6 +79,7 @@
             flex-direction: column;
             gap: 10px;
             min-width: 450px;
+            cursor: pointer;
         }
 
         .f1-time-display {
@@ -85,12 +92,13 @@
         .f1-instruction-pill {
             background: rgba(168, 85, 247, 0.15);
             border: 1px solid var(--maitri-purple);
-            padding: 8px 24px;
+            padding: 12px 32px;
             border-radius: var(--radius-pill);
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 800;
             color: var(--maitri-purple);
             letter-spacing: 1px;
+            transition: all 0.2s ease;
         }
 
         .leaderboard-grid {
@@ -183,7 +191,7 @@
             <span class="section-tag">REACTION TIME</span>
             <span class="f1-time-display" id="f1TimeVal">--- ms</span>
             <span id="f1Feedback" style="font-size: 14px; color: var(--text-secondary);">
-                Press ANY KEY or CLICK immediately when all red lights go OUT!
+                Press ANY KEY or CLICK immediately when lights TURN GREEN!
             </span>
         </div>
 
@@ -232,7 +240,7 @@
 
     <script src="app.js"></script>
     <script>
-        // Dedicated F1 Start Lights Logic
+        // Dedicated F1 Start Lights Logic with GREEN GO LIGHTS
         document.addEventListener('DOMContentLoaded', () => {
             initF1ReactionGame();
         });
@@ -247,9 +255,9 @@
             const historyList = document.getElementById('f1HistoryList');
             const resetBtn = document.getElementById('resetF1History');
 
-            let gameState = 'IDLE'; // IDLE, LIGHTS_SEQUENCE, WAITING_BLACKOUT, LIGHTS_OUT, FINISHED
+            let gameState = 'IDLE'; // IDLE, LIGHTS_SEQUENCE, WAITING_GREEN, LIGHTS_GREEN, FINISHED
             let lightTimeouts = [];
-            let blackoutTimeout = null;
+            let greenTimeout = null;
             let startTime = 0;
 
             let history = JSON.parse(localStorage.getItem('f1_reaction_history') || '[]');
@@ -311,6 +319,7 @@
             }
 
             function resetLights() {
+                if (gantry) gantry.classList.remove('green-active');
                 for (let col = 1; col <= 5; col++) {
                     const l1 = document.getElementById(`l${col}_1`);
                     const l2 = document.getElementById(`l${col}_2`);
@@ -319,15 +328,30 @@
                 }
             }
 
+            function setGreenLights() {
+                if (gantry) gantry.classList.add('green-active');
+                for (let col = 1; col <= 5; col++) {
+                    const l1 = document.getElementById(`l${col}_1`);
+                    const l2 = document.getElementById(`l${col}_2`);
+                    if (l1) l1.className = 'f1-light green-on';
+                    if (l2) l2.className = 'f1-light green-on';
+                }
+            }
+
             function startSequence() {
                 resetLights();
                 lightTimeouts.forEach(t => clearTimeout(t));
-                if (blackoutTimeout) clearTimeout(blackoutTimeout);
+                if (greenTimeout) clearTimeout(greenTimeout);
 
                 gameState = 'LIGHTS_SEQUENCE';
-                if (instruction) instruction.textContent = 'LIGHTS SEQUENCE IN PROGRESS... READY!';
+                if (instruction) {
+                    instruction.textContent = '🔴 RED LIGHTS ILLUMINATING... GET READY!';
+                    instruction.style.background = 'rgba(168, 85, 247, 0.15)';
+                    instruction.style.borderColor = 'var(--maitri-purple)';
+                    instruction.style.color = 'var(--maitri-purple)';
+                }
                 if (timeVal) timeVal.textContent = '--- ms';
-                if (feedback) feedback.textContent = 'Wait for all 5 red lights to illuminate and go OUT!';
+                if (feedback) feedback.textContent = 'Wait for all 5 red lights to turn NEON GREEN!';
 
                 // Turn on Red Lights one by one every 1000ms
                 for (let col = 1; col <= 5; col++) {
@@ -341,19 +365,25 @@
                     lightTimeouts.push(t);
                 }
 
-                // After 5s, all 5 red lights are LIT -> Wait random blackout period (1s to 3.5s)
+                // After 5s, all 5 red lights are LIT -> Wait random delay (1.2s to 3.2s) -> TURN GREEN!
                 const finalTimeout = setTimeout(() => {
-                    gameState = 'WAITING_BLACKOUT';
-                    if (instruction) instruction.textContent = 'ALL 5 RED LIGHTS LIT! HOLD...';
+                    gameState = 'WAITING_GREEN';
+                    if (instruction) instruction.textContent = '🔴 ALL 5 RED LIGHTS LIT! HOLD...';
 
-                    const randomDelay = Math.random() * 2500 + 1000;
-                    blackoutTimeout = setTimeout(() => {
-                        // BLACKOUT! LIGHTS OUT!
-                        resetLights();
-                        gameState = 'LIGHTS_OUT';
+                    const randomDelay = Math.random() * 2000 + 1200;
+                    greenTimeout = setTimeout(() => {
+                        // LIGHTS GO GREEN!
+                        setGreenLights();
+                        gameState = 'LIGHTS_GREEN';
                         startTime = Date.now();
-                        if (instruction) instruction.textContent = '🏎️ LIGHTS OUT AND AWAY WE GO! REACT NOW!';
-                        playBeep(880); // High pitch beep
+                        
+                        if (instruction) {
+                            instruction.textContent = '🟢 GREEN LIGHTS ON! GO! GO! GO! PRESS SPACEBAR / CLICK!';
+                            instruction.style.background = 'rgba(52, 211, 153, 0.25)';
+                            instruction.style.borderColor = '#34D399';
+                            instruction.style.color = '#34D399';
+                        }
+                        playBeep(980); // High pitch GREEN GO signal
                     }, randomDelay);
 
                 }, 5500);
@@ -364,22 +394,27 @@
             function triggerInput() {
                 if (gameState === 'IDLE' || gameState === 'FINISHED') {
                     startSequence();
-                } else if (gameState === 'LIGHTS_SEQUENCE' || gameState === 'WAITING_BLACKOUT') {
+                } else if (gameState === 'LIGHTS_SEQUENCE' || gameState === 'WAITING_GREEN') {
                     // FALSE START / JUMP START!
                     lightTimeouts.forEach(t => clearTimeout(t));
-                    if (blackoutTimeout) clearTimeout(blackoutTimeout);
+                    if (greenTimeout) clearTimeout(greenTimeout);
                     resetLights();
 
                     gameState = 'FINISHED';
-                    if (instruction) instruction.textContent = '⚠️ JUMP START! FALSE START PENALTY!';
+                    if (instruction) {
+                        instruction.textContent = '⚠️ JUMP START! FALSE START PENALTY!';
+                        instruction.style.background = 'rgba(248, 113, 113, 0.2)';
+                        instruction.style.borderColor = '#F87171';
+                        instruction.style.color = '#F87171';
+                    }
                     if (timeVal) timeVal.textContent = 'FALSE START';
-                    if (feedback) feedback.textContent = 'You pressed BEFORE the red lights went out! Try again.';
+                    if (feedback) feedback.textContent = 'You pressed BEFORE the lights turned GREEN! Click to try again.';
 
                     history.push({ time: 'FALSE START', date: new Date().toISOString() });
                     localStorage.setItem('f1_reaction_history', JSON.stringify(history));
                     updateLeaderboard();
 
-                } else if (gameState === 'LIGHTS_OUT') {
+                } else if (gameState === 'LIGHTS_GREEN') {
                     const reactionMs = Date.now() - startTime;
                     gameState = 'FINISHED';
 
@@ -391,12 +426,21 @@
                     else if (reactionMs < 310) evalMsg = '👨‍🚀 EXCELLENT ASTRONAUT REFLEX! Passed flight check.';
                     else evalMsg = '⏱️ GOOD ATTEMPT! Practice again to drop under 250ms.';
 
-                    if (instruction) instruction.textContent = `REACTION LOGGED: ${reactionMs} MS! CLICK TO RESTART`;
+                    if (instruction) {
+                        instruction.textContent = `REACTION LOGGED: ${reactionMs} MS! CLICK TO RESTART`;
+                        instruction.style.background = 'rgba(168, 85, 247, 0.15)';
+                        instruction.style.borderColor = 'var(--maitri-purple)';
+                        instruction.style.color = 'var(--maitri-purple)';
+                    }
                     if (feedback) feedback.textContent = evalMsg;
 
                     history.push({ time: reactionMs, date: new Date().toISOString() });
                     localStorage.setItem('f1_reaction_history', JSON.stringify(history));
                     updateLeaderboard();
+
+                    setTimeout(() => {
+                        resetLights();
+                    }, 1200);
                 }
             }
 
