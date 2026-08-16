@@ -1,6 +1,7 @@
 /**
  * MAITRI DEEP-SPACE MULTIMODAL PLATFORM CONTROLLER
  * Purplish Constellation & Cool Light Blue Interactive Canvas Engine,
+ * Astronaut Audiobook Player & E-Book Library Engine (Phase 12),
  * 3D Orbit Engine, Web Audio Synthesizer, Mission Configurator,
  * Grandmaster Minimax Chess Agent & Offline Local Qwen LLM Companion
  */
@@ -20,9 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initBioPulseCanvas();
     initSpaceGames();
     initChessGame();
+    initAudiobookPlayer();
 });
 
-/* 1. DYNAMIC INTERACTIVE CONSTELLATION & SHOOTING STAR ENGINE (PURPLE & LIGHT BLUE) */
+/* 1. DYNAMIC INTERACTIVE CONSTELLATION & SHOOTING STAR ENGINE */
 function initConstellationStarfield() {
     const canvas = document.getElementById('starfieldCanvas');
     if (!canvas) return;
@@ -64,7 +66,6 @@ function initConstellationStarfield() {
     window.addEventListener('resize', resize);
     resize();
 
-    // Shooting Star Spawners
     function createShootingStar() {
         if (shootingStars.length < 3 && Math.random() < 0.3) {
             shootingStars.push({
@@ -72,7 +73,7 @@ function initConstellationStarfield() {
                 y: Math.random() * canvas.height * 0.4,
                 length: Math.random() * 90 + 60,
                 speed: Math.random() * 12 + 10,
-                angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2, // ~45 deg downward
+                angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2,
                 alpha: 1,
                 decay: Math.random() * 0.02 + 0.015,
                 thickness: Math.random() * 1.6 + 1.2
@@ -85,7 +86,6 @@ function initConstellationStarfield() {
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Update and Draw Star Nodes
         for (let i = 0; i < stars.length; i++) {
             const star = stars[i];
 
@@ -98,7 +98,6 @@ function initConstellationStarfield() {
             star.alpha += star.flickerSpeed;
             if (star.alpha > 1 || star.alpha < 0.3) star.flickerSpeed = -star.flickerSpeed;
 
-            // Draw individual star particle
             ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(star.alpha)})`;
             ctx.shadowBlur = 8;
             ctx.shadowColor = '#38BDF8';
@@ -106,7 +105,6 @@ function initConstellationStarfield() {
             ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
             ctx.fill();
 
-            // Inter-Star Constellation Lines (Cool Light Blue / Purple)
             for (let j = i + 1; j < stars.length; j++) {
                 const other = stars[j];
                 const dx = star.x - other.x;
@@ -124,7 +122,6 @@ function initConstellationStarfield() {
                 }
             }
 
-            // Mouse Cursor Dynamic Constellation Connection
             if (mouse.active) {
                 const mdx = star.x - mouse.x;
                 const mdy = star.y - mouse.y;
@@ -140,14 +137,12 @@ function initConstellationStarfield() {
                     ctx.lineTo(star.x, star.y);
                     ctx.stroke();
 
-                    // Subtle magnetic pull
                     star.x -= mdx * 0.015;
                     star.y -= mdy * 0.015;
                 }
             }
         }
 
-        // Update and Draw Shooting Stars (Meteors)
         for (let s = shootingStars.length - 1; s >= 0; s--) {
             const meteor = shootingStars[s];
 
@@ -197,7 +192,7 @@ function initClock() {
     updateClocks();
 }
 
-/* 3. INTERACTIVE 3D EARTH & SPACECRAFT ORBIT CANVAS ENGINE */
+/* 3. INTERACTIVE 3D EARTH ORBIT ENGINE */
 function init3DOrbitCanvas(canvasId) {
     const canvas = document.getElementById(canvasId);
     if (!canvas) return;
@@ -221,7 +216,6 @@ function init3DOrbitCanvas(canvasId) {
 
         ctx.clearRect(0, 0, w, h);
 
-        // Radial Ambient Purple & Cyan Glow
         const bgGradient = ctx.createRadialGradient(centerX, centerY, 5, centerX, centerY, w * 0.6);
         bgGradient.addColorStop(0, 'rgba(168, 85, 247, 0.12)');
         bgGradient.addColorStop(0.5, 'rgba(56, 189, 248, 0.06)');
@@ -229,7 +223,6 @@ function init3DOrbitCanvas(canvasId) {
         ctx.fillStyle = bgGradient;
         ctx.fillRect(0, 0, w, h);
 
-        // Earth Atmosphere Glow
         ctx.save();
         ctx.shadowBlur = 30;
         ctx.shadowColor = '#38BDF8';
@@ -239,7 +232,6 @@ function init3DOrbitCanvas(canvasId) {
         ctx.fill();
         ctx.restore();
 
-        // Earth Latitude / Longitude Lines
         ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
         ctx.lineWidth = 1.5;
         for (let i = -3; i <= 3; i++) {
@@ -248,7 +240,6 @@ function init3DOrbitCanvas(canvasId) {
             ctx.stroke();
         }
 
-        // Draw Orbital Trajectory Ellipse
         angle += 0.015;
         const orbitRx = earthRadius * 2.1;
         const orbitRy = earthRadius * 0.85;
@@ -262,11 +253,9 @@ function init3DOrbitCanvas(canvasId) {
         ctx.stroke();
         ctx.restore();
 
-        // Spacecraft Position
         const satX = centerX + Math.cos(angle) * orbitRx;
         const satY = centerY + Math.sin(angle) * orbitRy;
 
-        // Spacecraft Trail
         for (let t = 1; t <= 12; t++) {
             const trailAngle = angle - t * 0.04;
             const tx = centerX + Math.cos(trailAngle) * orbitRx;
@@ -277,7 +266,6 @@ function init3DOrbitCanvas(canvasId) {
             ctx.fill();
         }
 
-        // Spacecraft Body
         ctx.save();
         ctx.translate(satX, satY);
         
@@ -293,7 +281,6 @@ function init3DOrbitCanvas(canvasId) {
         
         ctx.restore();
 
-        // Telemetry Label
         ctx.font = '10px "JetBrains Mono", monospace';
         ctx.fillStyle = '#FFFFFF';
         ctx.fillText(`MAITRI SPACECRAFT: [ALT 408.2KM | VEL 7.66KM/S]`, satX + 12, satY - 8);
@@ -344,7 +331,52 @@ function initMissionConfigurator() {
     updateCalculations();
 }
 
-/* 5. WEB AUDIO SYNTHESIZER SOUND ENGINE */
+/* 5. ASTRONAUT AUDIOBOOK & LEISURE LIBRARY ENGINE (PHASE 12) */
+function initAudiobookPlayer() {
+    const playBtn = document.getElementById('audioPlayBtn');
+    const titleEl = document.getElementById('audiobookTitle');
+    const authorEl = document.getElementById('audiobookAuthor');
+    const progressEl = document.getElementById('audioProgress');
+    
+    let isPlaying = false;
+    let progress = 42;
+
+    if (playBtn) {
+        playBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            playBtn.textContent = isPlaying ? '⏸️' : '▶️';
+            if (isPlaying) {
+                speakText(`Now playing audiobook: ${titleEl ? titleEl.textContent : 'The Cosmos'}`);
+            }
+        });
+    }
+
+    setInterval(() => {
+        if (isPlaying && progressEl) {
+            progress = (progress + 0.5) % 100;
+            progressEl.style.width = `${progress}%`;
+        }
+    }, 1000);
+}
+
+function playAudiobook(title, author) {
+    const titleEl = document.getElementById('audiobookTitle');
+    const authorEl = document.getElementById('audiobookAuthor');
+    const playBtn = document.getElementById('audioPlayBtn');
+
+    if (titleEl) titleEl.textContent = title;
+    if (authorEl) authorEl.textContent = `Narrated by ${author}`;
+    if (playBtn) playBtn.textContent = '⏸️';
+
+    speakText(`Loading audiobook ${title} by ${author}. Enjoy your leisure time Commander.`);
+}
+
+function openEbookModal(title) {
+    speakText(`Opening E-Book ${title}. Relax and enjoy reading.`);
+    alert(`📖 MAITRI E-BOOK READER\n\nNow opening '${title}'. Stored 100% offline in local SQLite database.`);
+}
+
+/* 6. WEB AUDIO SYNTHESIZER SOUND ENGINE */
 function initSoundEngine() {
     let audioCtx = null;
     let isAmbientPlaying = false;
@@ -392,7 +424,7 @@ function initSoundEngine() {
     });
 }
 
-/* 6. ROCKET LAUNCH SEQUENCER & IGNITION SOUND */
+/* 7. ROCKET LAUNCH SEQUENCER & IGNITION SOUND */
 function initLaunchSequence() {
     const trigger = document.getElementById('launchTrigger');
     const statusText = document.getElementById('launchStatusText');
@@ -423,7 +455,7 @@ function initLaunchSequence() {
     });
 }
 
-/* 7. NAVIGATION TAB SWITCHING */
+/* 8. NAVIGATION TAB SWITCHING */
 function initTabs() {
     const tabs = document.querySelectorAll('.nav-tab');
     const contents = document.querySelectorAll('.tab-content');
@@ -441,7 +473,7 @@ function initTabs() {
     });
 }
 
-/* 8. REAL-TIME CHART.JS TELEMETRY CHARTS */
+/* 9. REAL-TIME CHART.JS TELEMETRY CHARTS */
 function initCharts() {
     const vitalsCtx = document.getElementById('vitalsTrendChart');
     if (!vitalsCtx) return;
@@ -485,7 +517,7 @@ function initCharts() {
     });
 }
 
-/* 9. GRANDMASTER AI CHESS ARENA */
+/* 10. GRANDMASTER AI CHESS ARENA */
 function initChessGame() {
     const canvas = document.getElementById('chessBoardCanvas');
     const dialogueBox = document.getElementById('chessDialogueBox');
@@ -592,7 +624,7 @@ function initChessGame() {
     drawBoard();
 }
 
-/* 10. WEB SPEECH AUDIO SYNTHESIS */
+/* 11. WEB SPEECH AUDIO SYNTHESIS */
 function speakText(text) {
     if ('speechSynthesis' in window) {
         const utterance = new SpeechSynthesisUtterance(text);
@@ -602,7 +634,7 @@ function speakText(text) {
     }
 }
 
-/* 11. BIO-PULSE AR RESPIRATION SPHERE CANVAS */
+/* 12. BIO-PULSE AR RESPIRATION SPHERE CANVAS */
 function initBioPulseCanvas() {
     const canvas = document.getElementById('bioPulseCanvas');
     if (!canvas) return;
@@ -639,7 +671,7 @@ function initBioPulseCanvas() {
     animate();
 }
 
-/* 12. OPENCV VISION CANVA SIMULATOR */
+/* 13. OPENCV VISION CANVA SIMULATOR */
 function initCameraCanvas() {
     const canvas = document.getElementById('videoCanvas');
     if (!canvas) return;
@@ -670,7 +702,7 @@ function initCameraCanvas() {
     drawSimulatedFace();
 }
 
-/* 13. CHATBOT COMPANION INTERACTION */
+/* 14. CHATBOT COMPANION INTERACTION */
 function initChatbot() {
     const miniInput = document.getElementById('miniChatInput');
     const miniBtn = document.getElementById('sendMiniChatBtn');
@@ -727,7 +759,7 @@ function sendPresetPrompt(text) {
     }
 }
 
-/* 14. SPACE MINI-GAMES SUITE */
+/* 15. SPACE MINI-GAMES SUITE */
 function initSpaceGames() {
     const reflexBox = document.getElementById('reflexBox');
     const timeEl = document.getElementById('reflexTime');

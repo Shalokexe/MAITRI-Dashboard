@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MAITRI - Mission Control & Deep-Space AI Telemetry Center">
-    <title>MAITRI | Mission Control Center</title>
+    <meta name="description" content="MAITRI - Mission Control & Universal Deep-Space AI Companion Center">
+    <title>MAITRI | Mission Control & Companion</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,15 +27,15 @@
                 <path d="M20 120 Q100 155 180 120" stroke="#A855F7" stroke-width="8" fill="none" />
             </svg>
             <div class="brand-text-block">
-                <span class="brand-title">MAITRI | GAGANYAAN G1</span>
-                <span class="brand-tag">MULTIMODAL MISSION CONTROL</span>
+                <span class="brand-title">MAITRI | DEEP-SPACE COMMAND</span>
+                <span class="brand-tag">UNIVERSAL MULTIMODAL MISSION ASSISTANT</span>
             </div>
         </a>
 
         <!-- Live Orbital Telemetry Ticker -->
         <div class="telemetry-ticker">
             <div class="ticker-node">
-                <span class="ticker-label">ALTITUDE:</span>
+                <span class="ticker-label">ORBIT:</span>
                 <span class="ticker-val">408.2 KM LEO</span>
             </div>
             <div class="ticker-node">
@@ -72,7 +72,7 @@
             <button class="nav-tab" data-tab="vitals">🫀 Vitals & Stress Telemetry</button>
             <button class="nav-tab" data-tab="companion">🧠 AI Companion (Qwen)</button>
             <button class="nav-tab" data-tab="multimodal">📷 Multimodal Stream</button>
-            <button class="nav-tab" data-tab="entertainment">🎵 Personalization & Media</button>
+            <button class="nav-tab" data-tab="entertainment">📚 Books, Audiobooks & Media</button>
             <button class="nav-tab" data-tab="alerts">🚨 Emergency & Black-Box Logs</button>
             <button class="nav-tab" data-tab="system">⚙️ Edge Hardware Status</button>
         </nav>
@@ -142,7 +142,7 @@
                         <div class="chat-mini-history" id="chatMiniHistory">
                             <div class="chat-bubble bot">
                                 <span class="sender">MAITRI AI:</span>
-                                Cmdr. Shalok, telemetry parameters are optimal. All air-gap sub-systems are operating at peak efficiency.
+                                Welcome Cmdr. Shalok. I am here for you throughout this mission so you always feel at home. Telemetry is nominal.
                             </div>
                         </div>
                         <div class="chat-input-row">
@@ -231,7 +231,7 @@
                             <span class="card-badge" style="background: rgba(56,189,248,0.2); color: var(--maitri-cyan);">STANDALONE ROUTE</span>
                         </div>
                         <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
-                            Play against ISRO Minimax Alpha-Beta AI chess agent on a 3D space crystal board. Includes spoken audio taunts, position evaluation, and tactical hints.
+                            Play against Minimax Alpha-Beta AI chess agent on a 3D space crystal board. Includes spoken audio taunts, position evaluation, and tactical hints.
                         </p>
                         <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(3,7,18,0.7); border: 1px solid var(--border-light); padding: 14px; border-radius: 14px;">
                             <div>
@@ -241,18 +241,6 @@
                             <a href="chess.html" class="btn btn-primary" style="text-decoration: none;">
                                 ♟️ LAUNCH AI CHESS ARENA
                             </a>
-                        </div>
-                    </div>
-
-                    <!-- EMBEDDED QUICK REFLEX SIMULATOR PREVIEW -->
-                    <div class="card col-span-4">
-                        <div class="card-header">
-                            <h2>⚡ QUICK REFLEX COGNITIVE CHECK</h2>
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 14px; text-align: center;">
-                            <div id="reflexBox" style="height: 180px; background: rgba(0,0,0,0.6); border: 1px solid var(--border-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: var(--maitri-purple); cursor: pointer;">
-                                CLICK HERE FOR QUICK REFLEX TEST
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -334,7 +322,7 @@
                         </div>
                         
                         <div class="astronaut-card">
-                            <h4>MISSION CONTEXT</h4>
+                            <h4>UNIVERSAL COMPANION</h4>
                             <span>Astronaut: Cmdr. Shalok Dadhwal<br>Orbit: 408.2 KM LEO<br>Status: Air-Gap Offline</span>
                         </div>
                     </div>
@@ -348,7 +336,7 @@
                         <div class="chat-logs" id="companionFullLogs">
                             <div class="chat-bubble bot">
                                 <span class="sender">QWEN AI ASSISTANT:</span>
-                                Welcome Cmdr. Shalok Dadhwal. I am your fully local, offline Qwen AI companion. You can consult me on medical protocols, ECLSS troubleshooting, or mission telemetry analysis.
+                                Welcome Cmdr. Shalok Dadhwal. I am your fully local, offline AI companion. I am here to assist with medical protocols, system diagnostics, or simply provide engaging dialogue so you always feel at home.
                             </div>
                         </div>
 
@@ -406,28 +394,94 @@
                 </div>
             </div>
 
-            <!-- 7. PERSONALIZATION & MEDIA TAB -->
+            <!-- 7. 📚 ASTRONAUT BOOK, AUDIOBOOK & MEDIA TAB (PHASE 12 NEW FEATURE) -->
             <div id="entertainment" class="tab-content">
-                <div class="media-tabs">
-                    <div class="media-card">
-                        <h3>🌅 Circadian Lighting Control</h3>
-                        <p>Adjust cabin spectrum to synchronize astronaut circadian rhythm in orbit.</p>
-                        <button class="btn btn-secondary" onclick="setCircadian('dawn')">Sunrise Mode</button>
+                
+                <!-- AUDIOBOOK PLAYER WIDGET -->
+                <div class="audiobook-player-card" style="margin-bottom: 24px;">
+                    <div class="card-header">
+                        <h2>🎧 ASTRONAUT DEEP-SPACE AUDIOBOOK PLAYER</h2>
+                        <span class="card-badge" style="background: rgba(168,85,247,0.2); color: var(--maitri-purple);">NOW PLAYING</span>
                     </div>
-                    <div class="media-card">
-                        <h3>🎵 Deep-Space Soundscapes</h3>
-                        <p>Relaxation ambient soundscapes for deep space orbital stays.</p>
-                        <button class="btn btn-secondary" onclick="toggleSpaceAudio()">Play Ambient Drone</button>
+
+                    <div style="display: flex; align-items: center; gap: 24px;">
+                        <div style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--maitri-purple), var(--maitri-cyan)); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 32px;">
+                            📖
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
+                            <span style="font-family: var(--font-heading); font-size: 18px; font-weight: 900;" id="audiobookTitle">The Cosmos & Beyond</span>
+                            <span style="font-size: 13px; color: var(--maitri-cyan);" id="audiobookAuthor">Narrated by Dr. Carl Sagan • Chapter 3: Stars & Nebulae</span>
+                            
+                            <div class="scrubber-bar" id="audioScrubber" style="margin-top: 10px;">
+                                <div class="scrubber-progress" id="audioProgress" style="width: 42%;"></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+                                <span id="audioCurrentTime">14:20</span>
+                                <span id="audioTotalTime">34:10</span>
+                            </div>
+                        </div>
+
+                        <div class="audio-controls-row">
+                            <button class="btn btn-secondary" id="audioPrevBtn">⏮️</button>
+                            <button class="btn btn-primary" style="width: 50px; height: 50px; border-radius: 50%; padding: 0; font-size: 20px;" id="audioPlayBtn">▶️</button>
+                            <button class="btn btn-secondary" id="audioNextBtn">⏭️</button>
+                        </div>
                     </div>
-                    <div class="media-card">
-                        <h3>📖 Mission Journal</h3>
-                        <p>Log personal astronaut entries stored locally in SQLite database.</p>
-                        <button class="btn btn-secondary">New Journal Entry</button>
+                </div>
+
+                <!-- BOOK & AUDIOBOOK SHELF GRID -->
+                <div class="section-header-block" style="text-align: left; align-items: flex-start;">
+                    <span class="section-tag">LEISURE & RELAXATION LIBRARY</span>
+                    <h3 class="section-title" style="font-size: 26px;">DEEP-SPACE ASTRONAUT BOOK SHELF</h3>
+                </div>
+
+                <div class="library-grid">
+                    <div class="book-card">
+                        <div class="book-cover-box">
+                            <span style="font-size: 36px;">🌌</span>
+                            <span class="book-cover-title">The Cosmos & Beyond</span>
+                            <span class="book-author">Carl Sagan</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span class="badge low">AUDIOBOOK + E-BOOK</span>
+                            <button class="btn btn-primary" style="padding: 8px 14px; font-size: 12px;" onclick="playAudiobook('The Cosmos & Beyond', 'Carl Sagan')">🎧 Listen Audiobook</button>
+                        </div>
                     </div>
-                    <div class="media-card">
-                        <h3>🌌 Space Holograms</h3>
-                        <p>3D visual constellation guides for night orbit observations.</p>
-                        <button class="btn btn-secondary">Launch Star Map</button>
+
+                    <div class="book-card">
+                        <div class="book-cover-box">
+                            <span style="font-size: 36px;">🧠</span>
+                            <span class="book-cover-title">Deep-Space Resilience</span>
+                            <span class="book-author">Dr. Shalok Dadhwal</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span class="badge medium">PSYCHOLOGY & RESILIENCE</span>
+                            <button class="btn btn-primary" style="padding: 8px 14px; font-size: 12px;" onclick="playAudiobook('Deep-Space Resilience', 'Dr. Shalok Dadhwal')">🎧 Listen Audiobook</button>
+                        </div>
+                    </div>
+
+                    <div class="book-card">
+                        <div class="book-cover-box">
+                            <span style="font-size: 36px;">🧘</span>
+                            <span class="book-cover-title">Zero-Gravity Philosophy</span>
+                            <span class="book-author">Space Thought Collective</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span class="badge success">E-BOOK READER</span>
+                            <button class="btn btn-secondary" style="padding: 8px 14px; font-size: 12px;" onclick="openEbookModal('Zero-Gravity Philosophy')">📖 Read E-Book</button>
+                        </div>
+                    </div>
+
+                    <div class="book-card">
+                        <div class="book-cover-box">
+                            <span style="font-size: 36px;">✨</span>
+                            <span class="book-cover-title">Starlight Audio Drama</span>
+                            <span class="book-author">Deep Space Radio</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <span class="badge low">AUDIO DRAMA</span>
+                            <button class="btn btn-primary" style="padding: 8px 14px; font-size: 12px;" onclick="playAudiobook('Starlight Audio Drama', 'Deep Space Radio')">🎧 Listen Audiobook</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -500,7 +554,6 @@
     <script src="app.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Load F1 Best Score on Dashboard
             const history = JSON.parse(localStorage.getItem('f1_reaction_history') || '[]');
             const valid = history.filter(h => typeof h.time === 'number' && h.time > 0);
             const dashBest = document.getElementById('dashF1Best');

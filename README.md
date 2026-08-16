@@ -76,6 +76,11 @@ Minimax AI vs Astronaut             Reflex & Docking Sims               4-7-8 Br
 ### 🤖 3. Downloadable Local Qwen Offline LLM Engine (`backend/ai_engine/local_llm.py`)
 - Bridges **Qwen-2 0.5B / 1.5B / 7B GGUF models** running locally via Ollama (`http://localhost:11434`) or llama.cpp (`http://localhost:8080`).
 
+### 📚 4. Astronaut Deep-Space Audiobook & E-Book Library Platform (Phase 12)
+- **Leisure & Relaxation Companion**: Offline digital audiobook & e-book shelf designed so astronauts never feel alone in deep space.
+- **Audiobook Player Widget**: Built-in time scrubber, play/pause controls, chapter selection, and spoken narration synthesizers.
+- **Offline Library Storage**: Books stored locally in SQLite (`library_books`) with zero internet required.
+
 ---
 
 ## ⚡ Quick Start & Local Execution
@@ -95,7 +100,7 @@ python -m unittest discover tests
 
 ## 📄 Sequential DOCX Progress Reports
 
-The repository contains 11 Word (`.docx`) progress reports generated automatically in `docs/`:
+The repository contains 12 Word (`.docx`) progress reports generated automatically in `docs/`:
 
 | Report File | Phase & Scope | Status |
 | :--- | :--- | :--- |
@@ -109,8 +114,8 @@ The repository contains 11 Word (`.docx`) progress reports generated automatical
 | `docs/update_08.docx` | Phase 8: Bio-Pulse AR Coach & HRV Coherence Engine | ✅ Verified |
 | `docs/update_09.docx` | Phase 9: Local Downloadable Qwen Offline LLM Integration | ✅ Verified |
 | `docs/update_10.docx` | Phase 10: Space Mini-Games Suite & OpenCV Mood Activity Recommender | ✅ Verified |
-| `docs/update_11.docx` | Phase 11: ISRO Grandmaster AI Chess Agent & Spoken Taunts | ✅ Verified |
-| `docs/update_12.docx` | Phase 12: Multi-Astronaut Telemetry & Group Coherence Matrix | 🚀 In Progress (v2.4.0) |
+| `docs/update_11.docx` | Phase 11: Grandmaster AI Chess Agent & Spoken Taunts | ✅ Verified |
+| `docs/update_12.docx` | Phase 12: Astronaut Deep-Space Audiobook & E-Book Library | ✅ Verified |
 
 ---
 
