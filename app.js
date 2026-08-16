@@ -1,6 +1,6 @@
 /**
  * MAITRI DEEP-SPACE MULTIMODAL PLATFORM CONTROLLER
- * Dynamic Interactive Constellation & Shooting Star Engine,
+ * Purplish Constellation & Cool Light Blue Interactive Canvas Engine,
  * 3D Orbit Engine, Web Audio Synthesizer, Mission Configurator,
  * Grandmaster Minimax Chess Agent & Offline Local Qwen LLM Companion
  */
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initChessGame();
 });
 
-/* 1. DYNAMIC INTERACTIVE CONSTELLATION & SHOOTING STAR ENGINE */
+/* 1. DYNAMIC INTERACTIVE CONSTELLATION & SHOOTING STAR ENGINE (PURPLE & LIGHT BLUE) */
 function initConstellationStarfield() {
     const canvas = document.getElementById('starfieldCanvas');
     if (!canvas) return;
@@ -30,7 +30,7 @@ function initConstellationStarfield() {
     
     let stars = [];
     let shootingStars = [];
-    const numStars = 130;
+    const numStars = 135;
     
     let mouse = { x: -1000, y: -1000, active: false };
 
@@ -70,17 +70,17 @@ function initConstellationStarfield() {
             shootingStars.push({
                 x: Math.random() * canvas.width * 0.8,
                 y: Math.random() * canvas.height * 0.4,
-                length: Math.random() * 80 + 50,
+                length: Math.random() * 90 + 60,
                 speed: Math.random() * 12 + 10,
                 angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2, // ~45 deg downward
                 alpha: 1,
                 decay: Math.random() * 0.02 + 0.015,
-                thickness: Math.random() * 1.5 + 1.2
+                thickness: Math.random() * 1.6 + 1.2
             });
         }
     }
 
-    setInterval(createShootingStar, 1800);
+    setInterval(createShootingStar, 1700);
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -89,36 +89,33 @@ function initConstellationStarfield() {
         for (let i = 0; i < stars.length; i++) {
             const star = stars[i];
 
-            // Move stars slowly
             star.x += star.vx;
             star.y += star.vy;
 
-            // Bounce off edges
             if (star.x < 0 || star.x > canvas.width) star.vx *= -1;
             if (star.y < 0 || star.y > canvas.height) star.vy *= -1;
 
-            // Flicker effect
             star.alpha += star.flickerSpeed;
             if (star.alpha > 1 || star.alpha < 0.3) star.flickerSpeed = -star.flickerSpeed;
 
             // Draw individual star particle
             ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(star.alpha)})`;
             ctx.shadowBlur = 8;
-            ctx.shadowColor = '#00E5FF';
+            ctx.shadowColor = '#38BDF8';
             ctx.beginPath();
             ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
             ctx.fill();
 
-            // Inter-Star Constellation Lines
+            // Inter-Star Constellation Lines (Cool Light Blue / Purple)
             for (let j = i + 1; j < stars.length; j++) {
                 const other = stars[j];
                 const dx = star.x - other.x;
                 const dy = star.y - other.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
-                if (dist < 110) {
-                    const lineAlpha = (1 - dist / 110) * 0.25;
-                    ctx.strokeStyle = `rgba(0, 229, 255, ${lineAlpha})`;
+                if (dist < 115) {
+                    const lineAlpha = (1 - dist / 115) * 0.25;
+                    ctx.strokeStyle = (i % 2 === 0) ? `rgba(168, 85, 247, ${lineAlpha})` : `rgba(56, 189, 248, ${lineAlpha})`;
                     ctx.lineWidth = 0.8;
                     ctx.beginPath();
                     ctx.moveTo(star.x, star.y);
@@ -136,15 +133,14 @@ function initConstellationStarfield() {
                 if (mdist < 180) {
                     const mAlpha = (1 - mdist / 180) * 0.65;
 
-                    // Draw dynamic neon cursor constellation line
-                    ctx.strokeStyle = (i % 2 === 0) ? `rgba(255, 153, 51, ${mAlpha})` : `rgba(0, 229, 255, ${mAlpha})`;
-                    ctx.lineWidth = 1.2;
+                    ctx.strokeStyle = (i % 2 === 0) ? `rgba(168, 85, 247, ${mAlpha})` : `rgba(56, 189, 248, ${mAlpha})`;
+                    ctx.lineWidth = 1.3;
                     ctx.beginPath();
                     ctx.moveTo(mouse.x, mouse.y);
                     ctx.lineTo(star.x, star.y);
                     ctx.stroke();
 
-                    // Subtle magnetic attraction towards cursor
+                    // Subtle magnetic pull
                     star.x -= mdx * 0.015;
                     star.y -= mdy * 0.015;
                 }
@@ -160,8 +156,8 @@ function initConstellationStarfield() {
 
             const grad = ctx.createLinearGradient(meteor.x, meteor.y, endX, endY);
             grad.addColorStop(0, `rgba(255, 255, 255, ${meteor.alpha})`);
-            grad.addColorStop(0.3, `rgba(255, 153, 51, ${meteor.alpha * 0.8})`);
-            grad.addColorStop(0.7, `rgba(0, 229, 255, ${meteor.alpha * 0.4})`);
+            grad.addColorStop(0.3, `rgba(168, 85, 247, ${meteor.alpha * 0.8})`);
+            grad.addColorStop(0.7, `rgba(56, 189, 248, ${meteor.alpha * 0.4})`);
             grad.addColorStop(1, 'transparent');
 
             ctx.strokeStyle = grad;
@@ -171,7 +167,6 @@ function initConstellationStarfield() {
             ctx.lineTo(endX, endY);
             ctx.stroke();
 
-            // Advance meteor
             meteor.x += Math.cos(meteor.angle) * meteor.speed;
             meteor.y += Math.sin(meteor.angle) * meteor.speed;
             meteor.alpha -= meteor.decay;
@@ -226,26 +221,26 @@ function init3DOrbitCanvas(canvasId) {
 
         ctx.clearRect(0, 0, w, h);
 
-        // Draw Deep Space Radial Ambient Glow
+        // Radial Ambient Purple & Cyan Glow
         const bgGradient = ctx.createRadialGradient(centerX, centerY, 5, centerX, centerY, w * 0.6);
-        bgGradient.addColorStop(0, 'rgba(0, 229, 255, 0.12)');
-        bgGradient.addColorStop(0.5, 'rgba(255, 153, 51, 0.05)');
+        bgGradient.addColorStop(0, 'rgba(168, 85, 247, 0.12)');
+        bgGradient.addColorStop(0.5, 'rgba(56, 189, 248, 0.06)');
         bgGradient.addColorStop(1, 'transparent');
         ctx.fillStyle = bgGradient;
         ctx.fillRect(0, 0, w, h);
 
-        // Draw Earth Atmosphere Glow
+        // Earth Atmosphere Glow
         ctx.save();
         ctx.shadowBlur = 30;
-        ctx.shadowColor = '#00E5FF';
-        ctx.fillStyle = '#051b3b';
+        ctx.shadowColor = '#38BDF8';
+        ctx.fillStyle = '#0a1633';
         ctx.beginPath();
         ctx.arc(centerX, centerY, earthRadius, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
 
-        // Earth Latitude / Longitude Ellipses
-        ctx.strokeStyle = 'rgba(0, 229, 255, 0.35)';
+        // Earth Latitude / Longitude Lines
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
         ctx.lineWidth = 1.5;
         for (let i = -3; i <= 3; i++) {
             ctx.beginPath();
@@ -259,7 +254,7 @@ function init3DOrbitCanvas(canvasId) {
         const orbitRy = earthRadius * 0.85;
 
         ctx.save();
-        ctx.strokeStyle = 'rgba(255, 153, 51, 0.5)';
+        ctx.strokeStyle = 'rgba(168, 85, 247, 0.55)';
         ctx.setLineDash([6, 6]);
         ctx.lineWidth = 2;
         ctx.beginPath();
@@ -267,40 +262,38 @@ function init3DOrbitCanvas(canvasId) {
         ctx.stroke();
         ctx.restore();
 
-        // Calculate Spacecraft Position in Orbit
+        // Spacecraft Position
         const satX = centerX + Math.cos(angle) * orbitRx;
         const satY = centerY + Math.sin(angle) * orbitRy;
 
-        // Spacecraft Trajectory Trail
+        // Spacecraft Trail
         for (let t = 1; t <= 12; t++) {
             const trailAngle = angle - t * 0.04;
             const tx = centerX + Math.cos(trailAngle) * orbitRx;
             const ty = centerY + Math.sin(trailAngle) * orbitRy;
-            ctx.fillStyle = `rgba(0, 229, 255, ${0.8 - t * 0.06})`;
+            ctx.fillStyle = `rgba(56, 189, 248, ${0.8 - t * 0.06})`;
             ctx.beginPath();
             ctx.arc(tx, ty, 3 - t * 0.15, 0, Math.PI * 2);
             ctx.fill();
         }
 
-        // Spacecraft Body & Solar Array Visual
+        // Spacecraft Body
         ctx.save();
         ctx.translate(satX, satY);
         
-        // Solar Panel Wings
-        ctx.fillStyle = '#00E5FF';
+        ctx.fillStyle = '#38BDF8';
         ctx.fillRect(-14, -2, 28, 4);
 
-        // Core Satellite Module
-        ctx.fillStyle = '#FF9933';
+        ctx.fillStyle = '#A855F7';
         ctx.shadowBlur = 15;
-        ctx.shadowColor = '#FF9933';
+        ctx.shadowColor = '#A855F7';
         ctx.beginPath();
         ctx.arc(0, 0, 6, 0, Math.PI * 2);
         ctx.fill();
         
         ctx.restore();
 
-        // Live Telemetry Label Overlay on Spacecraft
+        // Telemetry Label
         ctx.font = '10px "JetBrains Mono", monospace';
         ctx.fillStyle = '#FFFFFF';
         ctx.fillText(`MAITRI SPACECRAFT: [ALT 408.2KM | VEL 7.66KM/S]`, satX + 12, satY - 8);
@@ -465,16 +458,16 @@ function initCharts() {
                 {
                     label: 'Heart Rate (BPM)',
                     data: hrData,
-                    borderColor: '#FF9933',
-                    backgroundColor: 'rgba(255, 153, 51, 0.1)',
+                    borderColor: '#A855F7',
+                    backgroundColor: 'rgba(168, 85, 247, 0.12)',
                     tension: 0.4,
                     fill: true
                 },
                 {
                     label: 'SpO2 Saturation (%)',
                     data: spo2Data,
-                    borderColor: '#00E5FF',
-                    backgroundColor: 'rgba(0, 229, 255, 0.1)',
+                    borderColor: '#38BDF8',
+                    backgroundColor: 'rgba(56, 189, 248, 0.12)',
                     tension: 0.4,
                     fill: true
                 }
@@ -527,15 +520,15 @@ function initChessGame() {
         for (let r = 0; r < 8; r++) {
             for (let c = 0; c < 8; c++) {
                 const isLight = (r + c) % 2 === 0;
-                ctx.fillStyle = isLight ? '#0B1D3A' : '#030A19';
+                ctx.fillStyle = isLight ? '#131B36' : '#070D22';
                 ctx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
 
                 if (selectedTile && selectedTile.r === r && selectedTile.c === c) {
-                    ctx.fillStyle = 'rgba(255, 153, 51, 0.4)';
+                    ctx.fillStyle = 'rgba(168, 85, 247, 0.4)';
                     ctx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
                 }
 
-                ctx.strokeStyle = 'rgba(0, 229, 255, 0.15)';
+                ctx.strokeStyle = 'rgba(56, 189, 248, 0.15)';
                 ctx.strokeRect(c * tileSize, r * tileSize, tileSize, tileSize);
 
                 const piece = board[r][c];
@@ -543,7 +536,7 @@ function initChessGame() {
                     ctx.font = '28px sans-serif';
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
-                    ctx.fillStyle = (piece === piece.toUpperCase() && piece !== '♜' && piece !== '♞' && piece !== '♝' && piece !== '♛' && piece !== '♚' && piece !== '♟') ? '#FF9933' : '#00E5FF';
+                    ctx.fillStyle = (piece === piece.toUpperCase() && piece !== '♜' && piece !== '♞' && piece !== '♝' && piece !== '♛' && piece !== '♚' && piece !== '♟') ? '#A855F7' : '#38BDF8';
                     ctx.fillText(piece, c * tileSize + tileSize / 2, r * tileSize + tileSize / 2);
                 }
             }
@@ -632,8 +625,8 @@ function initBioPulseCanvas() {
         }
 
         const grad = ctx.createRadialGradient(w/2, h/2, 5, w/2, h/2, radius);
-        grad.addColorStop(0, '#00E5FF');
-        grad.addColorStop(0.7, '#FF9933');
+        grad.addColorStop(0, '#38BDF8');
+        grad.addColorStop(0.7, '#A855F7');
         grad.addColorStop(1, 'transparent');
 
         ctx.fillStyle = grad;
@@ -657,16 +650,16 @@ function initCameraCanvas() {
         const h = canvas.height;
         ctx.clearRect(0, 0, w, h);
 
-        ctx.fillStyle = '#051329';
+        ctx.fillStyle = '#070D22';
         ctx.fillRect(0, 0, w, h);
 
-        ctx.strokeStyle = '#00E5FF';
+        ctx.strokeStyle = '#38BDF8';
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.arc(w/2, h/2, 60, 0, Math.PI * 2);
         ctx.stroke();
 
-        ctx.fillStyle = '#FF9933';
+        ctx.fillStyle = '#A855F7';
         ctx.beginPath();
         ctx.arc(w/2 - 20, h/2 - 15, 6, 0, Math.PI * 2);
         ctx.arc(w/2 + 20, h/2 - 15, 6, 0, Math.PI * 2);
@@ -748,15 +741,15 @@ function initSpaceGames() {
 
     reflexBox.addEventListener('click', () => {
         if (!waiting && startTime === 0) {
-            reflexBox.textContent = "WAIT FOR CYAN COLOR...";
-            reflexBox.style.background = "rgba(255, 153, 51, 0.3)";
+            reflexBox.textContent = "WAIT FOR ICE BLUE COLOR...";
+            reflexBox.style.background = "rgba(168, 85, 247, 0.3)";
             waiting = true;
 
             const delay = Math.random() * 2000 + 1500;
             setTimeout(() => {
                 if (waiting) {
                     reflexBox.textContent = "CLICK NOW!";
-                    reflexBox.style.background = "#00E5FF";
+                    reflexBox.style.background = "#38BDF8";
                     reflexBox.style.color = "#000";
                     startTime = Date.now();
                 }
@@ -769,7 +762,7 @@ function initSpaceGames() {
 
             reflexBox.textContent = `SUCCESS! ${diff} MS. CLICK TO RETRY.`;
             reflexBox.style.background = "rgba(0,0,0,0.6)";
-            reflexBox.style.color = "var(--maitri-saffron)";
+            reflexBox.style.color = "var(--maitri-purple)";
             startTime = 0;
             waiting = false;
         }

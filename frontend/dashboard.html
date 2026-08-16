@@ -22,9 +22,9 @@
     <header class="global-header">
         <a href="index.html" class="brand-group">
             <svg class="brand-logo-svg" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M100 10 L140 120 L100 95 L60 120 Z" fill="#FF9933" />
-                <path d="M30 75 L170 75 L100 30 Z" fill="#00A3E0" />
-                <path d="M20 120 Q100 155 180 120" stroke="#FF9933" stroke-width="8" fill="none" />
+                <path d="M100 10 L140 120 L100 95 L60 120 Z" fill="#A855F7" />
+                <path d="M30 75 L170 75 L100 30 Z" fill="#38BDF8" />
+                <path d="M20 120 Q100 155 180 120" stroke="#A855F7" stroke-width="8" fill="none" />
             </svg>
             <div class="brand-text-block">
                 <span class="brand-title">MAITRI | GAGANYAAN G1</span>
@@ -40,11 +40,11 @@
             </div>
             <div class="ticker-node">
                 <span class="ticker-label">VELOCITY:</span>
-                <span class="ticker-val saffron">7.66 KM/S</span>
+                <span class="ticker-val purple">7.66 KM/S</span>
             </div>
             <div class="ticker-node">
                 <span class="ticker-label">COMMANDER:</span>
-                <span class="ticker-val gold">CMD. SHALOK DADHWAL</span>
+                <span class="ticker-val ice">CMD. SHALOK DADHWAL</span>
             </div>
             <div class="ticker-node">
                 <span class="ticker-label">CABIN O2:</span>
@@ -85,7 +85,7 @@
                 <div class="grid-layout">
                     <!-- Status Metric Cards -->
                     <div class="card metric-card">
-                        <div class="card-icon orange">🫀</div>
+                        <div class="card-icon purple">🫀</div>
                         <div class="card-info">
                             <span class="metric-label">Heart Rate</span>
                             <span class="metric-val" id="dashHR">72 <small>BPM</small></span>
@@ -103,7 +103,7 @@
                     </div>
 
                     <div class="card metric-card">
-                        <div class="card-icon purple">⚡</div>
+                        <div class="card-icon violet">⚡</div>
                         <div class="card-info">
                             <span class="metric-label">Stress Index</span>
                             <span class="metric-val" id="dashStress">14.2 <small>/ 100</small></span>
@@ -206,14 +206,14 @@
                             <span class="card-badge">MINIMAX ALPHA-BETA</span>
                         </div>
                         <div style="display: flex; gap: 20px; align-items: center; justify-content: center; flex-wrap: wrap;">
-                            <canvas id="chessBoardCanvas" width="340" height="340" style="border-radius: 12px; border: 1px solid var(--maitri-saffron); cursor: pointer;"></canvas>
+                            <canvas id="chessBoardCanvas" width="340" height="340" style="border-radius: 12px; border: 1px solid var(--maitri-purple); cursor: pointer;"></canvas>
                             <div style="flex: 1; min-width: 220px; display: flex; flex-direction: column; gap: 12px;">
-                                <div id="chessDialogueBox" style="background: rgba(1,5,14,0.7); border: 1px solid var(--border-light); border-radius: 12px; padding: 14px; font-size: 13px; color: var(--maitri-cyan); line-height: 1.5;">
+                                <div id="chessDialogueBox" style="background: rgba(3,7,18,0.7); border: 1px solid var(--border-light); border-radius: 12px; padding: 14px; font-size: 13px; color: var(--maitri-cyan); line-height: 1.5;">
                                     "Greeting Cmdr. Shalok! Select a white piece to initiate your first move against Minimax AI."
                                 </div>
                                 <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 12px;">
                                     <span>EVALUATION:</span>
-                                    <span id="chessEvalScore" style="color: var(--maitri-saffron); font-weight: 800;">+0.0 (EQUAL)</span>
+                                    <span id="chessEvalScore" style="color: var(--maitri-purple); font-weight: 800;">+0.0 (EQUAL)</span>
                                 </div>
                                 <div style="display: flex; gap: 10px;">
                                     <button class="btn btn-primary" id="chessHintBtn">💡 Tactical Hint</button>
@@ -230,7 +230,7 @@
                             <span class="card-badge">COGNITIVE TRAINING</span>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 14px; text-align: center;">
-                            <div id="reflexBox" style="height: 220px; background: rgba(0,0,0,0.6); border: 1px solid var(--border-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: var(--maitri-saffron); cursor: pointer;">
+                            <div id="reflexBox" style="height: 220px; background: rgba(0,0,0,0.6); border: 1px solid var(--border-light); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; color: var(--maitri-purple); cursor: pointer;">
                                 CLICK TO START REFLEX DOCKING SIMULATION
                             </div>
                             <div style="display: flex; justify-content: space-around; font-family: var(--font-mono); font-size: 13px;">
@@ -257,7 +257,7 @@
                             </div>
                         </div>
                         <div style="display: flex; justify-content: space-around; font-family: var(--font-mono); font-size: 13px; margin-top: 10px;">
-                            <span>CYCLE STATUS: <strong id="breathCycleCount" style="color: var(--maitri-saffron);">CYCLE 1 / 4</strong></span>
+                            <span>CYCLE STATUS: <strong id="breathCycleCount" style="color: var(--maitri-purple);">CYCLE 1 / 4</strong></span>
                             <span>TARGET HEART RATE: <strong style="color: var(--maitri-green);">64 BPM</strong></span>
                             <span>RESPIRATORY RATE: <strong style="color: var(--maitri-cyan);">6 BREATHS/MIN</strong></span>
                         </div>
@@ -434,19 +434,19 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>2026-08-15 20:45:10</td>
+                                <td>2026-08-16 20:45:10</td>
                                 <td>AIR-GAP AUDIT</td>
                                 <td>Network interfaces inspected. Zero external web requests detected.</td>
                                 <td><span class="badge success">VERIFIED</span></td>
                             </tr>
                             <tr>
-                                <td>2026-08-15 20:40:02</td>
+                                <td>2026-08-16 20:40:02</td>
                                 <td>AI CHESS AGENT</td>
                                 <td>Minimax engine loaded depth 4 heuristics table into memory.</td>
                                 <td><span class="badge low">NOMINAL</span></td>
                             </tr>
                             <tr>
-                                <td>2026-08-15 20:30:15</td>
+                                <td>2026-08-16 20:30:15</td>
                                 <td>LOCAL QWEN LLM</td>
                                 <td>Ollama / llama.cpp endpoint check passed at http://localhost:11434.</td>
                                 <td><span class="badge low">NOMINAL</span></td>
