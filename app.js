@@ -1,6 +1,6 @@
 /**
  * MAITRI DEEP-SPACE MULTIMODAL PLATFORM CONTROLLER
- * Purplish Constellation & Cool Light Blue Interactive Canvas Engine,
+ * Purplish Constellation, Multi-Spectral Starfield & Cosmic Cloud Galaxies Engine,
  * OpenCV Live Camera Facial Emotion Scanner & Adaptive Brain Recommender Engine,
  * Astronaut Audiobook Player & E-Book Library Engine (Phase 12),
  * 3D Orbit Engine, Web Audio Synthesizer, Mission Configurator,
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initAudiobookPlayer();
 });
 
-/* 1. DYNAMIC INTERACTIVE CONSTELLATION & SHOOTING STAR ENGINE */
+/* 1. DYNAMIC INTERACTIVE CONSTELLATION, MULTI-COLOR TWINKLING STARS & CLOUD GALAXIES ENGINE */
 function initConstellationStarfield() {
     const canvas = document.getElementById('starfieldCanvas');
     if (!canvas) return;
@@ -33,8 +33,19 @@ function initConstellationStarfield() {
     
     let stars = [];
     let shootingStars = [];
-    const numStars = 135;
+    let galaxyAngle = 0;
+    const numStars = 160;
     
+    // Spectral Star Color Palette (White, Cyan, Galactic Purple, Gold, Pink, Ice Blue)
+    const starColors = [
+        { hex: '#FFFFFF', glow: 'rgba(255, 255, 255, 0.8)' },
+        { hex: '#38BDF8', glow: 'rgba(56, 189, 248, 0.8)' },
+        { hex: '#A855F7', glow: 'rgba(168, 85, 247, 0.8)' },
+        { hex: '#FDE047', glow: 'rgba(253, 224, 71, 0.8)' },
+        { hex: '#F472B6', glow: 'rgba(244, 114, 182, 0.8)' },
+        { hex: '#7DD3FC', glow: 'rgba(125, 211, 252, 0.8)' }
+    ];
+
     let mouse = { x: -1000, y: -1000, active: false };
 
     window.addEventListener('mousemove', (e) => {
@@ -52,14 +63,17 @@ function initConstellationStarfield() {
         canvas.height = window.innerHeight;
         stars = [];
         for (let i = 0; i < numStars; i++) {
+            const colorObj = starColors[Math.floor(Math.random() * starColors.length)];
             stars.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.4,
-                vy: (Math.random() - 0.5) * 0.4,
-                size: Math.random() * 2.2 + 0.8,
-                alpha: Math.random() * 0.6 + 0.4,
-                flickerSpeed: Math.random() * 0.02 + 0.005
+                vx: (Math.random() - 0.5) * 0.35,
+                vy: (Math.random() - 0.5) * 0.35,
+                size: Math.random() * 2.6 + 0.6,
+                baseAlpha: Math.random() * 0.45 + 0.4,
+                twinklePhase: Math.random() * Math.PI * 2,
+                twinkleSpeed: Math.random() * 0.035 + 0.012,
+                color: colorObj
             });
         }
     }
@@ -68,11 +82,11 @@ function initConstellationStarfield() {
     resize();
 
     function createShootingStar() {
-        if (shootingStars.length < 3 && Math.random() < 0.3) {
+        if (shootingStars.length < 3 && Math.random() < 0.35) {
             shootingStars.push({
                 x: Math.random() * canvas.width * 0.8,
                 y: Math.random() * canvas.height * 0.4,
-                length: Math.random() * 90 + 60,
+                length: Math.random() * 95 + 65,
                 speed: Math.random() * 12 + 10,
                 angle: Math.PI / 4 + (Math.random() - 0.5) * 0.2,
                 alpha: 1,
@@ -82,11 +96,68 @@ function initConstellationStarfield() {
         }
     }
 
-    setInterval(createShootingStar, 1700);
+    setInterval(createShootingStar, 1600);
+
+    // Draw Cloud-Shaped Cosmic Galaxies (Galactic Nebulae)
+    function drawGalaxies() {
+        galaxyAngle += 0.0008;
+
+        // Galaxy 1: Galactic Purple Spiral Nebula (Top Right)
+        const g1X = canvas.width * 0.78;
+        const g1Y = canvas.height * 0.28;
+
+        ctx.save();
+        ctx.translate(g1X, g1Y);
+        ctx.rotate(galaxyAngle);
+
+        const g1Grad = ctx.createRadialGradient(0, 0, 5, 0, 0, 220);
+        g1Grad.addColorStop(0, 'rgba(168, 85, 247, 0.22)');
+        g1Grad.addColorStop(0.35, 'rgba(139, 92, 246, 0.12)');
+        g1Grad.addColorStop(0.7, 'rgba(56, 189, 248, 0.05)');
+        g1Grad.addColorStop(1, 'transparent');
+
+        ctx.fillStyle = g1Grad;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 220, 110, Math.PI / 6, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Spiral Arms Dust Glow
+        ctx.fillStyle = 'rgba(168, 85, 247, 0.14)';
+        ctx.beginPath();
+        ctx.ellipse(25, -15, 140, 55, Math.PI / 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+
+        // Galaxy 2: Ice Cyan Cloud Nebula (Bottom Left)
+        const g2X = canvas.width * 0.22;
+        const g2Y = canvas.height * 0.75;
+
+        ctx.save();
+        ctx.translate(g2X, g2Y);
+        ctx.rotate(-galaxyAngle * 0.7);
+
+        const g2Grad = ctx.createRadialGradient(0, 0, 5, 0, 0, 190);
+        g2Grad.addColorStop(0, 'rgba(56, 189, 248, 0.20)');
+        g2Grad.addColorStop(0.4, 'rgba(14, 165, 233, 0.10)');
+        g2Grad.addColorStop(0.75, 'rgba(168, 85, 247, 0.04)');
+        g2Grad.addColorStop(1, 'transparent');
+
+        ctx.fillStyle = g2Grad;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 190, 95, -Math.PI / 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+    }
 
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+        // Render Background Cosmic Galaxies
+        drawGalaxies();
+
+        // Render Multi-Color Twinkling Stars
         for (let i = 0; i < stars.length; i++) {
             const star = stars[i];
 
@@ -96,26 +167,31 @@ function initConstellationStarfield() {
             if (star.x < 0 || star.x > canvas.width) star.vx *= -1;
             if (star.y < 0 || star.y > canvas.height) star.vy *= -1;
 
-            star.alpha += star.flickerSpeed;
-            if (star.alpha > 1 || star.alpha < 0.3) star.flickerSpeed = -star.flickerSpeed;
+            // Sinusoidal Twinkle Scintillation Effect
+            star.twinklePhase += star.twinkleSpeed;
+            const currentAlpha = Math.max(0.2, Math.min(1.0, star.baseAlpha + Math.sin(star.twinklePhase) * 0.35));
 
-            ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(star.alpha)})`;
-            ctx.shadowBlur = 8;
-            ctx.shadowColor = '#38BDF8';
+            ctx.fillStyle = star.color.hex;
+            ctx.globalAlpha = currentAlpha;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = star.color.glow;
+
             ctx.beginPath();
             ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
             ctx.fill();
+            ctx.globalAlpha = 1.0;
 
+            // Proximity Constellation Lines (Only Near Stars Connect within 85px)
             for (let j = i + 1; j < stars.length; j++) {
                 const other = stars[j];
                 const dx = star.x - other.x;
                 const dy = star.y - other.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
-                if (dist < 115) {
-                    const lineAlpha = (1 - dist / 115) * 0.25;
+                if (dist < 85) {
+                    const lineAlpha = (1 - dist / 85) * 0.22;
                     ctx.strokeStyle = (i % 2 === 0) ? `rgba(168, 85, 247, ${lineAlpha})` : `rgba(56, 189, 248, ${lineAlpha})`;
-                    ctx.lineWidth = 0.8;
+                    ctx.lineWidth = 0.85;
                     ctx.beginPath();
                     ctx.moveTo(star.x, star.y);
                     ctx.lineTo(other.x, other.y);
@@ -123,27 +199,29 @@ function initConstellationStarfield() {
                 }
             }
 
+            // Mouse Cursor Proximity Magnet Connector
             if (mouse.active) {
                 const mdx = star.x - mouse.x;
                 const mdy = star.y - mouse.y;
                 const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
 
-                if (mdist < 180) {
-                    const mAlpha = (1 - mdist / 180) * 0.65;
+                if (mdist < 140) {
+                    const mAlpha = (1 - mdist / 140) * 0.65;
 
                     ctx.strokeStyle = (i % 2 === 0) ? `rgba(168, 85, 247, ${mAlpha})` : `rgba(56, 189, 248, ${mAlpha})`;
-                    ctx.lineWidth = 1.3;
+                    ctx.lineWidth = 1.2;
                     ctx.beginPath();
                     ctx.moveTo(mouse.x, mouse.y);
                     ctx.lineTo(star.x, star.y);
                     ctx.stroke();
 
-                    star.x -= mdx * 0.015;
-                    star.y -= mdy * 0.015;
+                    star.x -= mdx * 0.012;
+                    star.y -= mdy * 0.012;
                 }
             }
         }
 
+        // Render Shooting Star Meteors
         for (let s = shootingStars.length - 1; s >= 0; s--) {
             const meteor = shootingStars[s];
 
