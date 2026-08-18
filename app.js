@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initChessGame();
     initAudiobookPlayer();
     initFloatingAIAssistant();
+    initCrewSyncMatrix();
 });
 
 /* 1. DYNAMIC INTERACTIVE CONSTELLATION, MULTI-COLOR TWINKLING STARS & CLOUD GALAXIES ENGINE */
@@ -1163,4 +1164,106 @@ function sendModalPrompt(text) {
         input.value = text;
         sendBtn.click();
     }
+}
+
+/* 17. PHASE 13 MULTI-ASTRONAUT TELEMETRY & CREW SYNC MATRIX ENGINE */
+function initCrewSyncMatrix() {
+    const simulateBtn = document.getElementById('simulateFrictionBtn');
+    const cohesionVal = document.getElementById('groupCohesionVal');
+    const avgStressVal = document.getElementById('avgCrewStressVal');
+    const frictionBadge = document.getElementById('frictionStatusBadge');
+    const cohesionBadge = document.getElementById('cohesionBadge');
+
+    const astro4Stress = document.getElementById('astro4Stress');
+    const astro4HR = document.getElementById('astro4HR');
+    const astro4Badge = document.getElementById('astro4Badge');
+
+    if (!simulateBtn) return;
+
+    let isFrictionSimulated = false;
+
+    async function updateCrewTelemetry() {
+        try {
+            const res = await fetch('/api/crew_sync');
+            if (res.ok) {
+                const data = await res.json();
+                if (cohesionVal) cohesionVal.textContent = `${data.group_cohesion_score}%`;
+                if (avgStressVal) avgStressVal.textContent = `${data.average_crew_stress} / 100`;
+
+                if (data.friction_warning) {
+                    if (frictionBadge) {
+                        frictionBadge.className = 'badge warning';
+                        frictionBadge.textContent = 'HIGH CREW FRICTION RISK';
+                    }
+                    if (cohesionBadge) {
+                        cohesionBadge.style.background = 'rgba(239, 68, 68, 0.2)';
+                        cohesionBadge.style.color = '#EF4444';
+                        cohesionBadge.textContent = `${data.group_cohesion_score}% STRESS PENALTY`;
+                    }
+                } else {
+                    if (frictionBadge) {
+                        frictionBadge.className = 'badge success';
+                        frictionBadge.textContent = 'NO FRICTION DETECTED';
+                    }
+                    if (cohesionBadge) {
+                        cohesionBadge.style.background = 'rgba(52, 211, 153, 0.2)';
+                        cohesionBadge.style.color = 'var(--maitri-green)';
+                        cohesionBadge.textContent = `${data.group_cohesion_score}% OPTIMAL SYNERGY`;
+                    }
+                }
+            }
+        } catch (e) {
+            // Frontend fallback simulation
+        }
+    }
+
+    simulateBtn.addEventListener('click', () => {
+        isFrictionSimulated = !isFrictionSimulated;
+
+        if (isFrictionSimulated) {
+            simulateBtn.textContent = '🔄 RESET CREW SYNERGY';
+            simulateBtn.className = 'btn btn-primary';
+            if (cohesionVal) cohesionVal.textContent = '74.2%';
+            if (avgStressVal) avgStressVal.textContent = '42.8 / 100';
+            if (frictionBadge) {
+                frictionBadge.className = 'badge warning';
+                frictionBadge.textContent = 'STRESS SPIKE DETECTED (ASTRO-04)';
+            }
+            if (cohesionBadge) {
+                cohesionBadge.style.background = 'rgba(239, 68, 68, 0.2)';
+                cohesionBadge.style.color = '#EF4444';
+                cohesionBadge.textContent = '74.2% FRICTION RISK';
+            }
+            if (astro4Stress) astro4Stress.textContent = '78.5 / 100 (HIGH)';
+            if (astro4HR) astro4HR.textContent = '112 BPM';
+            if (astro4Badge) {
+                astro4Badge.className = 'badge warning';
+                astro4Badge.textContent = 'HIGH STRESS';
+            }
+            speakText('Warning: Inter-crew friction spike detected on Specialist Rahul Verma. Recommending guided bio-pulse session.');
+        } else {
+            simulateBtn.textContent = '🎲 SIMULATE CREW STRESS SPIKE';
+            simulateBtn.className = 'btn btn-secondary';
+            if (cohesionVal) cohesionVal.textContent = '96.8%';
+            if (avgStressVal) avgStressVal.textContent = '15.2 / 100';
+            if (frictionBadge) {
+                frictionBadge.className = 'badge success';
+                frictionBadge.textContent = 'NO FRICTION DETECTED';
+            }
+            if (cohesionBadge) {
+                cohesionBadge.style.background = 'rgba(52, 211, 153, 0.2)';
+                cohesionBadge.style.color = 'var(--maitri-green)';
+                cohesionBadge.textContent = '96.8% OPTIMAL SYNERGY';
+            }
+            if (astro4Stress) astro4Stress.textContent = '18.1 / 100';
+            if (astro4HR) astro4HR.textContent = '74 BPM';
+            if (astro4Badge) {
+                astro4Badge.className = 'badge low';
+                astro4Badge.textContent = 'ENGINEER';
+            }
+            speakText('Crew synergy restored to optimal levels.');
+        }
+    });
+
+    setInterval(updateCrewTelemetry, 6000);
 }

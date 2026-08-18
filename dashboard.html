@@ -67,6 +67,7 @@
         <!-- Navigation Segment Switcher -->
         <nav class="nav-tabs">
             <button class="nav-tab active" data-tab="dashboard">📊 Mission Overview</button>
+            <button class="nav-tab" data-tab="crewsync">👥 Multi-Crew Sync Matrix</button>
             <button class="nav-tab" data-tab="games">🎮 Space Games & Mood HUD</button>
             <button class="nav-tab" data-tab="biofeedback">🧘 Bio-Pulse AR Coach</button>
             <button class="nav-tab" data-tab="vitals">🫀 Vitals & Stress Telemetry</button>
@@ -187,6 +188,94 @@
                                     <span class="alert-time">14 mins ago • Local Ollama / llama.cpp connected</span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.5 MULTI-CREW TELEMETRY & SYNC MATRIX TAB (PHASE 13) -->
+            <div id="crewsync" class="tab-content">
+                <div class="grid-layout">
+                    <!-- GROUP COHESION INDEX SCORE CARD -->
+                    <div class="card col-span-4" style="background: linear-gradient(135deg, rgba(13, 17, 32, 0.95) 0%, rgba(9, 13, 24, 0.95) 100%);">
+                        <div class="hud-corner hud-tl"></div>
+                        <div class="hud-corner hud-tr"></div>
+                        <div class="hud-corner hud-bl"></div>
+                        <div class="hud-corner hud-br"></div>
+                        <div class="card-header">
+                            <h2>👥 INTER-CREW GROUP COHESION MATRIX</h2>
+                            <span class="card-badge" style="background: rgba(52, 211, 153, 0.2); color: var(--maitri-green);" id="cohesionBadge">96.8% OPTIMAL SYNERGY</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-around; align-items: center; padding: 20px 0;">
+                            <div style="text-align: center;">
+                                <span style="font-size: 11px; color: var(--text-muted); display: block;">GROUP COHESION INDEX</span>
+                                <span style="font-family: var(--font-heading); font-size: 52px; font-weight: 900; color: var(--maitri-purple);" id="groupCohesionVal">96.8%</span>
+                            </div>
+                            <div style="text-align: center;">
+                                <span style="font-size: 11px; color: var(--text-muted); display: block;">AVERAGE CREW STRESS</span>
+                                <span style="font-family: var(--font-heading); font-size: 42px; font-weight: 900; color: var(--maitri-cyan);" id="avgCrewStressVal">15.2 / 100</span>
+                            </div>
+                            <div style="text-align: center;">
+                                <span style="font-size: 11px; color: var(--text-muted); display: block;">CREW FRICTION STATUS</span>
+                                <span class="badge success" id="frictionStatusBadge">NO FRICTION DETECTED</span>
+                            </div>
+                            <div>
+                                <button class="btn btn-secondary" id="simulateFrictionBtn">🎲 SIMULATE CREW STRESS SPIKE</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4-ASTRONAUT LIVE BIOMETRIC CARDS GRID -->
+                    <div class="card col-span-1">
+                        <div class="card-header">
+                            <h3>👨‍🚀 Cmdr. Shalok Dadhwal</h3>
+                            <span class="badge low">COMMANDER</span>
+                        </div>
+                        <div class="voice-metrics">
+                            <p>Heart Rate: <strong id="astro1HR" style="color: var(--maitri-purple);">72 BPM</strong></p>
+                            <p>SpO2 Saturation: <strong id="astro1SpO2" style="color: var(--maitri-cyan);">98.4%</strong></p>
+                            <p>Stress Index: <strong id="astro1Stress" style="color: var(--maitri-green);">14.2 / 100</strong></p>
+                            <p>HRV Coherence: <strong style="color: var(--maitri-ice);">68.4 ms</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="card col-span-1">
+                        <div class="card-header">
+                            <h3>👩‍🚀 Lt. Cmdr. Ananya Sharma</h3>
+                            <span class="badge low">PILOT</span>
+                        </div>
+                        <div class="voice-metrics">
+                            <p>Heart Rate: <strong id="astro2HR" style="color: var(--maitri-purple);">75 BPM</strong></p>
+                            <p>SpO2 Saturation: <strong id="astro2SpO2" style="color: var(--maitri-cyan);">98.8%</strong></p>
+                            <p>Stress Index: <strong id="astro2Stress" style="color: var(--maitri-green);">16.5 / 100</strong></p>
+                            <p>HRV Coherence: <strong style="color: var(--maitri-ice);">64.2 ms</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="card col-span-1">
+                        <div class="card-header">
+                            <h3>👨‍🚀 Dr. Vikram Sarabhai II</h3>
+                            <span class="badge low">PAYLOAD</span>
+                        </div>
+                        <div class="voice-metrics">
+                            <p>Heart Rate: <strong id="astro3HR" style="color: var(--maitri-purple);">68 BPM</strong></p>
+                            <p>SpO2 Saturation: <strong id="astro3SpO2" style="color: var(--maitri-cyan);">99.1%</strong></p>
+                            <p>Stress Index: <strong id="astro3Stress" style="color: var(--maitri-green);">12.0 / 100</strong></p>
+                            <p>HRV Coherence: <strong style="color: var(--maitri-ice);">72.8 ms</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="card col-span-1">
+                        <div class="card-header">
+                            <h3>👨‍🚀 Specialist Rahul Verma</h3>
+                            <span class="badge low" id="astro4Badge">ENGINEER</span>
+                        </div>
+                        <div class="voice-metrics">
+                            <p>Heart Rate: <strong id="astro4HR" style="color: var(--maitri-purple);">74 BPM</strong></p>
+                            <p>SpO2 Saturation: <strong id="astro4SpO2" style="color: var(--maitri-cyan);">98.2%</strong></p>
+                            <p>Stress Index: <strong id="astro4Stress" style="color: var(--maitri-green);">18.1 / 100</strong></p>
+                            <p>HRV Coherence: <strong style="color: var(--maitri-ice);">61.0 ms</strong></p>
                         </div>
                     </div>
                 </div>

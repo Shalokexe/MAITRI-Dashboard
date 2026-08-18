@@ -17,11 +17,13 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from backend.ai_engine.offline_companion import OfflineCompanionAI
 from backend.personalization.content_recommender import ContentRecommenderEngine
 from backend.health.sensor_stubs import TelemetrySensorMonitor
+from backend.health.crew_sync import CrewSyncMatrixEngine
 
 PORT = 8085
 companion_ai = OfflineCompanionAI()
 recommender_engine = ContentRecommenderEngine()
 sensor_engine = TelemetrySensorMonitor()
+crew_sync_engine = CrewSyncMatrixEngine()
 
 class MAITRIBackendHandler(SimpleHTTPRequestHandler):
     """Custom HTTP Request Handler serving static frontend assets and REST API endpoints."""
@@ -29,8 +31,14 @@ class MAITRIBackendHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
 
+        # API Endpoint: Phase 13 Multi-Astronaut Telemetry & Crew Sync Matrix
+        if parsed.path == '/api/crew_sync':
+            data = crew_sync_engine.generate_crew_telemetry()
+            self.send_json_response(data)
+            return
+
         # API Endpoint: Vitals Telemetry
-        if parsed.path == '/api/vitals':
+        elif parsed.path == '/api/vitals':
             self.send_json_response({
                 "status": "NOMINAL",
                 "heart_rate": round(random.uniform(70.0, 74.5), 1),
