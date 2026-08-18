@@ -74,11 +74,12 @@ class MAITRIBackendHandler(SimpleHTTPRequestHandler):
             emotion = payload.get('emotion', 'CALM / FOCUSED')
             
             # Generate companion reply via backend AI Engine
-            reply_text = companion_ai.generate_reply(
+            reply_obj = companion_ai.generate_reply(
                 user_message=user_msg,
                 detected_emotion=emotion,
                 vocal_stress=15.0
             )
+            reply_text = reply_obj.get("reply", str(reply_obj)) if isinstance(reply_obj, dict) else str(reply_obj)
 
             # Generate dynamic recommendations based on query and emotion
             recs = recommender_engine.get_recommendations_for_emotion(

@@ -1122,8 +1122,12 @@ function initFloatingAIAssistant() {
 
             if (res.ok) {
                 const data = await res.json();
-                botDiv.innerHTML = `<strong>MAITRI AI ASSISTANT:</strong><br>${data.reply}`;
-                speakText(data.reply);
+                let textReply = data.reply;
+                if (typeof textReply === 'object' && textReply !== null && textReply.reply) {
+                    textReply = textReply.reply;
+                }
+                botDiv.innerHTML = `<strong>MAITRI AI ASSISTANT:</strong><br>${textReply}`;
+                speakText(textReply);
             } else {
                 throw new Error("Backend API Offline");
             }
