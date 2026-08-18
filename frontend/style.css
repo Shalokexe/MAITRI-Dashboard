@@ -966,3 +966,184 @@ input[type="range"] {
     .grid-layout { grid-template-columns: 1fr; }
     .col-span-1, .col-span-2, .col-span-3, .col-span-4 { grid-column: span 1; }
 }
+
+/* ==========================================================================
+   FLOATING DEDICATED ASTRONAUT AI ASSISTANT MODAL & TRIGGER
+   ========================================================================== */
+.ai-floating-trigger {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 999;
+    background: linear-gradient(135deg, var(--maitri-purple) 0%, var(--maitri-deep-purple) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 800;
+    padding: 14px 24px;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    box-shadow: 0 8px 32px rgba(168, 85, 247, 0.55), 0 0 20px rgba(56, 189, 248, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ai-floating-trigger:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 12px 40px rgba(168, 85, 247, 0.8), 0 0 30px rgba(56, 189, 248, 0.5);
+}
+
+.ai-modal-overlay {
+    position: fixed;
+    bottom: 90px;
+    right: 28px;
+    width: 440px;
+    max-width: 90vw;
+    height: 580px;
+    max-height: 80vh;
+    z-index: 1000;
+    background: rgba(9, 13, 24, 0.95);
+    backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid var(--border-highlight);
+    border-radius: 28px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), var(--shadow-glow-purple);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.ai-modal-overlay.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+.ai-modal-header {
+    background: rgba(13, 17, 32, 0.9);
+    border-bottom: 1px solid var(--border-light);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ai-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 800;
+    color: #FFFFFF;
+}
+
+.ai-status-indicator {
+    width: 8px;
+    height: 8px;
+    background: var(--maitri-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--maitri-green);
+}
+
+.ai-modal-close {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.ai-modal-close:hover { color: #FFFFFF; }
+
+.ai-modal-body {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scrollbar-width: thin;
+}
+
+.ai-chat-bubble {
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    max-width: 85%;
+}
+
+.ai-chat-bubble.bot {
+    background: rgba(168, 85, 247, 0.15);
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    color: #FFFFFF;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+
+.ai-chat-bubble.user {
+    background: rgba(56, 189, 248, 0.2);
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    color: #FFFFFF;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+
+.ai-quick-pills {
+    display: flex;
+    gap: 8px;
+    padding: 10px 16px;
+    overflow-x: auto;
+    background: rgba(3, 7, 18, 0.6);
+    border-top: 1px solid var(--border-light);
+}
+
+.ai-pill-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-light);
+    color: var(--maitri-cyan);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.ai-pill-btn:hover {
+    background: rgba(168, 85, 247, 0.2);
+    border-color: var(--maitri-purple);
+    color: #FFFFFF;
+}
+
+.ai-modal-footer {
+    padding: 14px 16px;
+    background: rgba(13, 17, 32, 0.9);
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    gap: 10px;
+}
+
+.ai-modal-input {
+    flex: 1;
+    background: rgba(3, 7, 18, 0.8);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-pill);
+    padding: 10px 18px;
+    color: #FFFFFF;
+    font-size: 13px;
+    outline: none;
+}
+
+.ai-modal-input:focus {
+    border-color: var(--maitri-purple);
+}

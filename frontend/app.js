@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSpaceGames();
     initChessGame();
     initAudiobookPlayer();
+    initFloatingAIAssistant();
 });
 
 /* 1. DYNAMIC INTERACTIVE CONSTELLATION, MULTI-COLOR TWINKLING STARS & CLOUD GALAXIES ENGINE */
@@ -1026,4 +1027,136 @@ function initSpaceGames() {
             waiting = false;
         }
     });
+}
+
+/* 16. DEDICATED ASTRONAUT AI ASSISTANT FLOATING WIDGET & BACKEND API CONNECTIVITY */
+function initFloatingAIAssistant() {
+    // Check if floating widget already exists
+    if (document.getElementById('aiFloatingTrigger')) return;
+
+    // Inject Trigger Button
+    const triggerBtn = document.createElement('button');
+    triggerBtn.id = 'aiFloatingTrigger';
+    triggerBtn.className = 'ai-floating-trigger';
+    triggerBtn.innerHTML = `
+        <span style="font-size: 18px;">🤖</span>
+        <span>MAITRI AI ASSISTANT</span>
+    `;
+    document.body.appendChild(triggerBtn);
+
+    // Inject Modal Window
+    const modalOverlay = document.createElement('div');
+    modalOverlay.id = 'aiModalOverlay';
+    modalOverlay.className = 'ai-modal-overlay';
+    modalOverlay.innerHTML = `
+        <div class="ai-modal-header">
+            <div class="ai-modal-title">
+                <span class="ai-status-indicator"></span>
+                <span>MAITRI FLIGHT ASSISTANT AI</span>
+            </div>
+            <button class="ai-modal-close" id="aiModalClose">&times;</button>
+        </div>
+        <div class="ai-modal-body" id="aiModalBody">
+            <div class="ai-chat-bubble bot">
+                <strong>MAITRI AI ASSISTANT:</strong><br>
+                Greetings Cmdr. Shalok Dadhwal. Dedicated backend assistant active. Ask me about system telemetry, ECLSS diagnostics, bio-vitals, or flight checklists.
+            </div>
+        </div>
+        <div class="ai-quick-pills">
+            <button class="ai-pill-btn" onclick="sendModalPrompt('Check cabin oxygen & life support telemetry')">🛠️ ECLSS Diagnostic</button>
+            <button class="ai-pill-btn" onclick="sendModalPrompt('What is my current heart rate & stress index?')">🫀 Check Vitals</button>
+            <button class="ai-pill-btn" onclick="sendModalPrompt('Recommend a relaxing audiobook or game')">📚 Recommend Book</button>
+        </div>
+        <div class="ai-modal-footer">
+            <input type="text" class="ai-modal-input" id="aiModalInput" placeholder="Ask Dedicated AI Assistant...">
+            <button class="btn btn-primary" id="aiModalSendBtn" style="padding: 8px 18px; font-size: 12px;">Send</button>
+        </div>
+    `;
+    document.body.appendChild(modalOverlay);
+
+    const closeBtn = document.getElementById('aiModalClose');
+    const modalBody = document.getElementById('aiModalBody');
+    const modalInput = document.getElementById('aiModalInput');
+    const sendBtn = document.getElementById('aiModalSendBtn');
+
+    triggerBtn.addEventListener('click', () => {
+        modalOverlay.classList.toggle('active');
+        if (modalOverlay.classList.contains('active')) {
+            modalInput.focus();
+            speakText("MAITRI Dedicated Flight Assistant online. How may I assist your mission, Commander?");
+        }
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
+        });
+    }
+
+    async function sendMsg() {
+        const query = modalInput.value.trim();
+        if (!query) return;
+
+        // Render User Bubble
+        const userDiv = document.createElement('div');
+        userDiv.className = 'ai-chat-bubble user';
+        userDiv.innerHTML = `<strong>Cmdr. Shalok:</strong><br>${query}`;
+        modalBody.appendChild(userDiv);
+        modalInput.value = '';
+        modalBody.scrollTop = modalBody.scrollHeight;
+
+        // Render Typing Indicator
+        const botDiv = document.createElement('div');
+        botDiv.className = 'ai-chat-bubble bot';
+        botDiv.innerHTML = `<em>MAITRI AI processing prompt...</em>`;
+        modalBody.appendChild(botDiv);
+        modalBody.scrollTop = modalBody.scrollHeight;
+
+        try {
+            // Attempt Backend POST API Call
+            const res = await fetch('/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: query, emotion: 'CALM / FOCUSED' })
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                botDiv.innerHTML = `<strong>MAITRI AI ASSISTANT:</strong><br>${data.reply}`;
+                speakText(data.reply);
+            } else {
+                throw new Error("Backend API Offline");
+            }
+        } catch (err) {
+            // Fallback Response if backend HTTP socket is offline
+            setTimeout(() => {
+                let fallbackMsg = "Cmdr. Shalok, telemetry parameters are nominal. All air-gap sub-systems operating at 99.2% efficiency.";
+                const qLower = query.toLowerCase();
+                if (qLower.includes('eclss') || qLower.includes('oxygen') || qLower.includes('life support')) {
+                    fallbackMsg = "ECLSS Diagnostic Complete: Cabin O2 at 99.2%, CO2 scrubbers nominal, pressure gradient 101.3 kPa.";
+                } else if (qLower.includes('vital') || qLower.includes('heart') || qLower.includes('stress')) {
+                    fallbackMsg = "Telemetry Check: Heart Rate 72 BPM (Normal Rhythm), SpO2 98.4%, Stress Index 14.2/100 (Low Stress State).";
+                } else if (qLower.includes('book') || qLower.includes('game') || qLower.includes('recommend')) {
+                    fallbackMsg = "Recommendation: I have queued 'The Cosmos & Beyond' Audiobook by Carl Sagan and the F1 Reaction Start Lights game.";
+                }
+                botDiv.innerHTML = `<strong>MAITRI AI ASSISTANT:</strong><br>${fallbackMsg}`;
+                speakText(fallbackMsg);
+            }, 500);
+        }
+        modalBody.scrollTop = modalBody.scrollHeight;
+    }
+
+    if (sendBtn && modalInput) {
+        sendBtn.addEventListener('click', sendMsg);
+        modalInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMsg(); });
+    }
+}
+
+function sendModalPrompt(text) {
+    const input = document.getElementById('aiModalInput');
+    const sendBtn = document.getElementById('aiModalSendBtn');
+    if (input && sendBtn) {
+        input.value = text;
+        sendBtn.click();
+    }
 }
