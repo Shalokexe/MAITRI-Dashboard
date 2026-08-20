@@ -67,6 +67,7 @@
         <!-- Navigation Segment Switcher -->
         <nav class="nav-tabs">
             <button class="nav-tab active" data-tab="dashboard">📊 Mission Overview</button>
+            <button class="nav-tab" data-tab="voice">🎤 Voice Commands & EVA</button>
             <button class="nav-tab" data-tab="crewsync">👥 Multi-Crew Sync Matrix</button>
             <button class="nav-tab" data-tab="games">🎮 Space Games & Mood HUD</button>
             <button class="nav-tab" data-tab="biofeedback">🧘 Bio-Pulse AR Coach</button>
@@ -187,6 +188,84 @@
                                     <span class="alert-title">Local Qwen-2 GGUF LLM Loaded</span>
                                     <span class="alert-time">14 mins ago • Local Ollama / llama.cpp connected</span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 1.2 VOICE-ACTIVATED HANDS-FREE CONTROL & SPOKEN EVA CHECKLIST TAB (PHASE 14) -->
+            <div id="voice" class="tab-content">
+                <div class="grid-layout">
+                    <!-- VOICE COMMAND CONTROL CENTER CARD -->
+                    <div class="card col-span-4" style="background: linear-gradient(135deg, rgba(13, 17, 32, 0.95) 0%, rgba(9, 13, 24, 0.95) 100%);">
+                        <div class="hud-corner hud-tl"></div>
+                        <div class="hud-corner hud-tr"></div>
+                        <div class="hud-corner hud-bl"></div>
+                        <div class="hud-corner hud-br"></div>
+                        <div class="card-header">
+                            <h2>🎤 HANDS-FREE VOICE RECOGNITION COMMAND ENGINE</h2>
+                            <span class="card-badge" style="background: rgba(168,85,247,0.2); color: var(--maitri-purple);" id="voiceStatusBadge">STANDBY / READY</span>
+                        </div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 18px 0; gap: 20px;">
+                            <div style="flex: 1;">
+                                <span style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 6px;">VOICE SPEECH-TO-TEXT TRANSCRIPT:</span>
+                                <div style="background: rgba(3,7,18,0.8); border: 1px solid var(--border-light); border-radius: 14px; padding: 16px; font-family: monospace; font-size: 15px; color: var(--maitri-cyan); min-height: 54px;" id="voiceTranscript">
+                                    "Click microphone button or trigger preset voice commands..."
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" id="startVoiceMicBtn" style="padding: 16px 28px; font-size: 14px;">
+                                    🎤 START VOICE LISTENING
+                                </button>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                            <button class="ai-pill-btn" onclick="executeVoiceText('MAITRI check vitals')">🗣️ "MAITRI check vitals"</button>
+                            <button class="ai-pill-btn" onclick="executeVoiceText('MAITRI run oxygen ECLSS check')">🗣️ "MAITRI run ECLSS check"</button>
+                            <button class="ai-pill-btn" onclick="executeVoiceText('MAITRI launch F1 reflex game')">🗣️ "MAITRI launch F1 reflex game"</button>
+                            <button class="ai-pill-btn" onclick="executeVoiceText('MAITRI start spacewalk checklist')">🗣️ "MAITRI start EVA checklist"</button>
+                        </div>
+                    </div>
+
+                    <!-- SPOKEN EVA SPACEWALK CHECKLIST PROTOCOL -->
+                    <div class="card col-span-4">
+                        <div class="card-header">
+                            <h2>👨‍🚀 GUIDED SPOKEN EVA SPACEWALK DECOMPRESSION CHECKLIST</h2>
+                            <span class="card-badge" style="background: rgba(56, 189, 248, 0.2); color: var(--maitri-cyan);">NASA ARTEMIS PROTOCOL</span>
+                        </div>
+                        <div class="vitals-detail-grid" style="grid-template-columns: repeat(5, 1fr); margin-top: 16px;">
+                            <div class="detail-box" style="border-color: var(--maitri-purple);">
+                                <span style="font-size: 11px; color: var(--maitri-purple); font-weight: 800;">STEP 1</span>
+                                <strong style="font-size: 13px; color: #FFF;">Suit Purge</strong>
+                                <span style="font-size: 11px; color: var(--text-secondary); line-height: 1.4;">28.4 kPa O2 purge</span>
+                                <button class="btn btn-secondary" style="font-size: 10px; padding: 6px; margin-top: 6px;" onclick="playEVASpokenStep(1)">▶️ PLAY VOICE</button>
+                            </div>
+                            <div class="detail-box">
+                                <span style="font-size: 11px; color: var(--maitri-cyan); font-weight: 800;">STEP 2</span>
+                                <strong style="font-size: 13px; color: #FFF;">PLSS Power</strong>
+                                <span style="font-size: 11px; color: var(--text-secondary); line-height: 1.4;">20.6 MPa O2 tank</span>
+                                <button class="btn btn-secondary" style="font-size: 10px; padding: 6px; margin-top: 6px;" onclick="playEVASpokenStep(2)">▶️ PLAY VOICE</button>
+                            </div>
+                            <div class="detail-box">
+                                <span style="font-size: 11px; color: var(--maitri-green); font-weight: 800;">STEP 3</span>
+                                <strong style="font-size: 13px; color: #FFF;">Airlock Vent</strong>
+                                <span style="font-size: 11px; color: var(--text-secondary); line-height: 1.4;">Drop to 0.0 kPa</span>
+                                <button class="btn btn-secondary" style="font-size: 10px; padding: 6px; margin-top: 6px;" onclick="playEVASpokenStep(3)">▶️ PLAY VOICE</button>
+                            </div>
+                            <div class="detail-box">
+                                <span style="font-size: 11px; color: var(--text-muted); font-weight: 800;">STEP 4</span>
+                                <strong style="font-size: 13px; color: #FFF;">Tether Lock</strong>
+                                <span style="font-size: 11px; color: var(--text-secondary); line-height: 1.4;">Outer hatch unlatch</span>
+                                <button class="btn btn-secondary" style="font-size: 10px; padding: 6px; margin-top: 6px;" onclick="playEVASpokenStep(4)">▶️ PLAY VOICE</button>
+                            </div>
+                            <div class="detail-box">
+                                <span style="font-size: 11px; color: var(--text-muted); font-weight: 800;">STEP 5</span>
+                                <strong style="font-size: 13px; color: #FFF;">EVA Egress</strong>
+                                <span style="font-size: 11px; color: var(--text-secondary); line-height: 1.4;">S-band comm link</span>
+                                <button class="btn btn-secondary" style="font-size: 10px; padding: 6px; margin-top: 6px;" onclick="playEVASpokenStep(5)">▶️ PLAY VOICE</button>
                             </div>
                         </div>
                     </div>

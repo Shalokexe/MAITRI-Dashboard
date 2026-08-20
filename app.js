@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initAudiobookPlayer();
     initFloatingAIAssistant();
     initCrewSyncMatrix();
+    initVoiceCommandEngine();
 });
 
 /* 1. DYNAMIC INTERACTIVE CONSTELLATION, MULTI-COLOR TWINKLING STARS & CLOUD GALAXIES ENGINE */
@@ -1266,4 +1267,121 @@ function initCrewSyncMatrix() {
     });
 
     setInterval(updateCrewTelemetry, 6000);
+}
+
+/* 18. PHASE 14 VOICE-ACTIVATED HANDS-FREE COMMAND ENGINE & SPOKEN EVA CHECKLIST */
+function initVoiceCommandEngine() {
+    const startBtn = document.getElementById('startVoiceMicBtn');
+    const transcriptEl = document.getElementById('voiceTranscript');
+    const statusBadge = document.getElementById('voiceStatusBadge');
+
+    if (!startBtn) return;
+
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+
+    if (SpeechRec) {
+        recognition = new SpeechRec();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.lang = 'en-US';
+
+        recognition.onstart = () => {
+            if (statusBadge) {
+                statusBadge.style.background = 'rgba(52, 211, 153, 0.2)';
+                statusBadge.style.color = 'var(--maitri-green)';
+                statusBadge.textContent = '🎤 LISTENING...';
+            }
+            if (transcriptEl) transcriptEl.textContent = 'Listening for voice command... Speak now.';
+        };
+
+        recognition.onresult = (e) => {
+            const transcript = e.results[0][0].transcript;
+            if (transcriptEl) transcriptEl.textContent = `"${transcript}"`;
+            executeVoiceText(transcript);
+        };
+
+        recognition.onerror = (e) => {
+            if (statusBadge) {
+                statusBadge.style.background = 'rgba(239, 68, 68, 0.2)';
+                statusBadge.style.color = '#EF4444';
+                statusBadge.textContent = 'VOICE ERROR';
+            }
+        };
+
+        recognition.onend = () => {
+            setTimeout(() => {
+                if (statusBadge && statusBadge.textContent.includes('LISTENING')) {
+                    statusBadge.style.background = 'rgba(168,85,247,0.2)';
+                    statusBadge.style.color = 'var(--maitri-purple)';
+                    statusBadge.textContent = 'STANDBY / READY';
+                }
+            }, 2000);
+        };
+    }
+
+    startBtn.addEventListener('click', () => {
+        if (recognition) {
+            recognition.start();
+        } else {
+            alert("Web Speech API is not supported in this browser. You can click preset voice command buttons below!");
+        }
+    });
+}
+
+async function executeVoiceText(text) {
+    const transcriptEl = document.getElementById('voiceTranscript');
+    const statusBadge = document.getElementById('voiceStatusBadge');
+
+    if (transcriptEl) transcriptEl.textContent = `"${text}"`;
+    if (statusBadge) {
+        statusBadge.style.background = 'rgba(56, 189, 248, 0.2)';
+        statusBadge.style.color = 'var(--maitri-cyan)';
+        statusBadge.textContent = 'EXECUTING COMMAND...';
+    }
+
+    try {
+        const res = await fetch('/api/voice_command', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ transcript: text })
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            if (data.speech) speakText(data.speech);
+
+            if (data.action === 'NAVIGATE_TAB' && data.tab) {
+                const targetTabBtn = document.querySelector(`.nav-tab[data-tab="${data.tab}"]`);
+                if (targetTabBtn) targetTabBtn.click();
+            } else if (data.action === 'OPEN_ROUTE' && data.url) {
+                window.location.href = data.url;
+            }
+        }
+    } catch (err) {
+        // Fallback execution if offline
+        const tLower = text.toLowerCase();
+        if (tLower.includes('vital')) {
+            speakText("Navigating to Vitals and Stress Telemetry. Heart rate is 72 BPM.");
+            const tabBtn = document.querySelector('.nav-tab[data-tab="vitals"]');
+            if (tabBtn) tabBtn.click();
+        } else if (tLower.includes('eclss') || tLower.includes('oxygen')) {
+            speakText("ECLSS Diagnostic complete. Cabin oxygen is 99.2%.");
+        } else if (tLower.includes('f1') || tLower.includes('reflex')) {
+            window.location.href = 'f1_reflex.html';
+        }
+    }
+}
+
+function playEVASpokenStep(stepNum) {
+    const steps = [
+        "Step 1: Suit Pressure Leak & Oxygen Purge. Verify EMU suit pressure at 28.4 kilopascals. Initiate 100% oxygen pre-breathe nitrogen purge protocol.",
+        "Step 2: Primary Life Support System Power On. Engage PLSS battery bank Alpha. Verify primary and secondary oxygen tank pressures at 20.6 megapascals.",
+        "Step 3: Airlock Depressurization. Open airlock vent valve. Monitor cabin pressure drop from 101.3 kilopascals down to 0.0 kilopascals vacuum.",
+        "Step 4: Safety Tether Lock and Outer Hatch Unlatch. Attach dual-redundant safety tether to airlock anchor. Rotate outer hatch manual handle 180 degrees.",
+        "Step 5: EVA Egress and Comm Link Verification. Egress airlock module. Confirm S-band audio telemetry clarity with Mission Control and MAITRI AI."
+    ];
+
+    const text = steps[stepNum - 1] || steps[0];
+    speakText(text);
 }

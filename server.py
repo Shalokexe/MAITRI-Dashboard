@@ -18,12 +18,14 @@ from backend.ai_engine.offline_companion import OfflineCompanionAI
 from backend.personalization.content_recommender import ContentRecommenderEngine
 from backend.health.sensor_stubs import TelemetrySensorMonitor
 from backend.health.crew_sync import CrewSyncMatrixEngine
+from backend.ai_engine.voice_commands import VoiceCommandEngine
 
 PORT = 8085
 companion_ai = OfflineCompanionAI()
 recommender_engine = ContentRecommenderEngine()
 sensor_engine = TelemetrySensorMonitor()
 crew_sync_engine = CrewSyncMatrixEngine()
+voice_engine = VoiceCommandEngine()
 
 class MAITRIBackendHandler(SimpleHTTPRequestHandler):
     """Custom HTTP Request Handler serving static frontend assets and REST API endpoints."""
@@ -76,8 +78,21 @@ class MAITRIBackendHandler(SimpleHTTPRequestHandler):
         except Exception:
             payload = {}
 
+        # API Endpoint: Phase 14 Voice Command Recognition & EVA Checklist
+        if parsed.path == '/api/voice_command':
+            transcript = payload.get('transcript', '')
+            res = voice_engine.parse_command(transcript)
+            self.send_json_response({
+                "status": "SUCCESS",
+                "action": res["action"],
+                "speech": res["speech"],
+                "tab": res.get("tab"),
+                "url": res.get("url")
+            })
+            return
+
         # API Endpoint: Astronaut Dedicated AI Assistant Chat
-        if parsed.path == '/api/chat':
+        elif parsed.path == '/api/chat':
             user_msg = payload.get('message', '')
             emotion = payload.get('emotion', 'CALM / FOCUSED')
             
