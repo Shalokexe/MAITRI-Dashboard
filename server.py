@@ -19,6 +19,7 @@ from backend.personalization.content_recommender import ContentRecommenderEngine
 from backend.health.sensor_stubs import TelemetrySensorMonitor
 from backend.health.crew_sync import CrewSyncMatrixEngine
 from backend.ai_engine.voice_commands import VoiceCommandEngine
+from backend.entertainment.audiobook_library import AudiobookLibraryEngine
 
 PORT = 8085
 companion_ai = OfflineCompanionAI()
@@ -26,6 +27,7 @@ recommender_engine = ContentRecommenderEngine()
 sensor_engine = TelemetrySensorMonitor()
 crew_sync_engine = CrewSyncMatrixEngine()
 voice_engine = VoiceCommandEngine()
+audiobook_engine = AudiobookLibraryEngine()
 
 class MAITRIBackendHandler(SimpleHTTPRequestHandler):
     """Custom HTTP Request Handler serving static frontend assets and REST API endpoints."""
@@ -33,8 +35,14 @@ class MAITRIBackendHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed = urlparse(self.path)
 
+        # API Endpoint: Phase 15 Popular Audiobook Library Catalog
+        if parsed.path == '/api/audiobooks':
+            catalog = audiobook_engine.get_catalog()
+            self.send_json_response({"status": "SUCCESS", "catalog": catalog})
+            return
+
         # API Endpoint: Phase 13 Multi-Astronaut Telemetry & Crew Sync Matrix
-        if parsed.path == '/api/crew_sync':
+        elif parsed.path == '/api/crew_sync':
             data = crew_sync_engine.generate_crew_telemetry()
             self.send_json_response(data)
             return

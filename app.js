@@ -1382,6 +1382,134 @@ function playEVASpokenStep(stepNum) {
         "Step 5: EVA Egress and Comm Link Verification. Egress airlock module. Confirm S-band audio telemetry clarity with Mission Control and MAITRI AI."
     ];
 
-    const text = steps[stepNum - 1] || steps[0];
-    speakText(text);
+/* 19. PHASE 15 POPULAR AUDIOBOOK & MULTI-CHAPTER PLAYER ENGINE */
+const POPULAR_BOOKS_DATA = {
+    "BOOK-01": {
+        title: "The Psychology of Money",
+        author: "Morgan Housel",
+        icon: "📘",
+        chapters: [
+            { num: 1, title: "No One's Crazy", duration: "14:20", summary: "Chapter 1: No One's Crazy. Personal financial decisions are shaped by unique life experiences." },
+            { num: 2, title: "Luck & Risk", duration: "16:45", summary: "Chapter 2: Luck and Risk. Nothing is as good or as bad as it seems. Respect the role of luck." },
+            { num: 3, title: "Never Enough", duration: "12:10", summary: "Chapter 3: Never Enough. When rich people do crazy things because they lack a sense of enough." },
+            { num: 4, title: "Confounding Compounding", duration: "18:30", summary: "Chapter 4: Confounding Compounding. Warren Buffett's skill is investing, but his secret is time." },
+            { num: 5, title: "Freedom & Wealth", duration: "15:00", summary: "Chapter 5: Freedom and Wealth. Controlling your time is the highest dividend money pays." }
+        ]
+    },
+    "BOOK-02": {
+        title: "Atomic Habits",
+        author: "James Clear",
+        icon: "⚡",
+        chapters: [
+            { num: 1, title: "The Surprising Power of Atomic Habits", duration: "15:40", summary: "Chapter 1: The Surprising Power of Atomic Habits. 1% improvements compounding daily lead to massive results." },
+            { num: 2, title: "How Your Habits Shape Your Identity", duration: "17:10", summary: "Chapter 2: How Your Habits Shape Your Identity. Focus on who you wish to become." },
+            { num: 3, title: "The 4 Laws of Behavior Change", duration: "14:50", summary: "Chapter 3: The 4 Laws of Behavior Change. Make it obvious, attractive, easy, and satisfying." },
+            { num: 4, title: "Make It Obvious & Attractive", duration: "19:15", summary: "Chapter 4: Make It Obvious and Attractive. Design environment triggers that automate good choices." },
+            { num: 5, title: "The Secret to Results That Last", duration: "16:20", summary: "Chapter 5: The Secret to Results That Last. Consistency beats intensity." }
+        ]
+    },
+    "BOOK-03": {
+        title: "Astrophysics for People in a Hurry",
+        author: "Neil deGrasse Tyson",
+        icon: "🚀",
+        chapters: [
+            { num: 1, title: "The Greatest Story Ever Told", duration: "18:25", summary: "Chapter 1: The Greatest Story Ever Told. The origin of the universe from the Big Bang to stellar nucleosynthesis." },
+            { num: 2, title: "On Earth as in the Heavens", duration: "16:00", summary: "Chapter 2: On Earth as in the Heavens. Universal physical laws operating across deep space." },
+            { num: 3, title: "Let There Be Light", duration: "15:30", summary: "Chapter 3: Let There Be Light. Cosmic microwave background radiation illuminating cosmic origins." },
+            { num: 4, title: "Between the Galaxies", duration: "14:10", summary: "Chapter 4: Between the Galaxies. The vast voids, intergalactic gas clouds, and dark matter filaments." },
+            { num: 5, title: "Dark Matter & Dark Energy", duration: "20:00", summary: "Chapter 5: Dark Matter and Dark Energy. The unseen forces driving cosmic expansion." }
+        ]
+    },
+    "BOOK-04": {
+        title: "Cosmos",
+        author: "Carl Sagan",
+        icon: "🪐",
+        chapters: [
+            { num: 1, title: "The Shores of the Cosmic Ocean", duration: "22:15", summary: "Chapter 1: The Shores of the Cosmic Ocean. Exploring the 100 billion galaxies in the observable universe." },
+            { num: 2, title: "One Voice in the Cosmic Fugue", duration: "24:00", summary: "Chapter 2: One Voice in the Cosmic Fugue. Evolution of life on Earth and potential extraterrestrial biology." },
+            { num: 3, title: "The Harmony of Worlds", duration: "20:45", summary: "Chapter 3: The Harmony of Worlds. Kepler's laws of planetary motion and the dawn of modern astronomy." },
+            { num: 4, title: "Heaven & Hell", duration: "21:30", summary: "Chapter 4: Heaven and Hell. Comparing Earth's climate stability to the runaway greenhouse of Venus." },
+            { num: 5, title: "Blues for a Red Planet", duration: "23:10", summary: "Chapter 5: Blues for a Red Planet. The robotic exploration and future terraforming of Mars." }
+        ]
+    },
+    "BOOK-05": {
+        title: "The Power of Now",
+        author: "Eckhart Tolle",
+        icon: "🧘",
+        chapters: [
+            { num: 1, title: "You Are Not Your Mind", duration: "19:40", summary: "Chapter 1: You Are Not Your Mind. Disidentifying from compulsive thinking and finding inner presence." },
+            { num: 2, title: "Consciousness: The Way Out of Pain", duration: "17:50", summary: "Chapter 2: Consciousness: The Way Out of Pain. Dissolving the psychological pain-body through conscious awareness." },
+            { num: 3, title: "Moving Deeply into the Now", duration: "21:15", summary: "Chapter 3: Moving Deeply into the Now. Surrendering resistance to the present moment." },
+            { num: 4, title: "Mind Strategies for Avoiding the Now", duration: "18:00", summary: "Chapter 4: Mind Strategies for Avoiding the Now. Overcoming anxiety driven by future anticipation." },
+            { num: 5, title: "The State of Presence", duration: "16:30", summary: "Chapter 5: The State of Presence. Maintaining unwavering stillness during mission stress." }
+        ]
+    }
+};
+
+let currentBookKey = "BOOK-01";
+let isAudioPlaying = false;
+
+function initAudiobookPlayer() {
+    const playBtn = document.getElementById('audioPlayBtn');
+    const chapterSelect = document.getElementById('audioChapterSelect');
+
+    if (playBtn) {
+        playBtn.addEventListener('click', () => {
+            isAudioPlaying = !isAudioPlaying;
+            playBtn.textContent = isAudioPlaying ? "⏸️" : "▶️";
+            
+            const b = POPULAR_BOOKS_DATA[currentBookKey];
+            const chNum = parseInt(chapterSelect ? chapterSelect.value : "1") - 1;
+            const ch = b.chapters[chNum] || b.chapters[0];
+
+            if (isAudioPlaying) {
+                speakText(`Now playing ${b.title}, ${ch.summary}`);
+            } else {
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            }
+        });
+    }
+
+    if (chapterSelect) {
+        chapterSelect.addEventListener('change', () => {
+            const b = POPULAR_BOOKS_DATA[currentBookKey];
+            const chNum = parseInt(chapterSelect.value) - 1;
+            const ch = b.chapters[chNum] || b.chapters[0];
+
+            const totalTime = document.getElementById('audioTotalTime');
+            if (totalTime) totalTime.textContent = ch.duration;
+
+            speakText(`Switched to ${ch.summary}`);
+        });
+    }
+}
+
+function loadAudiobook(bookId) {
+    const b = POPULAR_BOOKS_DATA[bookId];
+    if (!b) return;
+
+    currentBookKey = bookId;
+    const titleEl = document.getElementById('audiobookTitle');
+    const authorEl = document.getElementById('audiobookAuthor');
+    const iconEl = document.getElementById('audioBookIcon');
+    const selectEl = document.getElementById('audioChapterSelect');
+    const totalTime = document.getElementById('audioTotalTime');
+
+    if (titleEl) titleEl.textContent = b.title;
+    if (authorEl) authorEl.textContent = `by ${b.author}`;
+    if (iconEl) iconEl.textContent = b.icon;
+
+    if (selectEl) {
+        selectEl.innerHTML = b.chapters.map(c => `
+            <option value="${c.num}">Chapter ${c.num}: ${c.title} (${c.duration})</option>
+        `).join('');
+    }
+
+    if (totalTime) totalTime.textContent = b.chapters[0].duration;
+
+    // Scroll up to player HUD
+    const playerCard = document.querySelector('.audiobook-player-card');
+    if (playerCard) playerCard.scrollIntoView({ behavior: 'smooth' });
+
+    speakText(`Loaded audiobook: ${b.title} by ${b.author}. ${b.chapters[0].summary}`);
 }

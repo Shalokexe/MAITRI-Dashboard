@@ -583,71 +583,119 @@
             <div id="entertainment" class="tab-content">
                 
                 <!-- AUDIOBOOK PLAYER WIDGET -->
-                <div class="audiobook-player-card" style="margin-bottom: 24px;">
+                <div class="audiobook-player-card" style="margin-bottom: 24px; background: linear-gradient(135deg, rgba(13, 17, 32, 0.95) 0%, rgba(9, 13, 24, 0.95) 100%);">
                     <div class="card-header">
-                        <h2>🎧 ASTRONAUT DEEP-SPACE AUDIOBOOK PLAYER</h2>
-                        <span class="card-badge" style="background: rgba(168,85,247,0.2); color: var(--maitri-purple);">NOW PLAYING</span>
+                        <h2>🎧 ASTRONAUT MULTI-CHAPTER AUDIOBOOK PLAYER</h2>
+                        <span class="card-badge" style="background: rgba(168,85,247,0.2); color: var(--maitri-purple);" id="audioStatusBadge">NOW PLAYING</span>
                     </div>
 
                     <div style="display: flex; align-items: center; gap: 24px;">
-                        <div style="width: 70px; height: 70px; background: linear-gradient(135deg, var(--maitri-purple), var(--maitri-cyan)); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 32px;">
-                            📖
+                        <div style="width: 76px; height: 76px; background: linear-gradient(135deg, var(--maitri-purple), var(--maitri-cyan)); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 36px;" id="audioBookIcon">
+                            📘
                         </div>
-                        <div style="flex: 1; display: flex; flex-direction: column; gap: 4px;">
-                            <span style="font-family: var(--font-heading); font-size: 18px; font-weight: 900;" id="audiobookTitle">The Cosmos & Beyond</span>
-                            <span style="font-size: 13px; color: var(--maitri-cyan);" id="audiobookAuthor">Narrated by Dr. Carl Sagan • Chapter 3: Stars & Nebulae</span>
+                        <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+                            <span style="font-family: var(--font-heading); font-size: 20px; font-weight: 900; color: #FFF;" id="audiobookTitle">The Psychology of Money</span>
+                            <div style="display: flex; gap: 14px; align-items: center;">
+                                <span style="font-size: 13px; color: var(--maitri-cyan);" id="audiobookAuthor">by Morgan Housel</span>
+                                <select id="audioChapterSelect" class="ai-pill-btn" style="background: rgba(3,7,18,0.8); color: #FFF; outline: none; border-color: var(--maitri-purple);">
+                                    <option value="1">Chapter 1: No One's Crazy (14:20)</option>
+                                    <option value="2">Chapter 2: Luck & Risk (16:45)</option>
+                                    <option value="3">Chapter 3: Never Enough (12:10)</option>
+                                    <option value="4">Chapter 4: Confounding Compounding (18:30)</option>
+                                    <option value="5">Chapter 5: Freedom & Wealth (15:00)</option>
+                                </select>
+                            </div>
                             
                             <div class="scrubber-bar" id="audioScrubber" style="margin-top: 10px;">
-                                <div class="scrubber-progress" id="audioProgress" style="width: 42%;"></div>
+                                <div class="scrubber-progress" id="audioProgress" style="width: 25%;"></div>
                             </div>
                             <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-top: 4px;">
-                                <span id="audioCurrentTime">14:20</span>
-                                <span id="audioTotalTime">34:10</span>
+                                <span id="audioCurrentTime">03:45</span>
+                                <span id="audioTotalTime">14:20</span>
                             </div>
                         </div>
 
                         <div class="audio-controls-row">
                             <button class="btn btn-secondary" id="audioPrevBtn">⏮️</button>
-                            <button class="btn btn-primary" style="width: 50px; height: 50px; border-radius: 50%; padding: 0; font-size: 20px;" id="audioPlayBtn">▶️</button>
+                            <button class="btn btn-primary" style="width: 54px; height: 54px; border-radius: 50%; padding: 0; font-size: 22px;" id="audioPlayBtn">▶️</button>
                             <button class="btn btn-secondary" id="audioNextBtn">⏭️</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- BOOK & AUDIOBOOK SHELF GRID -->
-                <div class="section-header-block" style="text-align: left; align-items: flex-start;">
-                    <span class="section-tag">LEISURE & RELAXATION LIBRARY</span>
-                    <h3 class="section-title" style="font-size: 26px;">DEEP-SPACE ASTRONAUT BOOK SHELF</h3>
+                <!-- 5 POPULAR AUDIOBOOKS SHELF GRID -->
+                <div class="section-header-block" style="text-align: left; align-items: flex-start; margin-bottom: 18px;">
+                    <span class="section-tag">POPULAR BESTSELLERS LIBRARY</span>
+                    <h3 class="section-title" style="font-size: 26px;">5 FEATURED ASTRONAUT AUDIOBOOKS & CHAPTERS</h3>
                 </div>
 
-                <div class="library-grid">
+                <div class="library-grid" style="grid-template-columns: repeat(5, 1fr); gap: 16px;">
+                    <!-- BOOK 1 -->
                     <div class="book-card">
-                        <div class="book-cover-box">
-                            <span style="font-size: 36px;">🌌</span>
-                            <span class="book-cover-title">The Cosmos & Beyond</span>
+                        <div class="book-cover-box" style="border-color: #38BDF8;">
+                            <span style="font-size: 32px;">📘</span>
+                            <span class="book-cover-title">Psychology of Money</span>
+                            <span class="book-author">Morgan Housel</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <span class="badge low">5 CHAPTERS • 5H 48M</span>
+                            <button class="btn btn-primary" style="padding: 8px 10px; font-size: 11px;" onclick="loadAudiobook('BOOK-01')">🎧 Play Chapters</button>
+                        </div>
+                    </div>
+
+                    <!-- BOOK 2 -->
+                    <div class="book-card">
+                        <div class="book-cover-box" style="border-color: #A855F7;">
+                            <span style="font-size: 32px;">⚡</span>
+                            <span class="book-cover-title">Atomic Habits</span>
+                            <span class="book-author">James Clear</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <span class="badge medium">5 CHAPTERS • 5H 35M</span>
+                            <button class="btn btn-primary" style="padding: 8px 10px; font-size: 11px;" onclick="loadAudiobook('BOOK-02')">🎧 Play Chapters</button>
+                        </div>
+                    </div>
+
+                    <!-- BOOK 3 -->
+                    <div class="book-card">
+                        <div class="book-cover-box" style="border-color: #F472B6;">
+                            <span style="font-size: 32px;">🚀</span>
+                            <span class="book-cover-title">Astrophysics in Hurry</span>
+                            <span class="book-author">Neil deGrasse Tyson</span>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <span class="badge low">5 CHAPTERS • 3H 41M</span>
+                            <button class="btn btn-primary" style="padding: 8px 10px; font-size: 11px;" onclick="loadAudiobook('BOOK-03')">🎧 Play Chapters</button>
+                        </div>
+                    </div>
+
+                    <!-- BOOK 4 -->
+                    <div class="book-card">
+                        <div class="book-cover-box" style="border-color: #FDE047;">
+                            <span style="font-size: 32px;">🪐</span>
+                            <span class="book-cover-title">Cosmos</span>
                             <span class="book-author">Carl Sagan</span>
                         </div>
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <span class="badge low">AUDIOBOOK + E-BOOK</span>
-                            <button class="btn btn-primary" style="padding: 8px 14px; font-size: 12px;" onclick="playAudiobook('The Cosmos & Beyond', 'Carl Sagan')">🎧 Listen Audiobook</button>
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <span class="badge medium">5 CHAPTERS • 14H 20M</span>
+                            <button class="btn btn-primary" style="padding: 8px 10px; font-size: 11px;" onclick="loadAudiobook('BOOK-04')">🎧 Play Chapters</button>
                         </div>
                     </div>
 
+                    <!-- BOOK 5 -->
                     <div class="book-card">
-                        <div class="book-cover-box">
-                            <span style="font-size: 36px;">🧠</span>
-                            <span class="book-cover-title">Deep-Space Resilience</span>
-                            <span class="book-author">Dr. Shalok Dadhwal</span>
+                        <div class="book-cover-box" style="border-color: #34D399;">
+                            <span style="font-size: 32px;">🧘</span>
+                            <span class="book-cover-title">The Power of Now</span>
+                            <span class="book-author">Eckhart Tolle</span>
                         </div>
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <span class="badge medium">PSYCHOLOGY & RESILIENCE</span>
-                            <button class="btn btn-primary" style="padding: 8px 14px; font-size: 12px;" onclick="playAudiobook('Deep-Space Resilience', 'Dr. Shalok Dadhwal')">🎧 Listen Audiobook</button>
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <span class="badge success">5 CHAPTERS • 7H 30M</span>
+                            <button class="btn btn-primary" style="padding: 8px 10px; font-size: 11px;" onclick="loadAudiobook('BOOK-05')">🎧 Play Chapters</button>
                         </div>
                     </div>
-
-                    <div class="book-card">
-                        <div class="book-cover-box">
-                            <span style="font-size: 36px;">🧘</span>
+                </div>
+            </div>
                             <span class="book-cover-title">Zero-Gravity Philosophy</span>
                             <span class="book-author">Space Thought Collective</span>
                         </div>
