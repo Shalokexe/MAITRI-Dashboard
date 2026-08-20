@@ -21,7 +21,7 @@ from backend.health.crew_sync import CrewSyncMatrixEngine
 from backend.ai_engine.voice_commands import VoiceCommandEngine
 from backend.entertainment.audiobook_library import AudiobookLibraryEngine
 
-PORT = 8085
+PORT = 5656
 companion_ai = OfflineCompanionAI()
 recommender_engine = ContentRecommenderEngine()
 sensor_engine = TelemetrySensorMonitor()
